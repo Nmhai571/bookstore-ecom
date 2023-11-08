@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ecom.minhhai.bookstore.Models.AccountModel>
+
+@{
+    ViewData["Title"] = "Danh Sách Tài Khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container-fluid">
+            <h1>Danh Sách Tài Khoản</h1>
+
+            <p>
+                <a asp-action="Create" class="btn btn-sm btn-info">Create New</a>
+            </p>
+           <div class="row m-b-30">
+               <div class="col-lg-8">
+                   <div class="d-md-flex">
+                       <div class="m-b-10 m-r-15">
+
+                           <select class="custom-select" id="idrole" name="idrole" style="min-width: 180px" asp-items="ViewBag.RoleName">
+                                  <option value="0" disabled selected>Roles</option>
+                           </select>
+
+                       </div>
+
+                       <div class="m-b-10 m-r-15">
+                           <select class="custom-select" id="idstatus" name="idstatus" style="min-width: 180px; margin-left: 20px" asp-items="ViewBag.listStatus">
+                                  <option value="0" disabled selected>Status</option>
+                           </select>
+
+                       </div>
+                   </div>
+               </div>
+           </div>
+       <table class="table table-dark table-hover" style="margin-top: 20px">
+            <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">FullName</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Role</th>
+      <th scope="col">Last Login</th>
+      <th scope="col">Status</th>
+      <th scope="col">#</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+            @if(Model != null)
+            {
+                foreach (var item in Model)
+                {
+                     <tr>
+                      <th scope="row">@item.AccountId</th>
+                      <td>
+                          <div class="d-flex align-items-center">
+                              <img class="img-fluid rounded" src="" style="max-width: 60px" alt="null">
+                              <h6 class="m-b-0 m-1-10">@item.FullName</h6>
+                          </div>
+                      </td>
+                      <td>@item.Email</td>
+                      <td>@item.Phone</td>
+                      <td>@item.RoleModel.RoleName</td>
+                      <td>
+                            @if (item.Active == true)
+                            {
+                                <div class="d-flex align-items-center">
+                                    <div class="badge badge-success badge-dot m-r-1o"></div>
+                                    <div>Active</div>
+                                </div>
+                            }
+                            else
+                            {
+                                 <div class="d-flex align-items-center">
+                                    <div class="badge badge-danger badge-dot m-r-1o"></div>
+                                    <div>Block</div>
+                                </div>
+                            }
+                        </td>
+                        <td>@item.Lastlogin</td>
+                        <td>
+                             <a class="btn btn-sm btn-info" asp-area="Admin" asp-controller="AdminCustomer" asp-action="Details" asp-route-id="@item.AccountId">View</a>
+                             <a class="btn btn-sm btn-primary" asp-area="Admin" asp-controller="AdminCustomer" asp-action="Edit" asp-route-id="@item.AccountId">Edit</a>
+                             <a class="btn btn-sm btn-danger" asp-area="Admin" asp-controller="AdminCustomer" asp-action="Delete" asp-route-id="@item.AccountId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+       </table>
+</div>
+
+

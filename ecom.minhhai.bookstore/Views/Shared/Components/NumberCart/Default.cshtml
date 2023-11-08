@@ -1,0 +1,10 @@
+﻿@model List<ecom.minhhai.bookstore.ViewModel.CartViewModel>
+
+@if (Model != null && Model.Count > 0)
+{
+        <a id="numberCart" class="font-lg icon-list icon-cart" href="/cart.html"><span>Cart</span><span class="number-item font-xs">@Model.Count</span></a>
+}
+else
+{
+<a class="font-lg icon-list icon-cart" href="#"><span>Cart</span><span class="number-item font-xs">0</span></a>    
+}

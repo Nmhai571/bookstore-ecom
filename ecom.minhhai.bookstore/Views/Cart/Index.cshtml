@@ -1,0 +1,232 @@
+﻿@model List<ecom.minhhai.bookstore.ViewModel.CartViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var totalQuantity = ViewBag.totalQuantity;
+    var totalPrice = ViewBag.totalPrice;
+}
+
+<main class="main">
+      <div class="section-box">
+        <div class="breadcrumbs-div">
+          <div class="container">
+            <ul class="breadcrumb">
+              <li><a class="font-xs color-gray-1000" href="/">Home</a></li>
+              <li><a class="font-xs color-gray-500" href="shop.html">Shop</a></li>
+              <li><a class="font-xs color-gray-500" href="#">Cart</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <section class="section-box shop-template">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-9">
+              <div class="box-carts">
+                <div class="head-wishlist">
+                  <div class="item-wishlist">
+                    <div class="wishlist-cb">
+                    </div>
+                    <div class="wishlist-product"><span class="font-md-bold color-brand-3">Product</span></div>
+                    <div class="wishlist-price"><span class="font-md-bold color-brand-3">Unit Price</span></div>
+                    <div class="wishlist-status"><span class="font-md-bold color-brand-3">Quantity</span></div>
+                    <div class="wishlist-action"><span class="font-md-bold color-brand-3">Subtotal</span></div>
+                    <div class="wishlist-remove"><span class="font-md-bold color-brand-3">Remove</span></div>
+                  </div>
+                </div>
+                <div class="content-wishlist mb-20">
+                            @if(Model != null && Model.Count > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    string url = Url.Action("Details", "Product", new { Alias = item.Book.Alias, id = item.Book.BookId });
+                                    <div class="item-wishlist">
+                                    <div class="wishlist-cb">
+                                      
+                                    </div>
+                                    <div class="wishlist-product">
+                                      <div class="product-wishlist">
+                                        <div class="product-image"><a href="@url"><img src="~/ImageUpload/BookImage/@item.Book.Thumbnail" alt="Ecom"></a></div>
+                                        <div class="product-info"><a href="@url">
+                                            <h6 class="color-brand-3">@item.Book.BookName</h6></a>
+                                          <div class="rating"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><span class="font-xs color-gray-500"> (65)</span></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="wishlist-price">
+                                      <h4 class="color-brand-3">$@item.Book.Price.00</h4>
+                                    </div>
+                                    <div class="wishlist-status">
+                                      <div class="box-quantity">
+                                        <div class="input-quantity">
+                                          <input class="cart-item font-xl color-brand-3" type="number" data-bookid="@item.Book.BookId" data-price="@item.Book.Price" value="@item.Quantity">
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="wishlist-action">
+                                      <h4 class="color-brand-3">$@item.TotalPrice.00</h4>
+                                    </div>
+                                    <div class="wishlist-remove"><a class="btn btn-delete" data-bookid="@item.Book.BookId" href="#"></a></div>
+                                </div>
+                                }
+                                
+                            }
+                </div>
+                <div class="row mb-40">
+                  <div class="col-lg-6 col-md-6 col-sm-6-col-6"><a class="btn btn-buy w-auto arrow-back mb-10" href="/shop.html">Continue shopping</a></div>
+                  <div class="col-lg-6 col-md-6 col-sm-6-col-6 text-md-end"><a class="btn btn-buy w-auto update-cart mb-10" href="shop-cart.html">Update cart</a></div>
+                </div>
+                <div class="row mb-50">
+                  
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="summary-cart">
+                
+                <div class="border-bottom mb-10">
+                  <div class="row">
+                    <div class="col-6"><span class="font-md-bold color-gray-500">Total Quantity</span></div>
+                    <div class="col-6 text-end">
+                      <h4>@totalQuantity</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="border-bottom mb-10">
+                  <div class="row">
+                    <div class="col-6"><span class="font-md-bold color-gray-500">Shipping</span></div>
+                    <div class="col-6 text-end">
+                      <h4>	Free</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-10">
+                  <div class="row">
+                    <div class="col-6"><span class="font-md-bold color-gray-500">Total Price</span></div>
+                    <div class="col-6 text-end">
+                      <h4>	$@totalPrice.00</h4>
+                    </div>
+                  </div>
+                </div>
+                        <div class="box-button"><a class="btn btn-buy" href="/checkout.html">Proceed To CheckOut</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section-box mt-90 mb-50">
+        <div class="container">
+          <ul class="list-col-5">
+            <li>
+              <div class="item-list">
+                <div class="icon-left"><img src="~/assets/imgs/template/delivery.svg" alt="Ecom"></div>
+                <div class="info-right">
+                  <h5 class="font-lg-bold color-gray-100">Free Delivery</h5>
+                  <p class="font-sm color-gray-500">From all orders over $10</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="item-list">
+                <div class="icon-left"><img src="~/assets/imgs/template/support.svg" alt="Ecom"></div>
+                <div class="info-right">
+                  <h5 class="font-lg-bold color-gray-100">Support 24/7</h5>
+                  <p class="font-sm color-gray-500">Shop with an expert</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="item-list">
+                <div class="icon-left"><img src="~/assets/imgs/template/voucher.svg" alt="Ecom"></div>
+                <div class="info-right">
+                  <h5 class="font-lg-bold color-gray-100">Gift voucher</h5>
+                  <p class="font-sm color-gray-500">Refer a friend</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="item-list">
+                <div class="icon-left"><img src="~/assets/imgs/template/return.svg" alt="Ecom"></div>
+                <div class="info-right">
+                  <h5 class="font-lg-bold color-gray-100">Return &amp; Refund</h5>
+                  <p class="font-sm color-gray-500">Free return over $200</p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="item-list">
+                <div class="icon-left"><img src="~/assets/imgs/template/secure.svg" alt="Ecom"></div>
+                <div class="info-right">
+                  <h5 class="font-lg-bold color-gray-100">Secure payment</h5>
+                  <p class="font-sm color-gray-500">100% Protected</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="section-box box-newsletter">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-7 col-sm-12">
+              <h3 class="color-white">Subscrible &amp; Get <span class="color-warning">10%</span> Discount</h3>
+              <p class="font-lg color-white">Get E-mail updates about our latest shop and <span class="font-lg-bold">special offers.</span></p>
+            </div>
+            <div class="col-lg-4 col-md-5 col-sm-12">
+              <div class="box-form-newsletter mt-15">
+                <form class="form-newsletter">
+                  <input class="input-newsletter font-xs" value="" placeholder="Your email Address">
+                  <button class="btn btn-brand-2">Sign Up</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+    $(".cart-item").click(function () {
+        var productId = $(this).data('bookid');
+        var quantity = $(this).val();
+        $.ajax({
+            url: '/api/cart/update',
+            type: "POST",
+            data: {
+                productId: productId,
+                quantity: quantity
+            },
+            success: function (response) {
+                window.location = 'cart.html';
+            },
+            error: function (error) {
+                alert("error update cart");
+            }
+        });
+    });
+
+    $(".btn-delete").click(function () {
+        var productId = $(this).data('bookid');
+        $.ajax({
+            url: '/api/cart/remove', 
+            type: "POST",
+            data: {
+                productId: productId
+            },
+            success: function (response) {
+                window.location = 'cart.html'
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+
+});
+</script>
+
+

@@ -1,0 +1,81 @@
+﻿@model ecom.minhhai.bookstore.Models.PostModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<h1>Details: @Model.Title</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Delete" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" disabled style="background-color: #2c2e33" />
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" disabled style="background-color: #2c2e33" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Tags" class="control-label"></label>
+                <input asp-for="Tags" class="form-control" disabled style="background-color: #2c2e33" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Alias" class="control-label"></label>
+                <input asp-for="Alias" class="form-control" disabled style="background-color: #2c2e33" />
+            </div>
+            <div class="form-group">
+                <label asp-for="MetaDesc" class="control-label"></label>
+                <input asp-for="MetaDesc" class="form-control" disabled style="background-color: #2c2e33" />
+            </div>
+            <div class="form-group">
+                <label asp-for="MetaKey" class="control-label"></label>
+                <input asp-for="MetaKey" class="form-control" disabled style="background-color: #2c2e33" />
+            </div>
+            <div class="form-group">
+                <label asp-for="View" class="control-label"></label>
+                <input asp-for="View" class="form-control" disabled style="background-color: #2c2e33" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Thumbnail" class="control-label"></label>
+                <input type="text" asp-for="Thumbnail" class="form-control" disabled style="background-color: #2c2e33" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Published" class="control-label"></label>
+                <input type="text" asp-for="Published" class="form-control" disabled style="background-color: #2c2e33" />
+            </div>
+            <div class="form-group">
+                <label asp-for="IsHot" class="control-label"></label>
+                <input type="text" asp-for="IsHot" class="form-control" disabled style="background-color: #2c2e33" />
+            </div>
+            <div class="form-group">
+                <label asp-for="IsNewFeed" class="control-label"></label>
+                <input type="text" asp-for="IsNewFeed" class="form-control" disabled style="background-color: #2c2e33" />
+            </div>
+            
+           
+            <div class="form-group">
+                <label asp-for="Contents" class="control-label">Content</label>
+                <textarea id="editor" asp-for="Contents"></textarea>
+                <span asp-validation-for="Contents" class="text-danger"></span>
+            </div>
+        </form>
+    </div>
+</div>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="PostId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+    </form>
+</div>
+<script>
+    CKEDITOR.replace('editor', {
+        height: '300px'
+    });
+</script>

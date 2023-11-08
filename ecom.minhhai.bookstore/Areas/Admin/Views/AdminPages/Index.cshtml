@@ -1,0 +1,60 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<ecom.minhhai.bookstore.Models.PageModel>
+
+@{
+    var CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Pages Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+            <h1>List Page</h1>
+
+            <p>
+                <a asp-action="Create" class="btn btn-sm btn-info">Create New Page</a>
+            </p>
+           
+       <table class="table table-dark table-hover" style="margin-top: 20px">
+            <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Page Name</th>
+      <th scope="col">Status</th>
+      <th scope="col">#</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+            @if(Model != null)
+            {
+                foreach (var item in Model)
+                {
+                     <tr>
+                      <th scope="row">@item.PageId</th>
+                      <td>@item.PageName</td>
+                      <td>
+                            @if (item.Pubished == true)
+                            {
+                                <div class="d-flex align-items-center">
+                                    <div class="badge badge-success badge-dot m-r-1o"></div>
+                                    <div>Public</div>
+                                </div>
+                            }
+                            else
+                            {
+                                 <div class="d-flex align-items-center">
+                                    <div class="badge badge-danger badge-dot m-r-1o"></div>
+                                    <div>Non Public</div>
+                                </div>
+                            }
+                        </td>
+                        <td>
+                             <a class="btn btn-sm btn-info" asp-area="Admin" asp-controller="AdminPages" asp-action="Details" asp-route-id="@item.PageId">View</a>
+                             <a class="btn btn-sm btn-primary" asp-area="Admin" asp-controller="AdminPages" asp-action="Edit" asp-route-id="@item.PageId">Edit</a>
+                             <a class="btn btn-sm btn-danger" asp-area="Admin" asp-controller="AdminPages" asp-action="Delete" asp-route-id="@item.PageId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+       </table>
+</div>  

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\ecom.minhhai.bookstore.props" />
+</Project>

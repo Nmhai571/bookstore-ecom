@@ -1,0 +1,36 @@
+﻿@using PagedList.Core.Mvc;
+@model PagedList.Core.IPagedList<ecom.minhhai.bookstore.Models.BookModel>
+
+              <div class="box-filters mt-0 pb-5 border-bottom">
+                
+              </div>
+              <div  class="row mt-20">
+                        @if(Model != null && Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                string url = Url.Action("Details", "Product", new { Alias = item.Alias, id = item.BookId });
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                                  <div class="card-grid-style-3">
+                                    <div class="card-grid-inner">
+                                      <div class="tools"><a class="btn btn-trend btn-tooltip mb-10" href="#" aria-label="Trend" data-bs-placement="left"></a><a class="btn btn-wishlist btn-tooltip mb-10" href="shop-wishlist.html" aria-label="Add To Wishlist"></a><a class="btn btn-compare btn-tooltip mb-10" href="shop-compare.html" aria-label="Compare"></a><a class="btn btn-quickview btn-tooltip" aria-label="Quick view" href="#ModalQuickview" data-bs-toggle="modal"></a></div>
+                                      <div class="image-box"><span class="label bg-brand-2">-@item.Discount.ToString()%</span><a href="@url"><img src="~/ImageUpload/BookImage/@item.Thumbnail" alt="@item.BookName" height="300px" width="120px"></a></div>
+                                      <div class="info-right"><a class="font-xs color-gray-500" href="@url">@item.CategoryModel.CategoryName</a><br><a class="color-brand-3 font-sm-bold" href="@url">@item.BookName</a>
+                                        <div class="rating"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><span class="font-xs color-gray-500">(65)</span></div>
+                                        <div class="price-info"><strong class="font-lg-bold color-brand-3 price-main">$@item.Price.00</strong><span class="color-gray-500 price-line">$@item.OriginalPrice.00</span></div>
+                                        <div class="mt-20 box-btn-cart"><a class="btn btn-cart" href="shop-cart.html">Add To Cart</a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                            }
+                        }
+                        
+              </div>
+              <div id="pagination" aria-label="Page navigation example">
+                <ul class="pagination">
+                   <pager class="pager-container" list="@Model" options="@PagedListRenderOptions.Bootstrap4PageNumbersPlusPrevAndNext" asp-action="Index" asp-controller="Product" asp-route-CatId="ViewBag.CatId" />
+                </ul>
+            </div>
+                  

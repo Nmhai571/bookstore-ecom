@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ecom.minhhai.perfume.props" />
+</Project>

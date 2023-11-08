@@ -1,0 +1,147 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<ecom.minhhai.bookstore.Models.BookModel>
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Book Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+<div class="container-fluid">
+
+            <p>
+                <a asp-action="Create" class="btn btn-sm btn-info">Create New Book</a>
+            </p>
+           <div class="row m-b-30">
+               <div class="col-lg-8">
+                   <div class="d-md-flex">
+                       <div class="m-b-10 m-r-15">
+                           <select class="custom-select" id="catId" name="catId" style="min-width: 180px" asp-items="ViewBag.Categories">
+                                  <option value="0" selected>Genre</option>
+                           </select>
+                       </div>
+                       <div class="input-group">
+                          <input id="keyword" name="keyword" type="text" class="form-control" placeholder="search..." style="margin-left: 20px; background-color: white" >
+                         
+                        </div>
+                   </div>
+               </div>
+           </div>
+       <table class="table table-dark table-hover" style="margin-top: 20px">
+            <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Book Name</th>
+      <th scope="col">Book Category</th>
+      <th scope="col">Price</th>
+      <th scope="col">Inventory</th>
+      <th scope="col">Status</th>
+      <th scope="col">#</th>
+    </tr>
+  </thead>
+  <tbody id="records_table" class="table-group-divider">
+            @if(Model != null)
+            {
+               foreach (var item in Model)
+                {
+                     <tr>
+                      <th scope="row">@item.BookId</th>
+                      <td>@item.BookName</td>
+                      <td>@item.CategoryModel.CategoryName</td>
+                      <td>@item.Price</td>
+                      <td>@item.UnitsInStock</td>
+                      <td>
+                            @if (item.UnitsInStock >= 0)
+                            {
+                                <div class="d-flex align-items-center">
+                                    <div class="  badge-dot badge badge-success m-r-1o"
+                                    style=" background-color: green; border-radius: 50%; margin-right: 5px">
+                                </div>
+                                    <div>In Stock</div>
+                                </div>
+                            }
+                            else
+                            {
+                                 <div class="d-flex align-items-center">
+                                    <div class="badge badge-danger badge-dot m-r-1o" style=" background-color: Red; border-radius: 50%; margin-right: 5px"></div>
+                                    <div>Out Stock</div>
+                                </div>
+                            }
+                        </td>
+                        <td>
+                             <a class="btn btn-sm btn-info" asp-area="Admin" asp-controller="AdminBook" asp-action="Details" asp-route-id="@item.BookId">View</a>
+                             <a class="btn btn-sm btn-primary" asp-area="Admin" asp-controller="AdminBook" asp-action="Edit" asp-route-id="@item.BookId">Edit</a>
+                             <a class="btn btn-sm btn-danger" asp-area="Admin" asp-controller="AdminBook" asp-action="Delete" asp-route-id="@item.BookId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+       </table>
+       <hr />
+      <div aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                    <a class="page-link" asp-area="Admin" asp-controller="AdminBook" asp-action="Index" asp-route-CatId="@ViewBag.CurrentCateId" asp-route-page="@(CurrentPage - 1)">Previous</a>
+                </li>
+                @for (var i = 1; i <= Model.PageNumber; i++)
+                {
+                    <li class="page-item @(i == CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-area="Admin" asp-controller="AdminBook" asp-action="Index" asp-route-CatId="@ViewBag.CurrentCateId" asp-route-page="@i">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                    <a class="page-link" asp-area="Admin" asp-controller="AdminBook" asp-action="Index" asp-route-CatId="@ViewBag.CurrentCateId" asp-route-page="@(CurrentPage + 1)">Next</a>
+                </li>
+            </ul>
+        </div>
+
+       
+</div>
+
+    
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        $('#catId').change(function () {
+            var categoryId = $(this).val(); 
+            if (categoryId != null && categoryId != "") {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Admin/AdminBook/Filter',
+                    data: { CatId: categoryId },
+                    success: function(results){
+                        if(results.status == "success"){ 
+                            window.location.href = results.redirectUrl;
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        });
+
+        $('#keyword').keyup(function (){
+            var strkeyword = $('#keyword').val();
+            $.ajax({
+                url: '/Admin/AdminSearch/FindProduct',
+                type: "POST",
+                data:{keyword: strkeyword},
+                async: true,
+                success: function (results){
+                    $('#records_table').html("");
+                    $('#records_table').html(results);
+                },
+                error: function(error){
+                    alert('error')
+                }
+            });
+        });
+    });
+</script>
+
+
+
