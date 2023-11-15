@@ -6,6 +6,5 @@ namespace ecom.minhhai.bookstore.ViewModel
     public class WishlistViewModel
     {
         public BookModel Book { get; set; }
-        public int Quantity { get; set; }
     }
 }

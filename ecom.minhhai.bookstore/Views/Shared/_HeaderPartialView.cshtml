@@ -100,9 +100,8 @@
                   </ul>
                 </div>
               </div>
-              <a class="font-lg icon-list icon-wishlist" href="#"><span>Wishlist</span><span class="number-item font-xs">5</span></a>
-              @await Component.InvokeAsync("NumberCart");
-              <a class="font-lg icon-list icon-compare" href="#"><span>Compare</span></a>
+              @await Component.InvokeAsync("NumberFavorites")
+              @await Component.InvokeAsync("NumberCart")
             </div>
           </div>
         </div>

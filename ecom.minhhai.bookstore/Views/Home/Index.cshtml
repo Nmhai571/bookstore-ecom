@@ -69,7 +69,7 @@
                                 string url = Url.Action("Details", "Product", new { Alias = item.Alias, id = item.BookId });
                                 <div class="card-grid-style-3 card-style-full-image">
                           <div class="card-grid-inner">
-                            <div class="tools"><a class="btn btn-wishlist btn-tooltip mb-10" href="shop-wishlist.html" aria-label="Add To Wishlist"></a></div>
+                            <div class="tools"><a class="btn btn-wishlist btn-tooltip mb-10" data-product-id="@item.BookId" href="javascript:void(0)" aria-label="Add To Wishlist"></a></div>
                             <div class="image-box"><span class="label bg-brand-2">-@item.Discount%</span><a href="@url"><img src="~/ImageUpload/BookImage/@item.Thumbnail" alt="Ecom" height="400px"></a>
                             </div>
                             <div class="info-right">
@@ -406,3 +406,5 @@
         </div>
       </div>
     </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/favorites.js"></script>

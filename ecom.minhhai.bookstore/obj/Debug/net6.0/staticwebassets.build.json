@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Xjj6fo31rfVbawa2uMGZ5GWgcL45yeL6/WZCjsV0les=",
+  "Hash": "4tBwKgumS2wc+Z3dBeCxr8XIzVJrRzOU46qQZ+ypUjU=",
   "Source": "ecom.minhhai.bookstore",
   "BasePath": "_content/ecom.minhhai.bookstore",
   "Mode": "Default",
@@ -29714,6 +29714,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\cart.js"
+    },
+    {
+      "Identity": "D:\\C#\\ecom.minhhai\\ecom.minhhai.bookstore\\wwwroot\\js\\favorites.js",
+      "SourceId": "ecom.minhhai.bookstore",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\C#\\ecom.minhhai\\ecom.minhhai.bookstore\\wwwroot\\",
+      "BasePath": "_content/ecom.minhhai.bookstore",
+      "RelativePath": "js/favorites.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\favorites.js"
     },
     {
       "Identity": "D:\\C#\\ecom.minhhai\\ecom.minhhai.bookstore\\wwwroot\\js\\site.js",

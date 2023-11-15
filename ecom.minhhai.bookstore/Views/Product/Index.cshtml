@@ -38,7 +38,7 @@
                                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
                                   <div class="card-grid-style-3">
                                     <div class="card-grid-inner">
-                                      <div class="tools"><a class="btn btn-trend btn-tooltip mb-10" href="#" aria-label="Trend" data-bs-placement="left"></a><a class="btn btn-wishlist btn-tooltip mb-10" href="shop-wishlist.html" aria-label="Add To Wishlist"></a><a class="btn btn-compare btn-tooltip mb-10" href="shop-compare.html" aria-label="Compare"></a><a class="btn btn-quickview btn-tooltip" aria-label="Quick view" href="#ModalQuickview" data-bs-toggle="modal"></a></div>
+                                      <div class="tools"><a class="btn btn-wishlist btn-tooltip mb-10" data-product-id="@item.BookId" href="javascript:void(0)" aria-label="Add To Wishlist"></a></div>
                                       <div class="image-box"><span class="label bg-brand-2">-@item.Discount.ToString()%</span><a href="@url"><img src="~/ImageUpload/BookImage/@item.Thumbnail" alt="@item.BookName" height="300px" width="120px"></a></div>
                                       <div class="info-right"><a class="font-xs color-gray-500" href="@url">@item.CategoryModel.CategoryName</a><br><a class="color-brand-3 font-sm-bold" href="@url">@item.BookName</a>
                                         <div class="rating"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><span class="font-xs color-gray-500">(65)</span></div>
@@ -460,6 +460,7 @@
     </main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="~/js/cart.js"></script>
+<script src="~/js/favorites.js"></script>
 <script type="text/javascript">
     document.querySelectorAll('.category-link').forEach(function(item) {
         item.addEventListener('click', function(event) {

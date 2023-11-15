@@ -1,0 +1,10 @@
+﻿@model List<ecom.minhhai.bookstore.ViewModel.WishlistViewModel>
+
+@if (Model != null && Model.Count > 0)
+{
+        <a id="NumberFavorite" class="font-lg icon-list icon-wishlist" href="/favorites.html"><span>Wishlist</span><span class="number-item font-xs">@Model.Count</span></a>
+}
+else
+{
+<a class="font-lg icon-list icon-wishlist" href="#"><span>Wishlist</span><span class="number-item font-xs">0</span></a>  
+}

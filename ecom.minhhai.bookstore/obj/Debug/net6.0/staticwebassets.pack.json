@@ -6969,6 +6969,10 @@
       "PackagePath": "staticwebassets\\js\\cart.js"
     },
     {
+      "Id": "D:\\C#\\ecom.minhhai\\ecom.minhhai.bookstore\\wwwroot\\js\\favorites.js",
+      "PackagePath": "staticwebassets\\js\\favorites.js"
+    },
+    {
       "Id": "D:\\C#\\ecom.minhhai\\ecom.minhhai.bookstore\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
