@@ -112,5 +112,28 @@ namespace ecom.minhhai.bookstore.Controllers
 
             }
         }
+
+        [HttpGet]
+        //[Route("product/{keyword}.html")]
+        public IActionResult SearchProduct(string keyword)
+        {
+            List<BookModel> listProduct = new List<BookModel>();
+            
+            listProduct = _context.BookModels
+                .AsNoTracking()
+                .Include(x => x.CategoryModel)
+                .Where(x => x.BookName.Contains(keyword) || x.CategoryModel.CategoryName.Contains(keyword))
+                .OrderByDescending(x => x.BookId)
+                .Take(10)
+                .ToList();
+            if (listProduct == null)
+            {
+                return View();
+            }
+            else
+            {
+                return View(listProduct);
+            }
+        }
     }
 }

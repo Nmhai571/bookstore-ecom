@@ -8,7 +8,7 @@ namespace ecom.minhhai.bookstore.Models
     {
         [Key]
         public Guid OrderId { get; set; }
-        public Guid AccountId { get; set; }
+        public string AccountId { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime? ShipDate { get; set; }
         public string Address { get; set; }

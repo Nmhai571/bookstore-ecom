@@ -4,39 +4,54 @@ using ecom.minhhai.bookstore.Infrastructure;
 using ecom.minhhai.bookstore.Models;
 using ecom.minhhai.bookstore.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace ecom.minhhai.bookstore.Controllers
 {
-    [Authorize]
+    
     public class CheckoutController : Controller
     {
+        private readonly UserManager<AccountModel> _userManager;
         private readonly BookStoreDbContext _context;
         public INotyfService _notyfService { get; }
 
-        public CheckoutController(BookStoreDbContext context, INotyfService notyfService)
+        public CheckoutController(BookStoreDbContext context, INotyfService notyfService,
+            UserManager<AccountModel> userManager)
         {
+            _userManager = userManager;
             _context = context;
             _notyfService = notyfService;
         }
+        public string GetAccountId()
+        {
+            var accountToken = Request.Cookies["User"];
+            var jsonToken = new JwtSecurityTokenHandler().ReadToken(accountToken) as JwtSecurityToken;
+            var accountId = jsonToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Sid)?.Value;
+            return accountId;
+        }
         [HttpGet]
         [Route("checkout.html")]
-        public IActionResult Index()
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
-            var cart  = HttpContext.Session.Get<List<CartViewModel>>("Cart");
-            var accountId = Guid.Parse(Request.Cookies["User"]);
+            var cart = HttpContext.Session.Get<List<CartViewModel>>("Cart");
+
+            var accountId = GetAccountId();
             OrderViewModel order = new OrderViewModel();
-            if(accountId != null)
+            if (accountId != null)
             {
-                var account = _context.Accounts.AsNoTracking().SingleOrDefault(x => x.AccountId ==  accountId);
-                if(account != null)
+                var account = await _userManager.Users.SingleOrDefaultAsync(x => x.Id == accountId);
+                if (account != null)
                 {
-                    order.CustomerId = account.AccountId;
+                    order.CustomerId = Guid.Parse(account.Id);
                     order.FullName = account.FullName;
                     order.Email = account.Email;
-                    order.PhoneNumber = account.Phone;
+                    order.PhoneNumber = account.PhoneNumber;
                     order.Address = account.Address;
                 }
                 var totalPrice = 0.0f;
@@ -59,29 +74,54 @@ namespace ecom.minhhai.bookstore.Controllers
 
         [HttpPost]
         [Route("checkout.html")]
-        public IActionResult Index(OrderViewModel orderViewModel)
+        [Authorize]
+        public async Task<IActionResult> Index(OrderViewModel orderViewModel)
         {
             var cart = HttpContext.Session.Get<List<CartViewModel>>("Cart");
-            var accountId = Guid.Parse(Request.Cookies["User"]);
+            var accountId = GetAccountId();
             OrderViewModel order = new OrderViewModel();
             if (accountId != null)
             {
-                var account = _context.Accounts.AsNoTracking().SingleOrDefault(x => x.AccountId == accountId);
+                var account = await _userManager.Users.SingleOrDefaultAsync(x => x.Id == accountId); ;
                 if (account != null)
                 {
-                    order.CustomerId = account.AccountId;
+                    order.CustomerId = Guid.Parse(account.Id);
                     order.FullName = account.FullName;
                     order.Email = account.Email;
-                    order.PhoneNumber = account.Phone;
+                    order.PhoneNumber = account.PhoneNumber;
                     order.Address = account.Address;
 
                     account.LocationId = orderViewModel.Province;
                     account.District = orderViewModel.District;
                     account.Ward = orderViewModel.Ward;
                     account.Address = orderViewModel.Address;
+                    try
+                    {
+                        var result = await _userManager.UpdateAsync(account);
+                    }
+                    catch
+                    {
+                        _notyfService.Error("Please enter full information");
+                        var totalPrice = 0.0f;
+                        if (cart != null)
+                        {
+                            foreach (var item in cart)
+                            {
+                                var quantity = item.Quantity;
+                                var price = item.Book.Price * quantity;
+                                totalPrice += price;
+                            }
+                        }
+                        ViewBag.totalPrice = totalPrice;
+                        ViewData["lsProvince"] = new SelectList(_context.Locations.AsNoTracking().Where(x => x.Levels == 1)
+                            .OrderByDescending(x => x.Name).ToList(), "LocationId", "Name");
+                        ViewBag.Cart = cart;
+                        return View(order);
+                    }
 
-                    _context.Update(account);
-                    _context.SaveChanges();
+                    
+                   /* _context.Update(account);
+                    _context.SaveChanges();*/
                 }
             }
             try
@@ -114,6 +154,7 @@ namespace ecom.minhhai.bookstore.Controllers
                     orderDetail.ShipDate = DateTime.Now;
                     _context.Add(orderDetail);
                 }
+
                 _context.SaveChanges();
                 HttpContext.Session.Remove("Cart");
                 _notyfService.Success("Order Success");

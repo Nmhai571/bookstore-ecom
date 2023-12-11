@@ -22,11 +22,169 @@ namespace ecom.minhhai.bookstore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5B71C14D-AEDB-41E1-A1D9-943FD5D3983C",
+                            ConcurrencyStamp = "24068b2f-f3f1-4bd3-9c93-45f449fa2398",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "E9BB47A8-D3FC-409C-8651-0542816F7483",
+                            ConcurrencyStamp = "4d0de3ef-9951-4afb-b814-c36b6fd0017c",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "9C0AA3D8-C892-4407-9521-3BBFA5B05D0A",
+                            RoleId = "5B71C14D-AEDB-41E1-A1D9-943FD5D3983C"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
             modelBuilder.Entity("ecom.minhhai.bookstore.Models.AccountModel", b =>
                 {
-                    b.Property<Guid>("AccountId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
                     b.Property<bool?>("Active")
                         .HasColumnType("bit");
@@ -38,6 +196,10 @@ namespace ecom.minhhai.bookstore.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("CreateDate")
                         .HasColumnType("datetime2");
 
@@ -45,7 +207,11 @@ namespace ecom.minhhai.bookstore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
@@ -56,28 +222,77 @@ namespace ecom.minhhai.bookstore.Migrations
                     b.Property<Guid?>("LocationId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Salt")
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<Guid?>("Ward")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("AccountId");
+                    b.HasKey("Id");
 
                     b.HasIndex("LocationId");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
 
-                    b.ToTable("Accounts");
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "9C0AA3D8-C892-4407-9521-3BBFA5B05D0A",
+                            AccessFailedCount = 0,
+                            Active = true,
+                            ConcurrencyStamp = "d8848403-14c8-4082-8e0f-129450eecaa7",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEWdpiMHP9GmuG6XNJrbcOABvobM274VR6kpsVlfCGzTfPcgqhZ5lvu/llJEXIjbSA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "397208ba-2e44-4f04-9526-b466a456fd0b",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("ecom.minhhai.bookstore.Models.BookModel", b =>
@@ -153,7 +368,7 @@ namespace ecom.minhhai.bookstore.Migrations
                     b.HasData(
                         new
                         {
-                            BookId = new Guid("26cc2cdf-fe3a-47a4-9979-f015ba3c81d9"),
+                            BookId = new Guid("2f3eae4a-82d2-4e21-bee5-f879e904d736"),
                             Active = true,
                             Alias = "the-shining",
                             Author = "Stephen King",
@@ -161,7 +376,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "Jack Torrance's new job at the Overlook Hotel is the perfect chance for a fresh start. As the off-season caretaker at the atmospheric old hotel, he'll have plenty of time to spend reconnecting with his family and working on his writing. But as the harsh winter weather sets in, the idyllic location feels ever more remote...and more sinister. And the only one to notice the strange and terrible forces gathering around the Overlook is Danny Torrance, a uniquely gifted five-year-old.",
                             BookName = "The Shining",
                             CategoryId = new Guid("fa50393e-b832-45ed-987a-c61e494effa7"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8600),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2800),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "The Shining",
@@ -175,7 +390,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("939c1c71-99b8-4b04-8297-e43e48088144"),
+                            BookId = new Guid("39079b94-3649-49da-9f3b-76eede8f155c"),
                             Active = true,
                             Alias = "a-guest-in-the-house",
                             Author = "Emily Carroll",
@@ -183,7 +398,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "In Emily Carroll's haunting adult graphic novel horror story A Guest in the House , a young woman marries a kind dentist only to realize that there’s a dark mystery surrounding his former wife’s death.",
                             BookName = "A Guest in the House",
                             CategoryId = new Guid("83918000-7c93-435d-aab5-e3177f8e6c81"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8617),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2821),
                             Discount = 20,
                             HomeFlag = false,
                             MetaDesc = "A Guest in the House",
@@ -197,7 +412,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("378d7e8a-eb6c-41b0-8bb6-30d62a584660"),
+                            BookId = new Guid("3a429ee1-46a0-49fa-ab42-70c8fc45da6a"),
                             Active = true,
                             Alias = "lights",
                             Author = "Brenna Thummler",
@@ -205,7 +420,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "Following Brenna Thummler’s bestselling and critically acclaimed graphic novels Sheets and Delicates, Marjorie, Eliza, and Wendell the ghost are back to uncover the secrets of Wendell’s human life in the third and final heartwarming installment of the Sheets trilogy.",
                             BookName = "Lights",
                             CategoryId = new Guid("83918000-7c93-435d-aab5-e3177f8e6c81"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8631),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2825),
                             Discount = 20,
                             HomeFlag = false,
                             MetaDesc = "Lights",
@@ -219,7 +434,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("7b58edc8-fbc9-4801-846b-8a2d38ec824c"),
+                            BookId = new Guid("4ae5a0e1-433c-4c82-9fdc-6122864c5016"),
                             Active = true,
                             Alias = "the-handyman-method",
                             Author = "Nick Cutter",
@@ -227,7 +442,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "When a young family moves into an unfinished development community, cracks begin to emerge in both their new residence and their lives, as a mysterious online DIY instructor delivers dark subliminal suggestions about how to handle any problem around the house. The trials of home improvement, destructive insecurities, and haunted house horror all collide in this thrilling story perfect for fans of Nick Cutter’s bestsellers The Troop and The Deep",
                             BookName = "The Handyman Method",
                             CategoryId = new Guid("fa50393e-b832-45ed-987a-c61e494effa7"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8635),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2829),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "The Handyman Method",
@@ -241,7 +456,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("99ab3ebe-5be5-4d5c-8a0c-0f0c0fd58409"),
+                            BookId = new Guid("a3404d09-6e72-4d87-96bc-02dae40fccba"),
                             Active = true,
                             Alias = "the-last-girls-standing",
                             Author = "Jennifer Dugan",
@@ -249,7 +464,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "In this queer YA psychological thriller from the author of Some Girls Do, perfect for fans of One of Us Is Lying and A Good Girl’s Guide to Murder, the sole surviving counselors of a summer camp massacre search to uncover the truth of what happened that fateful night, but what they find out might just get them killed.",
                             BookName = "The Last Girls Standing",
                             CategoryId = new Guid("fa50393e-b832-45ed-987a-c61e494effa7"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8638),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2832),
                             Discount = 20,
                             HomeFlag = false,
                             MetaDesc = "The Last Girls Standing",
@@ -263,7 +478,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("a89204be-43fc-47cb-b626-19e2c7d41430"),
+                            BookId = new Guid("bea5420f-5843-4bc4-8cc4-f7e552b4cadb"),
                             Active = true,
                             Alias = "multitude-of-dreams",
                             Author = "Mara Rutherford",
@@ -271,7 +486,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "Princess Imogen of Goslind has lived a sheltered life for three years at the boarded-up castle—she and the rest of its inhabitants safe from the bloody mori roja plague that’s ravaged the kingdom. But Princess Imogen has a secret, and as King Stuart descends further into madness, it’s at great risk of being revealed. Rations dwindle each day, and unhappy murmurings threaten to crack the facade of the years-long charade being played within the castle walls.",
                             BookName = "A Multitude of Dreams",
                             CategoryId = new Guid("fa50393e-b832-45ed-987a-c61e494effa7"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8642),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2838),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "A Multitude of Dreams",
@@ -285,7 +500,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("2a96a54a-0847-482b-802d-b6f4358270ea"),
+                            BookId = new Guid("ff2f2e40-5631-4977-bfc9-67d1ceb31583"),
                             Active = true,
                             Alias = "the-exorcist-legacy-50-years-of-fear",
                             Author = "Nat Segaloff",
@@ -293,7 +508,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "Since 1973, The Exorcist and its progeny have scared and inspired half a century of filmgoers. Now, on the 50th anniversary of the original movie release, this is the definitive, fascinating story of the scariest movie ever madeand its lasting impact as one of the most shocking, influential, and successful adventures in the history of film. Written by Nat Segaloff, an original publicist for the movie and the acclaimed biographer of its director, with a foreword from John Russo, author and cowriter of the seminal horror film Night of the Living Dead.",
                             BookName = "The Exorcist Legacy: 50 Years of Fear",
                             CategoryId = new Guid("fa50393e-b832-45ed-987a-c61e494effa7"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8658),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2842),
                             Discount = 20,
                             HomeFlag = false,
                             MetaDesc = "The Exorcist Legacy: 50 Years of Fear",
@@ -307,7 +522,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("14e2d84d-cbc2-417d-a0f2-134d8ef3cd33"),
+                            BookId = new Guid("eb25be16-7e47-47d6-9f60-0c142c277efd"),
                             Active = true,
                             Alias = "the-frangitelli-mirror",
                             Author = "G.R. Thomas",
@@ -315,7 +530,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "Rose Carbonelli sees ghosts. She doesn’t sleep. She watches every corner, studies every shadow, listens to the screams that no one else hears. Rose Carbonelli is terrified.",
                             BookName = "The Frangitelli Mirror",
                             CategoryId = new Guid("fa50393e-b832-45ed-987a-c61e494effa7"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8662),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2845),
                             Discount = 20,
                             HomeFlag = false,
                             MetaDesc = "The Frangitelli Mirror",
@@ -329,7 +544,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("7247e58e-3ea6-46f6-8970-cfd42485cabb"),
+                            BookId = new Guid("1e30ca47-cdf4-46c1-9e94-ed4db807a7b3"),
                             Active = true,
                             Alias = "two-minutes-with-the-devil",
                             Author = "Matt Micheli",
@@ -337,7 +552,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "It’s the summer of 86, and school is out in the little Gulf Coast town of Harbor Bluff. Maximum Overdrive is at the cinema, Rampage is all the rage at the arcade, and the only rule from parents is to be home in time for supper. Things couldn’t be simpler or better . . . until kids begin disappearing while playing a children’s game called Two Minutes with the Devil.",
                             BookName = "Two Minutes with the Devil",
                             CategoryId = new Guid("fa50393e-b832-45ed-987a-c61e494effa7"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8666),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2851),
                             Discount = 20,
                             HomeFlag = false,
                             MetaDesc = "Two Minutes with the Devil",
@@ -351,7 +566,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("719b3c73-4ad0-49bd-9b76-ef2d685b58fc"),
+                            BookId = new Guid("4b5982a4-c533-4f9d-bdbd-e415f97fa76f"),
                             Active = true,
                             Alias = "things-in-the-basement",
                             Author = "Ben Hatke",
@@ -359,7 +574,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "From New York Times bestselling author Ben Hatke comes Things in the Basement , a young readers graphic novel about Milo, a young boy who discovers a portal to a secret world in his basement.",
                             BookName = "Things in the Basement",
                             CategoryId = new Guid("83918000-7c93-435d-aab5-e3177f8e6c81"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8669),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2854),
                             Discount = 20,
                             HomeFlag = false,
                             MetaDesc = "Things in the Basement",
@@ -373,7 +588,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("a9c21570-55d0-46f9-96c5-1963d39a5895"),
+                            BookId = new Guid("4cb38469-14c5-4ab5-a848-d69600d1511c"),
                             Active = true,
                             Alias = "billie-blaster-and-the-robot-armu-from-outer-space",
                             Author = "Laini Taylor",
@@ -381,7 +596,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "An out-of-this-world new middle-grade graphic novel about a genius scientist and her evil nemesis—from New York Times bestselling author Laini Taylor and cartoonist Jim Di Bartolo",
                             BookName = "Billie Blaster and the Robot Army from Outer Space",
                             CategoryId = new Guid("83918000-7c93-435d-aab5-e3177f8e6c81"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8673),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2857),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "Billie Blaster and the Robot Army from Outer Space",
@@ -395,7 +610,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("18e1ea97-4987-4ff6-8083-c324e70fbe15"),
+                            BookId = new Guid("d232d4e1-bee5-4a1e-9e6f-c98fa473960d"),
                             Active = true,
                             Alias = "milk-and-mocha-our-little-happiness",
                             Author = "Melani Sie",
@@ -403,7 +618,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "An out-of-this-world new middle-grade graphic novel about a genius scientist and her evil nemesis—from New York Times bestselling author Laini Taylor and cartoonist Jim Di Bartolo",
                             BookName = "Milk & Mocha: Our Little Happiness",
                             CategoryId = new Guid("83918000-7c93-435d-aab5-e3177f8e6c81"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8676),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2863),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "Milk & Mocha: Our Little Happiness",
@@ -417,7 +632,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("250ab1d4-ba83-4bb9-8d9e-8f7f979e3327"),
+                            BookId = new Guid("ff303221-6ca4-4a50-8da4-80a095d25689"),
                             Active = true,
                             Alias = "kiss-the-girl",
                             Author = "Zoraida Córdova",
@@ -425,7 +640,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "Ariel del Mar is one of the most famous singers in the world. She and her sisters—together, known as the band Siren Seven—have been a pop culture phenomenon since they were kids. On stage, wearing her iconic red wig and sequined costumes, staring out at a sea of fans, is where she shines. Anyone would think she’s the girl who has everything. ",
                             BookName = "Kiss the Girl",
                             CategoryId = new Guid("79992a22-2a2b-49bc-81a7-66b41ed033b0"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8679),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2866),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "Kiss the Girl",
@@ -439,7 +654,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("c8f630ac-68e4-4745-90a7-625873ce88ef"),
+                            BookId = new Guid("a63560b3-e970-417c-8310-6d4051c80fa6"),
                             Active = true,
                             Alias = "the-peach-seed",
                             Author = "Anita Gail Jones",
@@ -447,7 +662,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "Fletcher Dukes and Altovise Benson reunite after decades apart― and a mountain of secrets―in this debut exploring the repercussions of a single choice and how an enduring talisman challenges and holds a family together.",
                             BookName = "The Peach Seed",
                             CategoryId = new Guid("79992a22-2a2b-49bc-81a7-66b41ed033b0"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8683),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2870),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "The Peach Seed",
@@ -461,7 +676,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("111983d4-f66d-430f-91a8-d0b4e55257bf"),
+                            BookId = new Guid("759d1673-85ff-4eba-b1d7-b84c9718ddc6"),
                             Active = true,
                             Alias = "witness-stories",
                             Author = "Jamel Brinkley",
@@ -469,7 +684,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "From a National Book Award finalist, Witness is an elegant, insistent narrative of actions taken and not taken.",
                             BookName = "Witness: Stories",
                             CategoryId = new Guid("79992a22-2a2b-49bc-81a7-66b41ed033b0"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8689),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2873),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "Witness: Stories",
@@ -483,7 +698,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("c2d996da-4f24-4d00-aada-8ebf24ff8235"),
+                            BookId = new Guid("8c0b7c3f-dbf5-416b-9fdd-71ecca4ecc22"),
                             Active = true,
                             Alias = "who-we-are-now",
                             Author = "Lauryn Chamberlain",
@@ -491,7 +706,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "Four friends. Fifteen years. Who We Are Now is a story of Sliding Doors moments, those seemingly small choices of early adulthood that determine the course of our lives.",
                             BookName = "Who We Are Now",
                             CategoryId = new Guid("79992a22-2a2b-49bc-81a7-66b41ed033b0"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8692),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2876),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "Who We Are Now",
@@ -505,7 +720,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("57c8221a-b39d-4c15-a6ae-829c9bd7abb2"),
+                            BookId = new Guid("c47c0f23-c06f-425f-ae1a-6e7787bc83e7"),
                             Active = true,
                             Alias = "the-art-of-scandal",
                             Author = "Regina Black",
@@ -513,7 +728,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "On the night of her husband Matt’s fortieth birthday, Rachel Abbott receives a sexy, explicit text from her husband that she quickly realizes was meant for another woman. Divorce is inevitable, and Rachel is determined not to leave her thirteen-year marriage empty handed. Meanwhile, Matt, a rising star mayor with his eye on the White House, can’t afford a messy split in the middle of his reelection campaign. They strike a deal: Rachel gets one million dollars and their lavish house in the wealthy DC suburb of Oasis Springs, as long as she keeps playing the ideal Black trophy wife until the election.",
                             BookName = "The Art of Scandal",
                             CategoryId = new Guid("e357abbd-cc3e-4769-9863-9f8b640073f8"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8696),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2886),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "The Art of Scandal",
@@ -527,7 +742,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("ca675aac-35fc-4d19-b90e-b0ce326db7a0"),
+                            BookId = new Guid("bb702562-ac3e-4b4d-8b0e-bfa30cf5210d"),
                             Active = true,
                             Alias = "a-little-like-walking",
                             Author = "Adam Rex",
@@ -535,7 +750,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "You’ve Reached Sam meets The Good Place in this deeply-felt, surreal and fully illustrated love story about a girl, a boy, a dreamer, and a dream from best-selling and award-winning author Adam Rex.",
                             BookName = "A Little Like Waking",
                             CategoryId = new Guid("e357abbd-cc3e-4769-9863-9f8b640073f8"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8700),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2889),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "A Little Like Waking",
@@ -549,7 +764,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("5d15dd48-580b-4fdd-af71-c1f93ecba693"),
+                            BookId = new Guid("50258c27-6e11-41cf-90d1-ee635f1f73e2"),
                             Active = true,
                             Alias = "together-we-rot",
                             Author = "Skyla Arndt",
@@ -557,7 +772,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "A teen girl looking for the truth about her missing mother forms a reluctant alliance with her former best friend...in exchange for hiding him from his cult-leading family.",
                             BookName = "Together We Rot",
                             CategoryId = new Guid("e357abbd-cc3e-4769-9863-9f8b640073f8"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8703),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2893),
                             Discount = 20,
                             HomeFlag = false,
                             MetaDesc = "Together We Rot",
@@ -571,7 +786,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("a9a176bb-f43d-4732-8337-a9110fd41d71"),
+                            BookId = new Guid("2a7dc0bc-71ca-4cc9-bb1c-e597f352a912"),
                             Active = true,
                             Alias = "the-roommate-pact",
                             Author = "Allison Ashley",
@@ -579,7 +794,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "The proposition is simple: if ER nurse Claire Harper and her roommate, firefighter Graham Scott, are still single by the time they’re forty, they’ll take the proverbial plunge together…as friends with benefits. Maybe it’s the wine, but in the moment, Claire figures the pact is a safe-enough deal, considering she hasn’t had much luck in love and he’s in no rush to settle down. Like, at all. Besides, there’s no way she could ever really fall for Graham and his thrill-seeking ways. Not after what happened to her father…",
                             BookName = "The Roommate Pact",
                             CategoryId = new Guid("e357abbd-cc3e-4769-9863-9f8b640073f8"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8707),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2896),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "The Roommate Pact",
@@ -593,7 +808,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("0e57fdb0-760c-47d6-90c9-50a6128c69c7"),
+                            BookId = new Guid("9ab6d64a-9580-4933-a8a1-04e49b30c864"),
                             Active = true,
                             Alias = "he who drowned the world",
                             Author = "Shelley Parker-Chan",
@@ -601,7 +816,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "Zhu Yuanzhang, the Radiant King, is riding high after her victory that tore southern China from its Mongol masters. Now she burns with a new desire: to seize the throne and crown herself emperor.",
                             BookName = "He Who Drowned the World",
                             CategoryId = new Guid("5c5f3888-d5c2-442c-b05f-b05648370fe9"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8710),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2899),
                             Discount = 20,
                             HomeFlag = false,
                             MetaDesc = "He Who Drowned the World",
@@ -615,7 +830,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("e8a1be77-b3a2-46ed-ae9d-8a92a64cd75c"),
+                            BookId = new Guid("3a50ed95-ce13-42ff-a36d-62bb542a1980"),
                             Active = true,
                             Alias = "in-charm-way",
                             Author = "Lana Harper",
@@ -623,7 +838,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "A witch struggling to regain what she has lost casts a forbidden spell—only to discover much more than she expected, in this enchanting new rom-com by New York Times bestselling author Lana Harper.",
                             BookName = "In Charm's Way",
                             CategoryId = new Guid("5c5f3888-d5c2-442c-b05f-b05648370fe9"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8714),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2903),
                             Discount = 20,
                             HomeFlag = true,
                             MetaDesc = "In Charm's Way",
@@ -637,7 +852,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("ef75e8c9-dab2-46ab-b330-e302db4c01e5"),
+                            BookId = new Guid("a9e2f62f-36fa-41fa-87a0-e0dbd8d40161"),
                             Active = true,
                             Alias = "the-apology",
                             Author = "Jimin Han",
@@ -645,7 +860,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "In South Korea, a 105-year-old woman receives a letter. Ten days later, she has been thrust into the afterlife, fighting to head off a curse that will otherwise devastate generations to come.",
                             BookName = "The Apology",
                             CategoryId = new Guid("5c5f3888-d5c2-442c-b05f-b05648370fe9"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8720),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2906),
                             Discount = 20,
                             HomeFlag = false,
                             MetaDesc = "The Apology",
@@ -659,7 +874,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            BookId = new Guid("9f7b257b-b452-468a-9ddb-29a2c44b9933"),
+                            BookId = new Guid("eb68f8b8-96dd-4924-8d21-68e9271336bf"),
                             Active = true,
                             Alias = "omen-of-ice",
                             Author = "Jus Accardo",
@@ -667,7 +882,7 @@ namespace ecom.minhhai.bookstore.Migrations
                             BookDescription = "Keltania Tunne has spent her whole life training to become a bodyguard for a Winter Fae. It’s the highest of honors for a druid…only when Tania arrives at the Winter Court for the first time, nothing is what she expected.",
                             BookName = "Omen of Ice",
                             CategoryId = new Guid("5c5f3888-d5c2-442c-b05f-b05648370fe9"),
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8724),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2910),
                             Discount = 20,
                             HomeFlag = false,
                             MetaDesc = "Omen of Ice",
@@ -801,7 +1016,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("60f3db16-f37f-4989-a89b-85e6cc2b2619"),
+                            LocationId = new Guid("f6e1d8f1-3546-4c93-8bd4-00e5545e451f"),
                             Levels = 3,
                             Name = "Cống Vị",
                             NameWithType = "Phường Cống Vị",
@@ -810,7 +1025,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5ac842c8-6ffe-4b8a-8188-3aa74cd763a4"),
+                            LocationId = new Guid("743a765c-a412-4bb0-8691-6dca876c47f0"),
                             Levels = 3,
                             Name = "Điện Biên",
                             NameWithType = "Phường Điện Biên",
@@ -819,7 +1034,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("10550a58-1aca-4e87-900e-947839d0cc18"),
+                            LocationId = new Guid("fbe037ef-da91-45f7-bcea-d766694534d1"),
                             Levels = 3,
                             Name = "Đội Cấn",
                             NameWithType = "Phường Đội Cấn",
@@ -828,7 +1043,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("cfb3ee22-f046-4d8f-b487-e60670dedaf3"),
+                            LocationId = new Guid("f1837804-67f6-42a8-90b1-812492bf5cc7"),
                             Levels = 3,
                             Name = "Giảng Võ",
                             NameWithType = "Phường Giảng Võ",
@@ -837,7 +1052,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("33b05c57-53a4-4aa4-ad1e-3737a93c9fdb"),
+                            LocationId = new Guid("8ba94c70-fd87-4307-b277-de57923cf0c8"),
                             Levels = 3,
                             Name = "Kim Mã",
                             NameWithType = "Phường Kim Mã",
@@ -846,7 +1061,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d745f532-c956-4413-b72f-effd273b27d5"),
+                            LocationId = new Guid("f485b796-b3f7-46d0-82ea-23ecec23e325"),
                             Levels = 3,
                             Name = "Liễu Giai",
                             NameWithType = "Phường Liễu Giai",
@@ -855,7 +1070,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("77c7c3db-1e04-4a20-9ae4-15ab7c7a6af1"),
+                            LocationId = new Guid("e384c4f4-7d20-477d-bcb5-f4feea97e98c"),
                             Levels = 3,
                             Name = "Ngọc Hà",
                             NameWithType = "Phường Ngọc Hà",
@@ -864,7 +1079,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9fe77b76-b285-4d39-85de-e560a906b2a1"),
+                            LocationId = new Guid("533f8efb-5c71-4e61-844b-14fb41a7cef3"),
                             Levels = 3,
                             Name = "Ngọc Khánh",
                             NameWithType = "Phường Ngọc Khánh",
@@ -873,7 +1088,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a52de5b4-61ce-4082-8ec9-ea37e903a3c1"),
+                            LocationId = new Guid("697f169a-9282-4335-a5b7-c5e0a499ca97"),
                             Levels = 3,
                             Name = "Nguyễn Trung Trực",
                             NameWithType = "Phường Nguyễn Trung Trực",
@@ -882,7 +1097,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("15d047bf-c4f4-4387-86a8-f35e6a7ac46d"),
+                            LocationId = new Guid("0a89240b-932e-4cfa-a214-711ddb7ffdab"),
                             Levels = 3,
                             Name = "Phúc Xá",
                             NameWithType = "Phường Phúc Xá",
@@ -891,7 +1106,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8ba585ea-d4d6-4c96-ac42-480ab29d74f8"),
+                            LocationId = new Guid("0a04022d-5afe-4422-bf8f-77aa3e48c3f9"),
                             Levels = 3,
                             Name = "Quán Thánh",
                             NameWithType = "Phường Quán Thánh",
@@ -900,7 +1115,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("cac94e29-e1c3-4a76-a182-2cfcce9b2412"),
+                            LocationId = new Guid("6cf81dc6-5351-4275-89ef-0b7d1188cdaa"),
                             Levels = 3,
                             Name = "Thành Công",
                             NameWithType = "Phường Thành Công",
@@ -909,7 +1124,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c2087f05-d9ad-442d-9b49-e185fe76a65f"),
+                            LocationId = new Guid("9e707546-0af5-457e-89dd-ed9cccbdc057"),
                             Levels = 3,
                             Name = "Trúc Bạch",
                             NameWithType = "Phường Trúc Bạch",
@@ -918,7 +1133,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ac55c8f7-4a9c-4106-b531-513d495eacbe"),
+                            LocationId = new Guid("83b59815-e38d-49b9-98cc-1b8d449dcf29"),
                             Levels = 3,
                             Name = "Vĩnh Phúc",
                             NameWithType = "Phường Vĩnh Phúc",
@@ -936,7 +1151,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c8240ae7-453f-4bdd-8d86-46271afb2fea"),
+                            LocationId = new Guid("2f18eea3-ffa1-40a4-a06d-c0e1a619999e"),
                             Levels = 3,
                             Name = "Cổ Huế 1",
                             NameWithType = "Phường Cổ Huế 1",
@@ -945,7 +1160,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("12b61d4b-8c11-47ce-ae9d-e19bc5c506d4"),
+                            LocationId = new Guid("fb8c5b20-19c1-4449-bb02-1ec3f805cf54"),
                             Levels = 3,
                             Name = "Cổ Huế 2",
                             NameWithType = "Phường Cổ Huế 2",
@@ -954,7 +1169,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c7499f30-a474-4e63-9a29-d2e002ac1dc8"),
+                            LocationId = new Guid("63627c5a-10aa-49fc-a1f9-a0c793cbbfb0"),
                             Levels = 3,
                             Name = "Đức Thắng",
                             NameWithType = "Phường Đức Thắng",
@@ -963,7 +1178,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("fd7e42e0-48df-4562-babf-e91974051e92"),
+                            LocationId = new Guid("06321b26-3f0f-4fd0-a44e-e45f3fceee17"),
                             Levels = 3,
                             Name = "Đông Ngạc",
                             NameWithType = "Phường Đông Ngạc",
@@ -972,7 +1187,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("674e7a94-327a-4ad4-9391-e3ada5d21ccc"),
+                            LocationId = new Guid("b020ee09-0ded-4774-86dc-80c94f4e60f4"),
                             Levels = 3,
                             Name = "Thụy Phương",
                             NameWithType = "Phường Thụy Phương",
@@ -981,7 +1196,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ed1fe8f5-6f8d-4231-82fa-de4a731955d2"),
+                            LocationId = new Guid("13c1ddbd-bed4-42bc-9dcb-b16cd52c6e60"),
                             Levels = 3,
                             Name = "Liên Mạc",
                             NameWithType = "Phường Liên Mạc",
@@ -990,7 +1205,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a9400fa9-0dfe-4631-91f4-3a1bb0b0140e"),
+                            LocationId = new Guid("b57e453e-b864-4c58-8fbe-697b65b8fde2"),
                             Levels = 3,
                             Name = "Thượng Cát",
                             NameWithType = "Phường Thượng Cát",
@@ -999,7 +1214,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7dc3e334-538e-4596-9099-5e62cf0f204f"),
+                            LocationId = new Guid("b59b3e87-e8a1-44fd-9af2-5c9f2c0dc1a0"),
                             Levels = 3,
                             Name = "Tây Tựu",
                             NameWithType = "Phường Tây Tựu",
@@ -1008,7 +1223,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7e682096-21a7-4db2-ba8f-b8832c39cab4"),
+                            LocationId = new Guid("d5a6dc43-f155-4490-bf07-638f0ce39720"),
                             Levels = 3,
                             Name = "Minh Khai",
                             NameWithType = "Phường Minh Khai",
@@ -1017,7 +1232,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("cda9fab4-3cd1-4e5b-ad95-649ab35b9d33"),
+                            LocationId = new Guid("4759861f-ee32-499b-a7cc-86f8bfef6549"),
                             Levels = 3,
                             Name = "Phú Diễn",
                             NameWithType = "Phường Phú Diễn",
@@ -1026,7 +1241,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("20ef8ce6-8b2f-4ccd-acb8-2009d84c2989"),
+                            LocationId = new Guid("ce629b43-d1c7-4222-a94c-4d2ff93e40fd"),
                             Levels = 3,
                             Name = "Phúc Diễn",
                             NameWithType = "Phường Phúc Diễn",
@@ -1035,7 +1250,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("dafc861d-b296-4a6e-aa9e-c47b1136a13c"),
+                            LocationId = new Guid("c84f37a3-93b1-479a-8ae1-5d0ad36ec9fc"),
                             Levels = 3,
                             Name = "Xuân Đỉnh",
                             NameWithType = "Phường Xuân Đỉnh",
@@ -1044,7 +1259,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1e4864fe-f8ee-4002-98b5-6c4310dbee4c"),
+                            LocationId = new Guid("ad60b673-cd6f-40d5-940f-d99c269d3eae"),
                             Levels = 3,
                             Name = "Xuân Tảo",
                             NameWithType = "Phường Xuân Tảo",
@@ -1062,7 +1277,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1437786f-84a0-4fd5-8fc9-1170277d6eb8"),
+                            LocationId = new Guid("24a7c372-520a-439f-9d5d-adc2fff7fe7c"),
                             Levels = 3,
                             Name = "Dịch Vọng",
                             NameWithType = "Phường Dịch Vọng",
@@ -1071,7 +1286,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b3baaf07-b270-40e2-8144-7135a84f9680"),
+                            LocationId = new Guid("1cf330ea-8ed4-4be3-a7d5-36877c456f13"),
                             Levels = 3,
                             Name = "Dịch Vọng Hậu",
                             NameWithType = "Phường Dịch Vọng Hậu",
@@ -1080,7 +1295,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c796b671-9779-47f2-b00e-e2a439303b18"),
+                            LocationId = new Guid("f7e5e5cf-c0e4-4ffb-a857-23a734e7b2b5"),
                             Levels = 3,
                             Name = "Mai Dịch",
                             NameWithType = "Phường Mai Dịch",
@@ -1089,7 +1304,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d4030a56-9b32-4c1f-a0ff-3aed71431ee1"),
+                            LocationId = new Guid("6bdd9128-d8bb-442b-8295-deb46136930b"),
                             Levels = 3,
                             Name = "Nghĩa Đô",
                             NameWithType = "Phường Nghĩa Đô",
@@ -1098,7 +1313,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("44ced185-32aa-45dc-bca6-411af7502dcb"),
+                            LocationId = new Guid("31986712-873e-46fa-a269-dc8bcf575268"),
                             Levels = 3,
                             Name = "Nghĩa Tân",
                             NameWithType = "Phường Nghĩa Tân",
@@ -1107,7 +1322,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1c1bd912-6f4f-4cf5-8f04-f3592db14ddf"),
+                            LocationId = new Guid("7232d4ad-a6ca-43b5-a973-5c09ba64c9f3"),
                             Levels = 3,
                             Name = "Quan Hoa",
                             NameWithType = "Phường Quan Hoa",
@@ -1116,7 +1331,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a2af8b82-2ad0-40e5-b54d-4a3ee077fdb1"),
+                            LocationId = new Guid("b188c619-1190-42d6-9a3a-c7b93e2dfb70"),
                             Levels = 3,
                             Name = "Trung Hòa",
                             NameWithType = "Phường Trung Hòa",
@@ -1125,7 +1340,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("35e2ca72-2b6c-4742-a98e-9e085ba51334"),
+                            LocationId = new Guid("4c830184-e779-4880-8940-29de81c9f84a"),
                             Levels = 3,
                             Name = "Yên Hòa",
                             NameWithType = "Phường Yên Hòa",
@@ -1143,7 +1358,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("354ac591-1633-4ce8-bfa9-c01a94c3331b"),
+                            LocationId = new Guid("27d02bc0-098d-46e0-8ef7-f843d80f3db5"),
                             Levels = 3,
                             Name = "Cát Linh",
                             NameWithType = "Phường Cát Linh",
@@ -1152,7 +1367,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5927db2b-70a6-45bb-b95f-645377a54c7f"),
+                            LocationId = new Guid("44183344-6c8f-4e65-9089-8cd18db6e1fe"),
                             Levels = 3,
                             Name = "Hàng Bột",
                             NameWithType = "Phường Hàng Bột",
@@ -1161,7 +1376,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("05c260d3-4e3f-4639-a5ea-8650027ed742"),
+                            LocationId = new Guid("4782862f-c8e9-4501-b482-bc9b8c0ffe32"),
                             Levels = 3,
                             Name = "Khâm Thiên",
                             NameWithType = "Phường Khâm Thiên",
@@ -1170,7 +1385,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("adcd5726-849f-405b-a753-d1cead2beb67"),
+                            LocationId = new Guid("212317b4-eb83-41b6-8027-798b5c8a94ce"),
                             Levels = 3,
                             Name = "Khương Thượng",
                             NameWithType = "Phường Khương Thượng",
@@ -1179,7 +1394,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("142b03a5-b701-459e-8546-b8e321883c15"),
+                            LocationId = new Guid("810c2ea2-32b2-45dc-874f-840ce5b65b5a"),
                             Levels = 3,
                             Name = "Kim Liên",
                             NameWithType = "Phường Kim Liêng",
@@ -1188,7 +1403,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9c8e4fa2-da75-4fb9-a8ee-c134b6912a14"),
+                            LocationId = new Guid("689db8ff-3fb0-4c97-a4a8-3c797233bae8"),
                             Levels = 3,
                             Name = "Láng Hạ",
                             NameWithType = "Phường Láng Hạ",
@@ -1197,7 +1412,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("39614cdd-1ed6-4e34-9eb8-bd6051753038"),
+                            LocationId = new Guid("5cb287b0-30d3-449a-b019-397e69146000"),
                             Levels = 3,
                             Name = "Láng Thượng",
                             NameWithType = "Phường Láng Thượng",
@@ -1206,7 +1421,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7bc9cfad-6ba6-453c-9009-fe8b18556786"),
+                            LocationId = new Guid("5a441189-eeeb-4552-b8da-af36d57bcd0b"),
                             Levels = 3,
                             Name = "Nam Đồng",
                             NameWithType = "Phường Nam Đồng",
@@ -1215,7 +1430,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0297d5c3-56f2-484d-be46-4b66ce32765f"),
+                            LocationId = new Guid("a70db2b6-650c-4253-94f1-41ab1ab7f9f2"),
                             Levels = 3,
                             Name = "Ngã Tư Sở",
                             NameWithType = "Phường Ngã Tư Sở",
@@ -1224,7 +1439,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4f9ad911-b6d5-422c-9325-7e55dede0aa6"),
+                            LocationId = new Guid("a8648477-f9b0-4d8a-ae93-03f64e845f8a"),
                             Levels = 3,
                             Name = "Ô Chợ Dừa",
                             NameWithType = "Phường Ô Chợ Dừa",
@@ -1233,7 +1448,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b512d05d-1676-4643-a43c-ee5a95cfc90c"),
+                            LocationId = new Guid("e4ce2401-fa56-4624-bcdb-20074a808436"),
                             Levels = 3,
                             Name = "Phương Liên",
                             NameWithType = "Phường Phương Liên",
@@ -1242,7 +1457,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("365f9879-1e01-496e-8c69-7ff741fa0bf6"),
+                            LocationId = new Guid("611c2154-e188-49c9-bb83-351b55a3be4e"),
                             Levels = 3,
                             Name = "Phương Mai",
                             NameWithType = "Phường Phương Mai",
@@ -1251,7 +1466,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5ec0ec2f-bfd5-4e94-992d-e89553333908"),
+                            LocationId = new Guid("00126057-e038-454a-8022-ac430fc6a92b"),
                             Levels = 3,
                             Name = "Quang Trung",
                             NameWithType = "Phường Quang Trung",
@@ -1260,7 +1475,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("2fe63650-dae8-4db4-89c0-45e2b8d154bf"),
+                            LocationId = new Guid("6bd9285b-aba8-4611-8762-4075e90522b0"),
                             Levels = 3,
                             Name = "Quốc Tử Giám",
                             NameWithType = "Phường Quốc Tử Giám",
@@ -1269,7 +1484,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d993c740-41bd-4f8d-b7ae-a6e4ca601537"),
+                            LocationId = new Guid("3aea2af6-6519-4586-a862-b0e20fda4c42"),
                             Levels = 3,
                             Name = "Thịnh Quang",
                             NameWithType = "Phường Thịnh Quang",
@@ -1278,7 +1493,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("800c4183-c139-4714-8d35-26572700f28b"),
+                            LocationId = new Guid("1d234822-367c-4c8e-8884-be55e82de9ba"),
                             Levels = 3,
                             Name = "Thổ Quan",
                             NameWithType = "Phường Thổ Quan",
@@ -1287,7 +1502,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a252d70e-cf02-444c-8a29-6f2c84add045"),
+                            LocationId = new Guid("c7f24eda-72a5-4950-93aa-4a3ea9d21fc7"),
                             Levels = 3,
                             Name = "Trung Liệt",
                             NameWithType = "Phường Trung Liệt",
@@ -1296,7 +1511,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b8a5322a-68a2-468d-8f80-ea45a3487113"),
+                            LocationId = new Guid("6af9c1d9-8228-412c-a47f-0f0cebb1681e"),
                             Levels = 3,
                             Name = "Trung Phụng",
                             NameWithType = "Phường Trung Phụng",
@@ -1305,7 +1520,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("2b4c48fc-a7c9-482f-86f4-08b1c46551ff"),
+                            LocationId = new Guid("be0df960-037f-4ecf-964e-39c5313f746b"),
                             Levels = 3,
                             Name = "Trung Tự",
                             NameWithType = "Phường Trung Tự",
@@ -1314,7 +1529,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b95c4877-3f41-4d83-9c91-b6b67d5a5b12"),
+                            LocationId = new Guid("ce0a8683-01e9-49f1-90fc-60636cebd694"),
                             Levels = 3,
                             Name = "Văn Chương",
                             NameWithType = "Phường Văn Chương",
@@ -1323,7 +1538,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ba750bfc-4f22-4e62-bc6d-95c754aef193"),
+                            LocationId = new Guid("e2c73a75-81d1-4234-98eb-6c331b589368"),
                             Levels = 3,
                             Name = "Văn Miếu",
                             NameWithType = "Phường Văn Miếu",
@@ -1341,7 +1556,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6587591e-a9e7-45a5-845b-675a75b505ee"),
+                            LocationId = new Guid("a48bb2f4-dcaf-4f38-bcc3-cba123741092"),
                             Levels = 3,
                             Name = "Biên Giang",
                             NameWithType = "Phường Biên Giang",
@@ -1350,7 +1565,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("bffaa83a-d34c-42de-8f69-f14a83482c96"),
+                            LocationId = new Guid("0ea7928c-a39b-4349-96a1-e62e3d6894c0"),
                             Levels = 3,
                             Name = "Đồng Mai",
                             NameWithType = "Phường Đồng Mai",
@@ -1359,7 +1574,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f3207051-ade5-4fbf-8c06-c1492412fb66"),
+                            LocationId = new Guid("405aa03f-8a08-4cc1-880d-5c70fa238542"),
                             Levels = 3,
                             Name = "Yên Nghĩa",
                             NameWithType = "Phường Yên Nghĩa",
@@ -1368,7 +1583,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("20a3b0f9-1e0e-48bc-a73a-247018fe006e"),
+                            LocationId = new Guid("649c8807-f8bd-4212-b017-44dfbca59b78"),
                             Levels = 3,
                             Name = "Dương Nội",
                             NameWithType = "Phường Dương Nội",
@@ -1377,7 +1592,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("34525c98-f059-4e8b-9bab-1b890ba9ac3e"),
+                            LocationId = new Guid("7fb3cb10-37fc-4185-95dd-1c006f4f7387"),
                             Levels = 3,
                             Name = "Hà Cầu",
                             NameWithType = "Phường Hà Cầu",
@@ -1386,7 +1601,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0d10da15-db33-462f-a67c-ff1a7277374d"),
+                            LocationId = new Guid("603fb33c-9ade-4c4d-8e2b-e4a11ee95498"),
                             Levels = 3,
                             Name = "La Khê",
                             NameWithType = "Phường La Khê",
@@ -1395,7 +1610,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c8a2c575-2b06-4981-897f-e52f47026b16"),
+                            LocationId = new Guid("7c3401a7-6167-4ffd-ae3a-165631fac16c"),
                             Levels = 3,
                             Name = "Mộ Lao",
                             NameWithType = "Phường Mộ Lao",
@@ -1404,7 +1619,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f8e9da71-c8b8-4c68-94b5-1c4df0259002"),
+                            LocationId = new Guid("69b36f64-c5fd-4d81-938b-0e87f3f9674f"),
                             Levels = 3,
                             Name = "Nguyễn Trãi",
                             NameWithType = "Phường Nguyễn Trãi",
@@ -1413,7 +1628,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("16ff998f-bf86-4a13-8305-73470fea86e3"),
+                            LocationId = new Guid("709aacff-6c52-437f-8549-3cec82fbb120"),
                             Levels = 3,
                             Name = "Phú La",
                             NameWithType = "Phường Phú La",
@@ -1422,7 +1637,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("352d2698-65ae-4e0d-93de-6d49297ccf49"),
+                            LocationId = new Guid("42bcd4de-88a4-4155-9018-8743e57e10da"),
                             Levels = 3,
                             Name = "Phú Lãm",
                             NameWithType = "Phường Phú Lãm",
@@ -1431,7 +1646,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("032dff64-9562-4654-9764-16ddbcfd2a45"),
+                            LocationId = new Guid("0e41b6bc-00eb-4ce9-82ad-71312e33e6dc"),
                             Levels = 3,
                             Name = "Phú Lương",
                             NameWithType = "Phường Phú Lương",
@@ -1440,7 +1655,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("02d49bad-3dde-48ed-b718-5d61bdf2b1c5"),
+                            LocationId = new Guid("d006ffb6-c722-4cae-8e02-a854cd555396"),
                             Levels = 3,
                             Name = "Kiếm Hưng",
                             NameWithType = "Phường Kiếm Hưng",
@@ -1449,7 +1664,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e562bde9-946f-45bc-ba3b-01e22f4a6376"),
+                            LocationId = new Guid("7637ba91-216b-42cf-bc3e-2efca392006d"),
                             Levels = 3,
                             Name = "Phúc La",
                             NameWithType = "Phường Phúc La",
@@ -1458,7 +1673,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e0245ab4-1b55-4e22-b178-b2fd345f7a5f"),
+                            LocationId = new Guid("ee36e1a1-c79c-40fd-864d-16b315ba88de"),
                             Levels = 3,
                             Name = "Quang Trung",
                             NameWithType = "Phường Quang Trung",
@@ -1467,7 +1682,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("635832df-1266-48e2-91f9-bb3f6e6f8f78"),
+                            LocationId = new Guid("0f3ee201-b29d-402d-bedd-ac70f04245cd"),
                             Levels = 3,
                             Name = "Vạn Phúc",
                             NameWithType = "Phường Vạn Phúc",
@@ -1476,7 +1691,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6f96cb05-c6c4-460f-84df-ffc020d2db95"),
+                            LocationId = new Guid("d67140a4-3546-4f15-8773-12913e026990"),
                             Levels = 3,
                             Name = "Văn Quán",
                             NameWithType = "Phường Văn Quán",
@@ -1485,7 +1700,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c894263f-a0dc-4118-aad6-12d945f0592a"),
+                            LocationId = new Guid("0e59aa17-5d58-47ce-ba90-fa1096960b52"),
                             Levels = 3,
                             Name = "Yết Kiêu",
                             NameWithType = "Phường Yết Kiêu",
@@ -1503,7 +1718,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("51414eac-fd84-4684-ba21-bb319d4c3926"),
+                            LocationId = new Guid("b79d7a35-721b-49d7-a434-8ed22a0c6e1e"),
                             Levels = 3,
                             Name = "Bách Khoa",
                             NameWithType = "Phường Bách Khoa",
@@ -1512,7 +1727,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d3fb3985-3bbc-410f-834b-8556a80c3b21"),
+                            LocationId = new Guid("89e52118-e1d4-4ca6-a686-dfb451b5da66"),
                             Levels = 3,
                             Name = "Bạch Đằng",
                             NameWithType = "Phường Bạch Đằng",
@@ -1521,7 +1736,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1ba26895-4f37-4909-8896-a721a5bd0070"),
+                            LocationId = new Guid("0e549bc9-2f1e-4814-8976-0c6e6bcfd838"),
                             Levels = 3,
                             Name = "Bạch Mai",
                             NameWithType = "Phường Bạch Mai",
@@ -1530,7 +1745,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("be1815da-aaf8-44eb-a9b1-48bf23a57f6d"),
+                            LocationId = new Guid("a2fbcb9d-9824-4a16-91ed-2644cd5e1899"),
                             Levels = 3,
                             Name = "Cầu Dền",
                             NameWithType = "Phường Cầu Dền",
@@ -1539,7 +1754,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("2d5bec9a-c434-4a95-9e90-387b580aa6f2"),
+                            LocationId = new Guid("f85135e8-0cfb-4cba-a869-4056671bbc7e"),
                             Levels = 3,
                             Name = "Đống Mác",
                             NameWithType = "Phường Đống Mác",
@@ -1548,7 +1763,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("bcda7b37-fd7e-4a8b-a14e-71a2a02f90d7"),
+                            LocationId = new Guid("4ff039bc-0dd3-4212-9a77-bfbd9de56263"),
                             Levels = 3,
                             Name = "Đồng Nhân",
                             NameWithType = "Phường Đồng Nhân",
@@ -1557,7 +1772,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b4e94178-f9ca-47c0-a35f-0a27c0ad8c08"),
+                            LocationId = new Guid("19810767-e8c1-4630-b252-aefc14c9706a"),
                             Levels = 3,
                             Name = "Đồng Tâm",
                             NameWithType = "Phường Đồng Tâm",
@@ -1566,7 +1781,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6b5bcc95-dfe7-439c-a513-27e4278faa6a"),
+                            LocationId = new Guid("8a61fe5b-c6f7-42b3-a876-4fdc683c55c7"),
                             Levels = 3,
                             Name = "Lê Đại Hành",
                             NameWithType = "Phường Lê Đại Hành",
@@ -1575,7 +1790,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3d425013-eeee-49d7-b452-044f46522784"),
+                            LocationId = new Guid("0f889415-8015-4d23-a91b-05750d851638"),
                             Levels = 3,
                             Name = "Minh Khai",
                             NameWithType = "Phường Minh Khai",
@@ -1584,7 +1799,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d7d0f711-ad45-448e-90c7-b779402c3191"),
+                            LocationId = new Guid("d7cd1ced-94f6-4a07-aa6a-2253160d80ca"),
                             Levels = 3,
                             Name = "Nguyễn Du",
                             NameWithType = "Phường Nguyễn Du",
@@ -1593,7 +1808,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("39e43e3a-0675-4361-8f6c-af91c17c3bbb"),
+                            LocationId = new Guid("1cced1f2-4688-47af-87f9-dd1e63b02487"),
                             Levels = 3,
                             Name = "Phạm Đình Hổ",
                             NameWithType = "Phường Phạm Đình Hổ",
@@ -1602,7 +1817,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("34ec7f83-6099-443d-a282-e80f21e921d6"),
+                            LocationId = new Guid("bf358a64-83ce-427e-b9db-a425cc561aae"),
                             Levels = 3,
                             Name = "Phố Huế",
                             NameWithType = "Phường Phố Huế",
@@ -1611,7 +1826,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3407e388-b3b6-4efa-a5de-a614eb57b820"),
+                            LocationId = new Guid("28b32d08-ed7a-4004-8f7c-23a4a88d5ac4"),
                             Levels = 3,
                             Name = "Quỳnh Lôi",
                             NameWithType = "Phường Quỳnh Lôi",
@@ -1620,7 +1835,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e86b450d-74c8-44f4-aea6-8723b62890f9"),
+                            LocationId = new Guid("6300f414-a51a-4f99-b07d-882646e38ffe"),
                             Levels = 3,
                             Name = "Quỳnh Mai",
                             NameWithType = "Phường Quỳnh Mai",
@@ -1629,7 +1844,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c60f0158-698f-42f1-b9f7-f3a9b4b25264"),
+                            LocationId = new Guid("07409976-43da-4ea2-85c1-6a32e5538ec8"),
                             Levels = 3,
                             Name = "Thanh Lương",
                             NameWithType = "Phường Thanh Lương",
@@ -1638,7 +1853,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("dd83be6d-a736-4fb3-a023-75b3be977a55"),
+                            LocationId = new Guid("6eee8d54-b8a0-4bcb-ae7b-e4a01bee3ed7"),
                             Levels = 3,
                             Name = "Thanh Nhàn",
                             NameWithType = "Phường Thanh Nhàn",
@@ -1647,7 +1862,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("499ebc16-facd-42c6-8a9d-8c2730575710"),
+                            LocationId = new Guid("b2bfcc70-fe08-4018-a18a-b5b29151def2"),
                             Levels = 3,
                             Name = "Trương Định",
                             NameWithType = "Phường Trương Định",
@@ -1656,7 +1871,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6f61d820-237d-4a5e-aa98-486d36416c69"),
+                            LocationId = new Guid("1779be7b-19c2-4471-b725-df20721d1615"),
                             Levels = 3,
                             Name = "Vĩnh Tuy",
                             NameWithType = "Phường Vĩnh Tuy",
@@ -1674,7 +1889,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1717097f-1a7d-4665-9480-90f6221b8d19"),
+                            LocationId = new Guid("44f540bb-2186-452e-89c2-664f6e8ee7f1"),
                             Levels = 3,
                             Name = "Cửa Đông",
                             NameWithType = "Phường Cửa Đông",
@@ -1683,7 +1898,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("24bd80d4-da41-488c-9a6c-347daad20325"),
+                            LocationId = new Guid("561b1d5a-a959-4e92-93f9-31ab5f43d486"),
                             Levels = 3,
                             Name = "Chương Dương",
                             NameWithType = "Phường Chương Dương",
@@ -1692,7 +1907,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5a990dbd-6e9a-4357-bca4-f5683f2e1e28"),
+                            LocationId = new Guid("04f947a1-1a68-46ec-99e1-969e48c4c887"),
                             Levels = 3,
                             Name = "Đồng Xuân",
                             NameWithType = "Phường Đồng Xuân",
@@ -1701,7 +1916,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("cd81dcbf-6837-4fa7-a9cf-536c77880ec9"),
+                            LocationId = new Guid("f13328c0-d23b-4f2c-a518-263759db6c8c"),
                             Levels = 3,
                             Name = "Cửa Nam",
                             NameWithType = "Phường Cửa Nam",
@@ -1710,7 +1925,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ebf6334e-c236-4648-9f05-62db711d4f99"),
+                            LocationId = new Guid("7932412e-dea2-4584-8cf0-2a59e6e38dc0"),
                             Levels = 3,
                             Name = "Hàng Bài",
                             NameWithType = "Phường Hàng Bài",
@@ -1719,7 +1934,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c3f1377b-c6f8-47d3-b8a9-99ddd1c258b5"),
+                            LocationId = new Guid("f1f2ec19-02f8-4509-8018-3ced88c97354"),
                             Levels = 3,
                             Name = "Hàng Bạc",
                             NameWithType = "Phường Hàng Bạc",
@@ -1728,7 +1943,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0ee014ad-61f7-414d-bea2-6cf529d0684e"),
+                            LocationId = new Guid("ed37bebf-d8a2-4f8a-9605-b1e7050f2461"),
                             Levels = 3,
                             Name = "Hàng Bông",
                             NameWithType = "Phường Hàng Bông",
@@ -1737,7 +1952,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1ba4f306-581b-4800-b3a5-a3512b3b540f"),
+                            LocationId = new Guid("92883ff6-9a2e-4091-b278-70638aaffffb"),
                             Levels = 3,
                             Name = "Hàng Bồ",
                             NameWithType = "Phường Hàng Bồ",
@@ -1746,7 +1961,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("995c323c-8c09-4737-a895-685a854e3568"),
+                            LocationId = new Guid("17aa5f05-5fc9-4598-8cec-086b9e3907b6"),
                             Levels = 3,
                             Name = "Hàng Đào",
                             NameWithType = "Phường Hàng Đào",
@@ -1755,7 +1970,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8ac2a41f-bad5-478f-925d-07fc40736157"),
+                            LocationId = new Guid("1e98ac87-8828-411e-abbd-6341525628a9"),
                             Levels = 3,
                             Name = "Hàng Buồm",
                             NameWithType = "Phường Hàng Buồm",
@@ -1764,7 +1979,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("23cc25ef-31fb-4c7e-b893-6d037da4c7fc"),
+                            LocationId = new Guid("02a2afb3-4e93-4a63-9924-83db8cc72ae6"),
                             Levels = 3,
                             Name = "Hàng Mã",
                             NameWithType = "Phường Hàng Mã",
@@ -1773,7 +1988,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("78495406-6376-4ef8-a208-549f278c43b5"),
+                            LocationId = new Guid("0a816e59-bd70-4358-9506-fb67163f61d9"),
                             Levels = 3,
                             Name = "Hàng Gai",
                             NameWithType = "Phường Hàng Gai",
@@ -1782,7 +1997,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("174490c8-3d15-456e-8984-67a21046d15e"),
+                            LocationId = new Guid("0b8456d5-e374-4f84-a5e2-432004237879"),
                             Levels = 3,
                             Name = "Phan Chu Trinh",
                             NameWithType = "Phường Phan Chu Trinh",
@@ -1791,7 +2006,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("08ac6881-74f3-4171-ad7b-9520d58ca2a5"),
+                            LocationId = new Guid("35bbd341-7de9-4b93-b38e-d389a78bb635"),
                             Levels = 3,
                             Name = "Hàng Trống",
                             NameWithType = "Phường Hàng Trống",
@@ -1800,7 +2015,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1b51630b-4147-4a7f-aa63-689a63e7ceff"),
+                            LocationId = new Guid("566f4290-ece3-419d-ae12-d72cee2b9397"),
                             Levels = 3,
                             Name = "Lý Thái Tổ",
                             NameWithType = "Phường Lý Thái Tổ",
@@ -1809,7 +2024,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8298a53c-c6dd-4a8a-bf88-880a639223e8"),
+                            LocationId = new Guid("ee1dc7ae-64f2-44ae-8345-b311480ed4a8"),
                             Levels = 3,
                             Name = "Phúc Tân",
                             NameWithType = "Phường Phúc Tân",
@@ -1818,7 +2033,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ead03d77-eaba-4306-b029-907eb3bb9829"),
+                            LocationId = new Guid("86239d16-364e-483a-9c6d-643e434f44ac"),
                             Levels = 3,
                             Name = "Tràng Tiền",
                             NameWithType = "Phường Tràng Tiền",
@@ -1827,7 +2042,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("81d42770-0d55-4a7f-8a95-aa0f7a325ce9"),
+                            LocationId = new Guid("27f54394-73b6-4eff-a5ac-29bb7201fa66"),
                             Levels = 3,
                             Name = "Trần Hưng Đạo",
                             NameWithType = "Phường Trần Hưng Đạo",
@@ -1845,7 +2060,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b4e26190-4ee2-4c84-920e-7ae0cab53b34"),
+                            LocationId = new Guid("39469946-b2c3-44af-860b-3c5538f45b5a"),
                             Levels = 3,
                             Name = "Đại Kim",
                             NameWithType = "Phường Đại Kim",
@@ -1854,7 +2069,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4811e67c-ff5a-4625-8944-2ea2c7a4c5d1"),
+                            LocationId = new Guid("50fe2e78-fc5d-4ce8-b6d7-466e6a1fae14"),
                             Levels = 3,
                             Name = "Định Công",
                             NameWithType = "Phường Định Công",
@@ -1863,7 +2078,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("257d8a36-1920-44f9-b5ab-a88063eb5c00"),
+                            LocationId = new Guid("96a98a69-6acd-4e24-b271-a1567d40744f"),
                             Levels = 3,
                             Name = "Giáp Bát",
                             NameWithType = "Phường Giáp Bát",
@@ -1872,7 +2087,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("fa0ced05-5888-43ed-b8c6-a0739244098a"),
+                            LocationId = new Guid("85c5ebe7-905d-48a4-84de-3f508ba5776e"),
                             Levels = 3,
                             Name = "Hoàng Liệt",
                             NameWithType = "Phường Hoàng Liệt",
@@ -1881,7 +2096,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ce96760b-add1-47a6-8ba7-c716b1cb2c14"),
+                            LocationId = new Guid("ef72e8e8-96c7-4c8d-b39a-99d488762852"),
                             Levels = 3,
                             Name = "Hoàng Văn Thụ",
                             NameWithType = "Phường Hoàng Văn Thụ",
@@ -1890,7 +2105,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("bd17f294-fb49-4e30-be20-a50f4e7c944b"),
+                            LocationId = new Guid("9d559488-b689-4187-8a4f-9f897b190ff1"),
                             Levels = 3,
                             Name = "Lĩnh Nam",
                             NameWithType = "Phường Lĩnh Nam",
@@ -1899,7 +2114,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5490eacf-60b0-4a2e-9ffb-0b9d73d40681"),
+                            LocationId = new Guid("c8219c2c-87db-47e1-90bf-9fde7e83f723"),
                             Levels = 3,
                             Name = "Mai Động",
                             NameWithType = "Phường Mai Động",
@@ -1908,7 +2123,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b4deb114-1c20-42ee-8bb9-f5a31bda32b1"),
+                            LocationId = new Guid("bf297387-d7d5-4918-8877-5876721145e6"),
                             Levels = 3,
                             Name = "Tân Mai",
                             NameWithType = "Phường Tân Mai",
@@ -1917,7 +2132,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e4c9748b-5118-4a0d-bab6-e75f51ef7ae4"),
+                            LocationId = new Guid("ea72d3b5-d508-42fd-b20f-805ce8ff4a35"),
                             Levels = 3,
                             Name = "Thanh Trì",
                             NameWithType = "Phường Thanh Trì",
@@ -1926,7 +2141,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("42bd6b72-9c24-4cce-8a52-f9c6ad09c231"),
+                            LocationId = new Guid("0a11d229-6fb6-4924-9c95-f2b8186271dd"),
                             Levels = 3,
                             Name = "Thịnh Liệt",
                             NameWithType = "Phường Thịnh Liệt",
@@ -1935,7 +2150,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("20f33da0-b85b-4d32-bc70-d13c7873efd8"),
+                            LocationId = new Guid("d44a700d-ee55-4e70-98c6-931a3331661c"),
                             Levels = 3,
                             Name = "Trần Phú",
                             NameWithType = "Phường Trần Phú",
@@ -1944,7 +2159,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d0ca6272-3973-48b5-8d8f-db9ac0aa1713"),
+                            LocationId = new Guid("fd12e083-bbe2-4767-b2e8-600bc576f0b5"),
                             Levels = 3,
                             Name = "Tương Mai",
                             NameWithType = "Phường Tương Mai",
@@ -1953,7 +2168,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("277e0c90-3451-4e83-b944-00694a10a18f"),
+                            LocationId = new Guid("b43c3621-57cf-4e19-8c10-0fe86610c841"),
                             Levels = 3,
                             Name = "Vĩnh Hưng",
                             NameWithType = "Phường Vĩnh Hưng",
@@ -1962,7 +2177,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("596b42d4-0a27-4960-9bd3-80dd8ea619c8"),
+                            LocationId = new Guid("58733a32-e93a-40d5-ad86-c3dcd06c7e41"),
                             Levels = 3,
                             Name = "Yên Sở",
                             NameWithType = "Phường Yên Sở",
@@ -1980,7 +2195,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f135c9ee-f724-431b-832a-6518ad26fc29"),
+                            LocationId = new Guid("f520a149-8dc9-4543-97fa-ad6be8edd8a4"),
                             Levels = 3,
                             Name = "Bồ Đề",
                             NameWithType = "Phường Bồ Đề",
@@ -1989,7 +2204,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("32cf6de7-dc67-465b-b80d-cf0e3c1a157f"),
+                            LocationId = new Guid("fdcb4f78-17ca-48f7-b772-6569d6eb3599"),
                             Levels = 3,
                             Name = "Cự Khối",
                             NameWithType = "Phường Cự Khối",
@@ -1998,7 +2213,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("fa7640c8-6904-4982-bf6b-1077bfb819c5"),
+                            LocationId = new Guid("025466f1-c369-4551-aa42-0baab60eb70f"),
                             Levels = 3,
                             Name = "Đức Giang",
                             NameWithType = "Phường Đức Giang",
@@ -2007,7 +2222,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f298f4d4-89f1-4b22-9308-27ce79c86c78"),
+                            LocationId = new Guid("d4976353-6080-4586-9a24-8d16b82d22d9"),
                             Levels = 3,
                             Name = "Gia Thụy",
                             NameWithType = "Phường Gia Thụy",
@@ -2016,7 +2231,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("91c7512e-66b6-4b41-ac35-e4d6730beef0"),
+                            LocationId = new Guid("6249a5ab-a309-46c2-912e-8e918f53aab7"),
                             Levels = 3,
                             Name = "Giang Biên",
                             NameWithType = "Phường Giang Biên",
@@ -2025,7 +2240,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("619ebfe6-2426-49b5-bb0b-083580d2c1d2"),
+                            LocationId = new Guid("2eb45eff-1c29-43c4-b40c-045a396a1a92"),
                             Levels = 3,
                             Name = "Long Biên",
                             NameWithType = "Phường Long Biên",
@@ -2034,7 +2249,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d1a8f5fa-9938-4671-b5c4-dbd1e436ac81"),
+                            LocationId = new Guid("47a48eb6-f986-4702-9260-ea1d095f6cd5"),
                             Levels = 3,
                             Name = "Ngọc Lâm",
                             NameWithType = "Phường Ngọc Lâm",
@@ -2043,7 +2258,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("df7f0dda-ed49-4739-a0ce-30f44fc77515"),
+                            LocationId = new Guid("f7d41b0f-ba43-4bfd-9913-1b3efb3440dc"),
                             Levels = 3,
                             Name = "Ngọc Thụy",
                             NameWithType = "Phường Ngọc Thụy",
@@ -2052,7 +2267,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("53874568-426f-4297-b7e5-c5c0249d9db3"),
+                            LocationId = new Guid("5eef75f9-2c88-48d4-8c45-53a0173a0182"),
                             Levels = 3,
                             Name = "Phúc Đồng",
                             NameWithType = "Phường Phúc Đồng",
@@ -2061,7 +2276,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("642a8bcd-5836-472e-bb4b-2e5174fbda34"),
+                            LocationId = new Guid("3ce3a98f-64fe-49d9-9f64-7b7a20303782"),
                             Levels = 3,
                             Name = "Phúc Lợi",
                             NameWithType = "Phường Phúc Lợi",
@@ -2070,7 +2285,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a410ff99-aa59-4d0f-9c6b-2c67928231e0"),
+                            LocationId = new Guid("c1c0627c-8eed-44ca-a1d1-f785d8f0214d"),
                             Levels = 3,
                             Name = "Sài Đồng",
                             NameWithType = "Phường Sài Đồng",
@@ -2079,7 +2294,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("2e4e777c-0c44-45c7-bd75-6c7245f7aac2"),
+                            LocationId = new Guid("cc17f8ec-a2ea-4902-ace4-0bc1c150b538"),
                             Levels = 3,
                             Name = "Thạch Bàn",
                             NameWithType = "Phường Thạch Bàn",
@@ -2088,7 +2303,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("722f7622-7f4e-49be-8af4-3e350a7f2f27"),
+                            LocationId = new Guid("502f54a6-42b8-4da9-b7c7-a8ad62bdb90a"),
                             Levels = 3,
                             Name = "Thượng Thanh",
                             NameWithType = "Phường Thượng Thanh",
@@ -2097,7 +2312,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("86dee735-a1fb-4344-9bf5-cc3fda2022b0"),
+                            LocationId = new Guid("a4aec663-d78b-49ef-b0f6-16a17a424dec"),
                             Levels = 3,
                             Name = "Việt Hưng",
                             NameWithType = "Phường Việt Hưng",
@@ -2115,7 +2330,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4b2e38c1-03ff-4ea1-b483-aa82754fe84d"),
+                            LocationId = new Guid("c86b1ec2-a129-4dec-bddd-a58f0a262d45"),
                             Levels = 3,
                             Name = "Cầu Diễn",
                             NameWithType = "Phường Cầu Diễn",
@@ -2124,7 +2339,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7ad004b9-20e7-4208-8a92-7003ca3bb74f"),
+                            LocationId = new Guid("33bc8a62-372e-49c4-af60-a43ef1bbeca9"),
                             Levels = 3,
                             Name = "Mỹ Đình 1",
                             NameWithType = "Phường Mỹ Đình 1",
@@ -2133,7 +2348,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("57409838-5651-420d-9cf5-985ca200e5e9"),
+                            LocationId = new Guid("b9ac3d42-7528-4f7e-b0b7-7aaf69cdbe67"),
                             Levels = 3,
                             Name = "Mỹ Đình 2",
                             NameWithType = "Phường Mỹ Đình 2",
@@ -2142,7 +2357,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b4600c53-dffe-46af-8abc-5716ee58e487"),
+                            LocationId = new Guid("fe1b81ea-676c-42a3-869b-1ba9dd33112f"),
                             Levels = 3,
                             Name = "Phú Đô",
                             NameWithType = "Phường Phú Đô",
@@ -2151,7 +2366,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("fc7ac97f-82af-4c6c-8d36-d1e8126fead2"),
+                            LocationId = new Guid("7727b43c-1038-42c0-867f-fced734f2873"),
                             Levels = 3,
                             Name = "Mễ Tri",
                             NameWithType = "Phường Mễ Tri",
@@ -2160,7 +2375,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e864101c-e12d-4d95-b623-7109ddd2c3cb"),
+                            LocationId = new Guid("1dc76788-284a-4798-9e6e-972abd3d5fb4"),
                             Levels = 3,
                             Name = "Trung Văn",
                             NameWithType = "Phường Trung Văn",
@@ -2169,7 +2384,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("046ee424-c535-4d2d-be01-0371e13425ad"),
+                            LocationId = new Guid("4bef3d2d-1acb-45d4-8ac8-33c8ab44fa55"),
                             Levels = 3,
                             Name = "Đại Mỗ",
                             NameWithType = "Phường Đại Mỗ",
@@ -2178,7 +2393,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5693e9bd-c867-4643-bed5-7bd8e3638592"),
+                            LocationId = new Guid("143ee519-a0cd-483b-9bdb-04bec8698977"),
                             Levels = 3,
                             Name = "Tây Mỗ",
                             NameWithType = "Phường Tây Mỗ",
@@ -2187,7 +2402,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("dbcb7436-9f78-453b-b05a-a7499575d4a1"),
+                            LocationId = new Guid("c29c03e9-b111-4427-8357-8f80bb7350c1"),
                             Levels = 3,
                             Name = "Phương Canh",
                             NameWithType = "Phường Phương Canh",
@@ -2196,7 +2411,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("fa20b1e6-55a5-4035-b7f2-d5e05d8e1bb2"),
+                            LocationId = new Guid("ac4b7955-f961-40e6-b453-d7e8fa0a9d83"),
                             Levels = 3,
                             Name = "Xuân Phương",
                             NameWithType = "Phường Xuân Phương",
@@ -2214,7 +2429,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3a0db5d5-4992-47bf-89ac-af2f767c6d61"),
+                            LocationId = new Guid("e4ad67ea-cad9-45c6-b40c-374162175ae8"),
                             Levels = 3,
                             Name = "Bưởi",
                             NameWithType = "Phường Bưởi",
@@ -2223,7 +2438,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("28c39792-139a-48ec-a74f-27f68fb6a0b1"),
+                            LocationId = new Guid("629d5730-a6a6-4749-a70b-002960dc4f8f"),
                             Levels = 3,
                             Name = "Nhật Tân",
                             NameWithType = "Phường Nhật Tân",
@@ -2232,7 +2447,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e665bc61-e124-4e56-818c-892354321afc"),
+                            LocationId = new Guid("96cc54d0-8269-4479-87ab-a97b9a77919d"),
                             Levels = 3,
                             Name = "Phú Thượng",
                             NameWithType = "Phường Phú Thượng",
@@ -2241,7 +2456,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("22674540-3129-440b-a4dd-42e3c9b911ed"),
+                            LocationId = new Guid("f106197d-e595-43c4-98cb-595fedcff60a"),
                             Levels = 3,
                             Name = "Quảng An",
                             NameWithType = "Phường Quảng An",
@@ -2250,7 +2465,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a8fa2431-fa87-49a8-9b81-d9d9ad3f0bd6"),
+                            LocationId = new Guid("bf74c2c2-9fb4-4eed-b00c-6c2ac40497ab"),
                             Levels = 3,
                             Name = "Thụy Khuê",
                             NameWithType = "Phường Thụy Khuê",
@@ -2259,7 +2474,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7cc78bb4-0f6d-46c2-8b97-02be7dacf1e5"),
+                            LocationId = new Guid("e6c1447d-003d-49bb-9bc6-dbf0225c3b73"),
                             Levels = 3,
                             Name = "Tứ Liên",
                             NameWithType = "Phường Tứ Liên",
@@ -2268,7 +2483,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e9a9f213-2d2a-4e79-a1e1-e100a716a4d1"),
+                            LocationId = new Guid("c3180f60-b9cb-4492-9ca9-62cac6c33ac0"),
                             Levels = 3,
                             Name = "Xuân La",
                             NameWithType = "Phường Xuân La",
@@ -2277,7 +2492,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1af07d4c-25ff-428e-a05a-48403f14c7ad"),
+                            LocationId = new Guid("cefc95bb-af0b-4bd8-9398-764d9ce7f561"),
                             Levels = 3,
                             Name = "Yên Phụ",
                             NameWithType = "Phường Yên Phụ",
@@ -2295,7 +2510,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f36280a3-e05e-46b6-b5bf-dcf543281101"),
+                            LocationId = new Guid("de02e622-cc59-4cd9-9d2c-60a053fbcade"),
                             Levels = 3,
                             Name = "Hạ Đình",
                             NameWithType = "Phường Hạ Đình",
@@ -2304,7 +2519,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("21f35a4c-7e80-4703-8c43-b2baef308c6b"),
+                            LocationId = new Guid("d8c76079-763f-4c53-87ed-96a255dd3cdc"),
                             Levels = 3,
                             Name = "Khương Đình",
                             NameWithType = "Phường Khương Đình",
@@ -2313,7 +2528,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5eaabe6f-aa75-44e0-a62e-f2ec0edbf754"),
+                            LocationId = new Guid("d760e678-7aca-425a-a625-7bbcfee76d77"),
                             Levels = 3,
                             Name = "Khương Mai",
                             NameWithType = "Phường Khương Mai",
@@ -2322,7 +2537,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3545142b-e018-4e75-a649-bd84bdf4c92c"),
+                            LocationId = new Guid("5b92093e-3256-4a7e-b039-4ceb3d18aece"),
                             Levels = 3,
                             Name = "Khương Trung",
                             NameWithType = "Phường Khương Trung",
@@ -2331,7 +2546,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("44970672-c79b-4d0d-bae2-f08a85df516e"),
+                            LocationId = new Guid("65c7042e-6c29-4235-99bc-95f383f64445"),
                             Levels = 3,
                             Name = "Kim Giang",
                             NameWithType = "Phường Kim Giang",
@@ -2340,7 +2555,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("62e9c59b-ebac-49b2-8853-93851fd3df6f"),
+                            LocationId = new Guid("f240cdd8-cc4f-432b-9263-4307a14360d4"),
                             Levels = 3,
                             Name = "Nhân Chính",
                             NameWithType = "Phường Nhân Chính",
@@ -2349,7 +2564,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c7a4f9f4-6ebc-4c14-939a-1dbb686abf43"),
+                            LocationId = new Guid("1c9d8f35-5643-4319-9f34-85c9749d4ddd"),
                             Levels = 3,
                             Name = "Phương Liệt",
                             NameWithType = "Phường Phương Liệt",
@@ -2358,7 +2573,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1186ab1a-0205-4ebb-bfe6-eab9e8665bf2"),
+                            LocationId = new Guid("acd130df-2455-4500-b999-17a08feded45"),
                             Levels = 3,
                             Name = "Thanh Xuân Bắc",
                             NameWithType = "Phường Thanh Xuân Bắc",
@@ -2367,7 +2582,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ccf6c44e-7bc7-4c31-9f72-581de179c84a"),
+                            LocationId = new Guid("e05d69f4-19e2-499b-a0f9-d289ecf602cd"),
                             Levels = 3,
                             Name = "Thanh Xuân Nam",
                             NameWithType = "Phường Thanh Xuân Nam",
@@ -2376,7 +2591,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8718ecb6-5bcb-49f9-a31a-a3e4b24c1693"),
+                            LocationId = new Guid("4da365e3-fba0-4288-a03b-d72f1c8db1f9"),
                             Levels = 3,
                             Name = "Thanh Xuân Trung",
                             NameWithType = "Phường Thanh Xuân Trung",
@@ -2385,7 +2600,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4d6ed4eb-504e-44bc-a3ae-ededf2f10d32"),
+                            LocationId = new Guid("2ef4fcfd-315d-425e-a625-9e3226fe0866"),
                             Levels = 3,
                             Name = "Thượng Đình",
                             NameWithType = "Phường Thượng Đình",
@@ -2403,7 +2618,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("07b35e52-aef6-4752-93f5-6838238bb51c"),
+                            LocationId = new Guid("a4f98785-bfca-4d6a-8cf1-250e6981a6bf"),
                             Levels = 3,
                             Name = "Tây Đằng",
                             NameWithType = "Thị Trấn Tây Đằng",
@@ -2412,7 +2627,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("2ae026aa-820b-46ba-9977-4cfdd4cc1c67"),
+                            LocationId = new Guid("f066047b-974f-4fa0-aebb-3ec0012438a7"),
                             Levels = 3,
                             Name = "Ba Trại",
                             NameWithType = "Xã Ba Trại",
@@ -2421,7 +2636,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("fbb40a92-77c8-4b32-b031-4c2d2ff5a13f"),
+                            LocationId = new Guid("0d6a4b2b-6884-47ad-872b-8ea894a71da4"),
                             Levels = 3,
                             Name = "Ba Vì",
                             NameWithType = "Xã Ba Vì",
@@ -2430,7 +2645,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("50417c01-6100-499d-a37c-ac252f8157f1"),
+                            LocationId = new Guid("579160c3-c20f-4778-aa01-bdde8182c08e"),
                             Levels = 3,
                             Name = "Cẩm Lĩnh",
                             NameWithType = "Xã Cẩm Lĩnh",
@@ -2439,7 +2654,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("cdc36184-a68f-4902-8d4e-86d5b2446040"),
+                            LocationId = new Guid("14240f4b-55de-40ce-9817-23681bad84ce"),
                             Levels = 3,
                             Name = "Cam Thượng",
                             NameWithType = "Xã Cam Thượng",
@@ -2448,7 +2663,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e9951353-55f4-4b3f-9106-e80652724ae9"),
+                            LocationId = new Guid("91374da9-9e79-40ef-a5e7-1af3d8c44e83"),
                             Levels = 3,
                             Name = "Châu Sơn",
                             NameWithType = "Xã Châu Sơn",
@@ -2457,7 +2672,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a7010c7d-103d-4a2b-abd5-d51416570a00"),
+                            LocationId = new Guid("291b2733-f81f-479f-b516-23ea7cfc4b52"),
                             Levels = 3,
                             Name = "Chu Minh",
                             NameWithType = "Xã Chu Minh",
@@ -2466,7 +2681,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("74481d96-e578-4748-ad93-1f7713b996a2"),
+                            LocationId = new Guid("c1920801-20ac-4662-bb42-c8253db0cf03"),
                             Levels = 3,
                             Name = "Cổ Đô",
                             NameWithType = "Xã Cổ Đô",
@@ -2475,7 +2690,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1faf2773-44a8-43ad-942d-3d30ed3de6ae"),
+                            LocationId = new Guid("d9b2e8c0-06e6-4ab2-9697-44419ef949de"),
                             Levels = 3,
                             Name = "Đông Quang",
                             NameWithType = "Xã Đông Quang",
@@ -2484,7 +2699,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e979e0fd-69c9-4475-b31e-78ed1ede9d1f"),
+                            LocationId = new Guid("c505c797-735b-4e43-b31a-7f86307e449e"),
                             Levels = 3,
                             Name = "Đồng Thái",
                             NameWithType = "Xã Đồng Thái",
@@ -2493,7 +2708,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("77833fa5-9573-45f8-8ffc-3de995a6c708"),
+                            LocationId = new Guid("ec0b24cc-8972-4d61-9604-5fc82801cc9e"),
                             Levels = 3,
                             Name = "Khánh Thượng",
                             NameWithType = "Xã Khánh Thượng",
@@ -2502,7 +2717,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3d27ef89-6c64-411b-8581-e9b3bcb5efba"),
+                            LocationId = new Guid("c59ee52c-e89a-42d7-9bda-0828be0ce241"),
                             Levels = 3,
                             Name = "Minh Châu",
                             NameWithType = "Xã Minh Châu",
@@ -2511,7 +2726,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f3f836c8-5fae-41ae-a190-01f22f7bb859"),
+                            LocationId = new Guid("3b5bba9a-0eac-4ef4-af3c-8e532d6d3926"),
                             Levels = 3,
                             Name = "Minh Quang",
                             NameWithType = "Xã Minh Quang",
@@ -2520,7 +2735,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9f87b1ef-5b68-4202-88fb-6f9b9f5b420d"),
+                            LocationId = new Guid("1b22840d-86e2-4c55-9d70-8dc9f3b917d1"),
                             Levels = 3,
                             Name = "Phong Vân",
                             NameWithType = "Xã Phong Vân",
@@ -2529,7 +2744,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f6e1a3f0-26a9-4926-a394-f66d4a050329"),
+                            LocationId = new Guid("c4a1d252-e08e-4bb0-8df3-3b467e09754c"),
                             Levels = 3,
                             Name = "Phú Châu",
                             NameWithType = "Xã Phú Châu",
@@ -2538,7 +2753,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0fcff1d1-f37b-49f7-b8e5-3ae977e08887"),
+                            LocationId = new Guid("a29635de-5dce-47e1-a6ba-88461c6d94a7"),
                             Levels = 3,
                             Name = "Phú Cường",
                             NameWithType = "Xã Phú Cường",
@@ -2547,7 +2762,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("da843a05-8833-453b-912d-334bc1f799e0"),
+                            LocationId = new Guid("dccd8487-41c7-42a9-b518-98c2fa5a42c5"),
                             Levels = 3,
                             Name = "Phú Đông",
                             NameWithType = "Xã Phú Đông",
@@ -2556,7 +2771,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0c8b60a3-28e2-493a-a528-555abc1aa4ab"),
+                            LocationId = new Guid("70203223-33d8-43e6-8474-82b1ea01aa5f"),
                             Levels = 3,
                             Name = "Phú Phương",
                             NameWithType = "Xã Phú Phương",
@@ -2565,7 +2780,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("71331f63-c898-4e31-9aa9-8f5218be9e06"),
+                            LocationId = new Guid("39ccb16b-f577-45aa-bfc3-75c5e76950ef"),
                             Levels = 3,
                             Name = "Phú Sơn",
                             NameWithType = "Xã Phú Sơn",
@@ -2574,7 +2789,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e0a681bb-b38a-4787-ab3b-2d9df9bf33cf"),
+                            LocationId = new Guid("c3b6849a-4693-4cc8-a13f-b44a55b17044"),
                             Levels = 3,
                             Name = "Sơn Đà",
                             NameWithType = "Xã Sơn Đà",
@@ -2583,7 +2798,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1c060a98-5bd4-4731-91cb-274857d77c35"),
+                            LocationId = new Guid("92536c6c-4ef9-4767-9f9e-825518aafec3"),
                             Levels = 3,
                             Name = "Tản Hồng",
                             NameWithType = "Xã Tản Hồng",
@@ -2592,7 +2807,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6d8f55ab-cfb1-4137-a630-a7aabb9d6467"),
+                            LocationId = new Guid("44bc47f2-a68c-4ce5-9d4c-c95144907d7d"),
                             Levels = 3,
                             Name = "Tản Lĩnh",
                             NameWithType = "Xã Tản Lĩnh",
@@ -2601,7 +2816,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("dc12ad30-e1ab-4530-9422-a8dba703d07e"),
+                            LocationId = new Guid("44a3c091-945a-4086-80fc-9a68a9dbdec5"),
                             Levels = 3,
                             Name = "Thái Hòa",
                             NameWithType = "Xã Thái Hòa",
@@ -2610,7 +2825,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3367442c-2a50-43ed-aed9-ac0c18a0ed62"),
+                            LocationId = new Guid("eb1a3845-07ba-4177-b3d0-e27e43eaecac"),
                             Levels = 3,
                             Name = "Thuần Mỹ",
                             NameWithType = "Xã Thuần Mỹ",
@@ -2619,7 +2834,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("cae5af1b-9871-4c51-a0ca-855ebd0e0baa"),
+                            LocationId = new Guid("f6caf0cd-4007-470b-891f-31824094e5fb"),
                             Levels = 3,
                             Name = "Thụy An",
                             NameWithType = "Xã Thụy An",
@@ -2628,7 +2843,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6fa5c361-a4b3-44e8-a0f3-4755561fc684"),
+                            LocationId = new Guid("c862a621-df7d-4748-a306-7c6fab0c2349"),
                             Levels = 3,
                             Name = "Tiên Phong",
                             NameWithType = "Xã Tiên Phong",
@@ -2637,7 +2852,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("2bf8f90e-198e-47ff-8c27-10d742c2a531"),
+                            LocationId = new Guid("dd3b7dcf-7436-4643-bfaa-e9de2c087180"),
                             Levels = 3,
                             Name = "Tòng Bạc",
                             NameWithType = "Xã Tòng Bạc",
@@ -2646,7 +2861,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("955d0d17-924a-4903-a9d7-fca0babe88f7"),
+                            LocationId = new Guid("86f758c4-8ab5-441e-b38a-23b9debdf3ce"),
                             Levels = 3,
                             Name = "Vân Hóa",
                             NameWithType = "Xã Vân Hóa",
@@ -2655,7 +2870,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6349d580-9780-4ebd-8398-192078cb9dd1"),
+                            LocationId = new Guid("5b0b610b-c06c-401d-8a41-f4d4ee5da51d"),
                             Levels = 3,
                             Name = "Vạn Thắng",
                             NameWithType = "Xã Vạn Thắng",
@@ -2664,7 +2879,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3b5bfd64-0b8d-4be3-92a5-2e861fe4eb52"),
+                            LocationId = new Guid("502aea61-af9a-4551-baaf-794309bafc06"),
                             Levels = 3,
                             Name = "Vật Lại",
                             NameWithType = "Xã Vật Lại",
@@ -2673,7 +2888,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("af6d1d54-cb81-43bf-9476-6e11bf3c1259"),
+                            LocationId = new Guid("b16447be-e4cb-4663-968a-afd7e37c33c7"),
                             Levels = 3,
                             Name = "Yên Bài",
                             NameWithType = "Xã Yên Bài",
@@ -2691,7 +2906,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a2c76e81-4f45-42d3-9908-95f63ab34f6b"),
+                            LocationId = new Guid("68a4c706-28a8-4864-962c-ed8280e5648c"),
                             Levels = 3,
                             Name = "Chúc Sơn",
                             NameWithType = "Thị Trấn Chúc Sơn",
@@ -2700,7 +2915,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a6c8f92f-4529-44e2-9a29-0fdc906f8d97"),
+                            LocationId = new Guid("e99d6e09-13ff-43c3-ad4e-bc0858da38ea"),
                             Levels = 3,
                             Name = "Xuân Mai",
                             NameWithType = "Thị Trấn Xuân Mai",
@@ -2709,7 +2924,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b8024f3e-f3b5-46b6-bcf1-812e28f2eadc"),
+                            LocationId = new Guid("2ad61052-112e-4420-9b46-52b75b85489f"),
                             Levels = 3,
                             Name = "Đại Yên",
                             NameWithType = "Xã Đại Yên",
@@ -2718,7 +2933,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("38939665-e999-404d-a9bf-3387d29704fa"),
+                            LocationId = new Guid("380c78cd-3c46-40ae-8ff8-720a5200388c"),
                             Levels = 3,
                             Name = "Đông Phương Yên",
                             NameWithType = "Xã Đông Phương Yên",
@@ -2727,7 +2942,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("00808461-f6e4-4add-8ebb-5ffa9dafc022"),
+                            LocationId = new Guid("e3c6e400-5f77-4425-a224-857b631a6f38"),
                             Levels = 3,
                             Name = "Đông Sơn",
                             NameWithType = "Xã Đông Sơn",
@@ -2736,7 +2951,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ea189f9c-e88d-49ac-b6aa-06420e07be4e"),
+                            LocationId = new Guid("5a41cb6a-842f-4da4-91a9-9e0fc7da1a1b"),
                             Levels = 3,
                             Name = "Đồng Lạc",
                             NameWithType = "Xã Đồng Lạc",
@@ -2745,7 +2960,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b4bea9bf-4ad5-4269-af89-93574d99cc1b"),
+                            LocationId = new Guid("dc2d9caa-8135-4451-bc4e-fc651504d71d"),
                             Levels = 3,
                             Name = "Đồng Phú",
                             NameWithType = "Xã Đồng Phú",
@@ -2754,7 +2969,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3c4ce628-9bc2-424b-acf5-95d4ed6c23aa"),
+                            LocationId = new Guid("7c0b6bdc-7815-4d8f-93ae-c8f5df5f1ef7"),
                             Levels = 3,
                             Name = "Hòa Chính",
                             NameWithType = "Xã Hòa Chính",
@@ -2763,7 +2978,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0323b571-45c8-4190-9ae3-f962a109dac1"),
+                            LocationId = new Guid("4e468f0e-4bdd-47dd-8e1e-7fe866863f0a"),
                             Levels = 3,
                             Name = "Hoàng Diệu",
                             NameWithType = "Xã Hoàng Diệu",
@@ -2772,7 +2987,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("db4b84c8-b14f-42c6-b0ad-50f999681371"),
+                            LocationId = new Guid("f0311850-1757-4ab2-864b-19632aed4d25"),
                             Levels = 3,
                             Name = "Hoàng Văn Thụ",
                             NameWithType = "Xã Hoàng Văn Thụ",
@@ -2781,7 +2996,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("bcf7c3fc-b86f-44ac-b83f-1796a06a3fbf"),
+                            LocationId = new Guid("38da834b-3ec3-4aad-9c18-8418ba0ea2b6"),
                             Levels = 3,
                             Name = "Hồng Phong",
                             NameWithType = "Xã Hồng Phong",
@@ -2790,7 +3005,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("763fc00c-9b69-4221-bcdf-25ebe521924d"),
+                            LocationId = new Guid("068f84d1-bbfa-4500-b01f-1ec34eb81573"),
                             Levels = 3,
                             Name = "Hợp Đồng",
                             NameWithType = "Xã Hợp Đồng",
@@ -2799,7 +3014,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3555cd52-5c71-452b-bda3-5536d20d2d0a"),
+                            LocationId = new Guid("e5b32ce0-3176-4779-9b00-bf3976a8f0e7"),
                             Levels = 3,
                             Name = "Hữu Văn",
                             NameWithType = "Xã Hữu Văn",
@@ -2808,7 +3023,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7f86877b-4930-4e84-a82c-e43c94afb057"),
+                            LocationId = new Guid("686e13cc-9c1c-449e-81a4-78a76fc9d1b7"),
                             Levels = 3,
                             Name = "Lam Điền",
                             NameWithType = "Xã Lam Điền",
@@ -2817,7 +3032,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("097c0e09-9213-42fa-a848-51c47b8f59ba"),
+                            LocationId = new Guid("08270d46-e5e1-4ece-9cf1-e12340946073"),
                             Levels = 3,
                             Name = "Mỹ Lương",
                             NameWithType = "Xã Mỹ Lương",
@@ -2826,7 +3041,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("07943baf-0a36-4455-9ac1-c6ad734bb741"),
+                            LocationId = new Guid("5dc655e7-e71b-4c95-b31f-bdf8f08ecb93"),
                             Levels = 3,
                             Name = "Nam Phương Tiến",
                             NameWithType = "Xã Nam Phương Tiến",
@@ -2835,7 +3050,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9f8e66d3-b72e-4c95-92a1-b52d7dc5057c"),
+                            LocationId = new Guid("9006c6f3-ba6e-416c-a3e0-4835d8e39994"),
                             Levels = 3,
                             Name = "Ngọc Hòa",
                             NameWithType = "Xã Ngọc Hòa",
@@ -2844,7 +3059,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7dcac404-a139-4505-8830-1da7f7703b77"),
+                            LocationId = new Guid("4f52dd0c-d923-4a31-8df6-ab9e764e5163"),
                             Levels = 3,
                             Name = "Phú Nam An",
                             NameWithType = "Xã Phú Nam An",
@@ -2853,7 +3068,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7069bedb-a5d7-41fa-9e40-05a24790ca09"),
+                            LocationId = new Guid("3dcf3a57-d966-46e7-a241-148799f7c1b8"),
                             Levels = 3,
                             Name = "Phú Nghĩa",
                             NameWithType = "Xã Phú Nghĩa",
@@ -2862,7 +3077,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f2ff3248-cbb2-41ef-a4b7-407432970b10"),
+                            LocationId = new Guid("7c070e6a-e2ff-4437-b36d-7773dda160be"),
                             Levels = 3,
                             Name = "Phụng Châu",
                             NameWithType = "Xã Phụng Châu",
@@ -2871,7 +3086,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("61064e17-eb54-4d4e-8062-1e693d658088"),
+                            LocationId = new Guid("4a4052d3-a162-4921-ae8b-1f66d7dac720"),
                             Levels = 3,
                             Name = "Quảng Bị",
                             NameWithType = "Xã Quảng Bị",
@@ -2880,7 +3095,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c231863b-1030-49cf-bedb-a6105bf231ba"),
+                            LocationId = new Guid("0ae9e4eb-c450-4085-bc67-4dded65ed1a4"),
                             Levels = 3,
                             Name = "Tân Tiến",
                             NameWithType = "Xã Tân Tiến",
@@ -2889,7 +3104,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9bf764d4-73e4-4264-abd9-71edcbbb2b86"),
+                            LocationId = new Guid("9ab831ed-04bd-470d-b046-695e6ca732b5"),
                             Levels = 3,
                             Name = "Tiên Phương",
                             NameWithType = "Xã Tiên Phương",
@@ -2898,7 +3113,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("29e19582-8130-4ce8-a130-dffe79373b42"),
+                            LocationId = new Guid("ca1cce71-386a-4ef9-b501-6ceccd013ce9"),
                             Levels = 3,
                             Name = "Tốt Động",
                             NameWithType = "Xã Tốt Động",
@@ -2907,7 +3122,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("abf5ac26-1a04-4806-91df-d6c0778d72c0"),
+                            LocationId = new Guid("55de3259-6859-4c99-a2fd-ec625b4095b4"),
                             Levels = 3,
                             Name = "Thanh Bình",
                             NameWithType = "Xã Thanh Bình",
@@ -2916,7 +3131,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("80433261-8661-47a3-9f76-499af7505d91"),
+                            LocationId = new Guid("dd9b6dcb-606a-4b0f-b6d7-2ea9699a51e1"),
                             Levels = 3,
                             Name = "Thủy Sơn Tiên",
                             NameWithType = "Xã Thủy Sơn Tiên",
@@ -2925,7 +3140,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e57e3a55-0200-48f7-afdf-d3c059cb17bf"),
+                            LocationId = new Guid("311b7fbc-c01a-45f4-921c-c8a189d322bc"),
                             Levels = 3,
                             Name = "Thụy Hương",
                             NameWithType = "Xã Thụy Hương",
@@ -2934,7 +3149,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("fea815bc-e258-40bf-80e1-37bc14b7411c"),
+                            LocationId = new Guid("29c373e5-37f6-4024-b3c5-70ddcb31a31d"),
                             Levels = 3,
                             Name = "Thượng Vực",
                             NameWithType = "Xã Thượng Vực",
@@ -2943,7 +3158,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f9f8b356-d9f9-490a-b747-bc027c092028"),
+                            LocationId = new Guid("b966424c-504d-4d39-96b1-b22e4ce441c1"),
                             Levels = 3,
                             Name = "Trần Phú",
                             NameWithType = "Xã Trần Phú",
@@ -2952,7 +3167,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f2448276-7f1b-4dea-bd2a-e05bfe549fa0"),
+                            LocationId = new Guid("1cfa5a5b-0ae5-46b5-a85d-0bdee086aaaf"),
                             Levels = 3,
                             Name = "Trung Hòa",
                             NameWithType = "Xã Trung Hòa",
@@ -2961,7 +3176,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0a2a5fce-3678-40e2-829d-dcf21b438cdf"),
+                            LocationId = new Guid("4eeeaaf5-d144-49b0-b083-e063822a7f25"),
                             Levels = 3,
                             Name = "Trường Yên",
                             NameWithType = "Xã Trường Yên",
@@ -2979,7 +3194,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5315128b-94d6-466b-bdee-f5e5aec01e4a"),
+                            LocationId = new Guid("839043ef-db09-4f4d-9343-642f2bd18e30"),
                             Levels = 3,
                             Name = "Đan Phượng",
                             NameWithType = "Xã Đan Phượng",
@@ -2988,7 +3203,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("14108441-c48d-4467-b5b0-a3ac4f6f4766"),
+                            LocationId = new Guid("2366d7d5-4710-4275-8b45-5a158c807223"),
                             Levels = 3,
                             Name = "Đồng Tháp",
                             NameWithType = "Xã Đồng Tháp",
@@ -2997,7 +3212,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6c46855d-7467-41f6-a995-c36adf3ddf52"),
+                            LocationId = new Guid("5fda2b01-d66d-45e1-a806-104e99d4b0cb"),
                             Levels = 3,
                             Name = "Hạ Mỗ",
                             NameWithType = "Xã Hạ Mỗ",
@@ -3006,7 +3221,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5819cf23-691e-414e-9e08-7a534460f90e"),
+                            LocationId = new Guid("12a6360b-89e6-47f4-85ce-ffbe8a7c35c6"),
                             Levels = 3,
                             Name = "Hồng Hà",
                             NameWithType = "Xã Hồng Hà",
@@ -3015,7 +3230,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c725d7a6-1bb7-4e28-a7b5-06d1d6eac11b"),
+                            LocationId = new Guid("beaf4fff-6446-41f1-b5f7-30f4c6f81bc0"),
                             Levels = 3,
                             Name = "Liên Hà",
                             NameWithType = "Xã Liên Hà",
@@ -3024,7 +3239,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4566e87d-cf8a-44ba-a4a1-9d5e7448fc44"),
+                            LocationId = new Guid("0c6dd1a5-d946-41db-8957-fff5ad2b0ed1"),
                             Levels = 3,
                             Name = "Liên Hồng",
                             NameWithType = "Xã Liên Hồng",
@@ -3033,7 +3248,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9516c90c-1ec4-46db-9fe5-7c4407282f90"),
+                            LocationId = new Guid("2a82671d-fd5b-4048-b29e-69447b697fbb"),
                             Levels = 3,
                             Name = "Liên Trung",
                             NameWithType = "Xã Liên Trung",
@@ -3042,7 +3257,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("cbab4840-de50-479c-9a6a-88971668b7f4"),
+                            LocationId = new Guid("43aa5870-bbe6-41de-9c40-2ad7e9679f80"),
                             Levels = 3,
                             Name = "Thọ Trung",
                             NameWithType = "Xã Thọ Trung",
@@ -3060,7 +3275,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ab1abc98-030a-4dba-89f1-3f91c8b07861"),
+                            LocationId = new Guid("0bd79acb-542a-45d4-9ef5-d9261a586684"),
                             Levels = 3,
                             Name = "Bắc Hồng",
                             NameWithType = "Xã Bắc Hồng",
@@ -3069,7 +3284,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("92ebb386-18ec-464e-986f-30109fa3bf44"),
+                            LocationId = new Guid("88635c88-0587-42e9-8d75-3ddd54278345"),
                             Levels = 3,
                             Name = "Cổ Loa",
                             NameWithType = "Xã Cổ Loa",
@@ -3078,7 +3293,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9f13077e-e713-4b9e-8f38-5a50e0635018"),
+                            LocationId = new Guid("bc317572-66fa-49e3-80cc-0208e7879ecb"),
                             Levels = 3,
                             Name = "Dục Tú",
                             NameWithType = "Xã Dục Tú",
@@ -3087,7 +3302,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("20e798b8-ff01-4fff-9bac-88c31e31f421"),
+                            LocationId = new Guid("653cbf30-df4a-44c8-a2c3-6bf97e7f8689"),
                             Levels = 3,
                             Name = "Kim Chung",
                             NameWithType = "Xã Kim Chung",
@@ -3096,7 +3311,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0718b411-7e01-42d4-8d69-84eb8705fdba"),
+                            LocationId = new Guid("42f146fb-cf76-46e9-b7aa-81cb3fc16c43"),
                             Levels = 3,
                             Name = "Văn Nội",
                             NameWithType = "Xã Văn Nội",
@@ -3105,7 +3320,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("779e5010-46e4-4e09-a338-cfc4d7177630"),
+                            LocationId = new Guid("e6fca21e-13e0-4dfd-a982-2a3ec92235bc"),
                             Levels = 3,
                             Name = "Việt Hùng",
                             NameWithType = "Xã Việt Hùng",
@@ -3114,7 +3329,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("25a535af-516b-49e6-9f88-ed0720dae98a"),
+                            LocationId = new Guid("9ef7a23e-af33-4c24-9626-e5e55234509d"),
                             Levels = 3,
                             Name = "Võng La",
                             NameWithType = "Xã Võng La",
@@ -3123,7 +3338,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6364656b-3992-420b-8937-1688539034dc"),
+                            LocationId = new Guid("f383621e-d221-4e61-9c8f-59b278dbdc93"),
                             Levels = 3,
                             Name = "Xuân Canh",
                             NameWithType = "Xã Xuân Canh",
@@ -3149,7 +3364,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("bdbb0e8a-76b0-42ab-98ad-7eaab4eb94fe"),
+                            LocationId = new Guid("cd9eb7d5-7eac-49c4-bb10-4dc222ec1e5c"),
                             Levels = 3,
                             Name = "Lộc Thọ",
                             NameWithType = "Phường Lộc Thọ",
@@ -3158,7 +3373,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("02c17990-12a8-45a6-ba41-a3c54fa7dea3"),
+                            LocationId = new Guid("3aa263f4-845a-4600-98c7-334f82679d9a"),
                             Levels = 3,
                             Name = "Ngọc Hiệp",
                             NameWithType = "Phường Ngọc Hiệp",
@@ -3167,7 +3382,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("65698e6d-b2b8-401a-a489-3b725d53bc07"),
+                            LocationId = new Guid("9978610c-fe68-4269-bec8-4cfd5108e164"),
                             Levels = 3,
                             Name = "Phước Hải",
                             NameWithType = "Phường Phước Hải",
@@ -3176,7 +3391,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("688f10dd-813c-4bb5-bf75-7b5daf3f226c"),
+                            LocationId = new Guid("17d7f837-f148-4732-aec8-39c63c94e5ec"),
                             Levels = 3,
                             Name = "Phước Hòa",
                             NameWithType = "Phường Phước Hòa",
@@ -3185,7 +3400,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("14fac44d-956d-400a-bf7c-b0eb853fe626"),
+                            LocationId = new Guid("95892a83-1167-49c4-a656-2e14deca0ccf"),
                             Levels = 3,
                             Name = "Phước Long",
                             NameWithType = "Phường Phước Long",
@@ -3194,7 +3409,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b02f0950-06f7-4a22-91b0-152f8fbda65e"),
+                            LocationId = new Guid("4e09452f-1689-4bec-b333-c92ca681cd2e"),
                             Levels = 3,
                             Name = "Phước Tiến",
                             NameWithType = "Phường Phước Tiến",
@@ -3203,7 +3418,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("eaa3e347-f6f0-482f-a8b8-450190c2220f"),
+                            LocationId = new Guid("44407e0f-2157-49a1-b48d-aa2872303461"),
                             Levels = 3,
                             Name = "Phước Tân",
                             NameWithType = "Phường Phước Tân",
@@ -3212,7 +3427,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("faf57b0a-6fb5-457b-9d94-21f78a41e581"),
+                            LocationId = new Guid("3010c651-5f9a-4dd5-8540-9e5e5fa8df66"),
                             Levels = 3,
                             Name = "Phương Sài",
                             NameWithType = "Phường Phương Sài",
@@ -3221,7 +3436,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f28f4a3a-1da4-401e-a538-1ef6d803266c"),
+                            LocationId = new Guid("6f69a295-3ade-4fb5-bc56-f13b640a67aa"),
                             Levels = 3,
                             Name = "Vĩnh Hải",
                             NameWithType = "Phường Vĩnh Hải",
@@ -3230,7 +3445,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("677791fe-1ba3-4414-9c14-3e70b08b4ea7"),
+                            LocationId = new Guid("cc11a988-6684-41e5-812b-e7abc974f1b6"),
                             Levels = 3,
                             Name = "Vĩnh Hòa",
                             NameWithType = "Phường Vĩnh Hòa",
@@ -3239,7 +3454,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4c9d419b-09be-4a98-8bb1-7622a3bb760d"),
+                            LocationId = new Guid("6d887d93-3db6-45f0-a0f9-6602688131df"),
                             Levels = 3,
                             Name = "Vĩnh Phước",
                             NameWithType = "Phường Vĩnh Phước",
@@ -3248,7 +3463,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("23db8b6a-0b04-45b1-9854-862d4d4defba"),
+                            LocationId = new Guid("002ce0d8-c4c2-4a4f-a45c-c39533254448"),
                             Levels = 3,
                             Name = "Vĩnh Nguyên",
                             NameWithType = "Phường Vĩnh Nguyên",
@@ -3257,7 +3472,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b1976a41-7320-4e92-b34e-20839035b897"),
+                            LocationId = new Guid("7ecddc02-2f51-4a5f-9223-fbfb7a3d43f8"),
                             Levels = 3,
                             Name = "Vĩnh Trường",
                             NameWithType = "Phường Vĩnh Trường",
@@ -3266,7 +3481,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("37f41b2c-e937-419c-9c6e-caa52f4e8962"),
+                            LocationId = new Guid("eda1dc7c-e3fc-4a5e-accb-d530f36863a1"),
                             Levels = 3,
                             Name = "Phước Đồng",
                             NameWithType = "Xã Phước Đồng",
@@ -3275,7 +3490,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("54a8161c-753d-4c83-a4f1-69aa3292a301"),
+                            LocationId = new Guid("245f5d0b-f1f2-4e31-b529-73c20f502376"),
                             Levels = 3,
                             Name = "Vĩnh Lương",
                             NameWithType = "Xã Vĩnh Lương",
@@ -3284,7 +3499,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("bd2e1b15-df31-442f-9a58-9b58964dbc79"),
+                            LocationId = new Guid("f14e32e1-2b4e-4312-ad67-d0df46fb40bc"),
                             Levels = 3,
                             Name = "Vĩnh Thái",
                             NameWithType = "Xã Vĩnh Thái",
@@ -3293,7 +3508,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1f576497-8666-4b36-9cc9-277bf8293004"),
+                            LocationId = new Guid("93dacf86-8c23-4a3b-ad77-6f2a0e24f7d0"),
                             Levels = 3,
                             Name = "Vĩnh Trung",
                             NameWithType = "Xã Vĩnh Trung",
@@ -3311,7 +3526,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1de2b8d2-ae2f-4d21-ab27-fd7568db3d6d"),
+                            LocationId = new Guid("4f7c0b39-13fc-4406-a651-54710799d0a5"),
                             Levels = 3,
                             Name = "Ba Ngòi",
                             NameWithType = "Phường Ba Ngòi",
@@ -3320,7 +3535,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4a549e80-ae6b-45f4-8074-8f274bba33cd"),
+                            LocationId = new Guid("b88d3928-efd2-4d46-a752-e6e7b23b396b"),
                             Levels = 3,
                             Name = "Cam Lộc",
                             NameWithType = "Phường Cam Lộc",
@@ -3329,7 +3544,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("532fdf94-90d4-43f5-bde7-b02d4ef88003"),
+                            LocationId = new Guid("aa06f1ef-4a51-4f77-bcdc-d8745f9b5c7f"),
                             Levels = 3,
                             Name = "Cam Lợi",
                             NameWithType = "Phường Cam Lợi",
@@ -3338,7 +3553,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("98f9a4d1-8b37-4d28-8d9c-bc95d6746add"),
+                            LocationId = new Guid("bb45de8e-6f71-4e6d-83cd-33cb2585852b"),
                             Levels = 3,
                             Name = "Cam Linh",
                             NameWithType = "Phường Cam Linh",
@@ -3347,7 +3562,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f5e501b9-b609-4e04-8526-2473865e53af"),
+                            LocationId = new Guid("3d1625a2-ca4f-4605-a006-6333d61172b0"),
                             Levels = 3,
                             Name = "Cam Thuận",
                             NameWithType = "Phường Cam Thuận",
@@ -3356,7 +3571,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("bea6eadc-246b-4e64-973c-56cae4d8d3cc"),
+                            LocationId = new Guid("5311256f-f2fa-4164-b45d-40689c9f9010"),
                             Levels = 3,
                             Name = "Cam Phú",
                             NameWithType = "Phường Cam Phú",
@@ -3365,7 +3580,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d5e033b9-7eb3-4a06-ac22-6a983c657f4a"),
+                            LocationId = new Guid("d1c7d8f5-24fa-4ad1-9b2d-e4b00d4a749d"),
                             Levels = 3,
                             Name = "Cam Phú Bắc",
                             NameWithType = "Phường Cam Phú Bắc",
@@ -3374,7 +3589,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("414cc673-fa1a-4b0d-985f-ad6feacfdcf0"),
+                            LocationId = new Guid("ff0315d3-7f14-4d74-81b4-84d340aae8a8"),
                             Levels = 3,
                             Name = "Cam Phú Nam",
                             NameWithType = "Phường Cam Phú Nam",
@@ -3392,7 +3607,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9b2eda69-c427-4af9-a513-34efee097b51"),
+                            LocationId = new Guid("008a179e-c7eb-4945-a3a9-9e93e692beac"),
                             Levels = 3,
                             Name = "Khánh Hiệp",
                             NameWithType = "Xã Khánh Hiệp",
@@ -3401,7 +3616,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("157ef1d5-53f1-4c8b-864b-43276107e786"),
+                            LocationId = new Guid("48d96695-0468-4e38-978e-b11cd1d5c505"),
                             Levels = 3,
                             Name = "Khánh Bình",
                             NameWithType = "Xã Khánh Bình",
@@ -3410,7 +3625,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("dc86c073-f705-4719-90a7-17c180857818"),
+                            LocationId = new Guid("4cf813ba-1fdb-48aa-91fc-bfcc1b62cd94"),
                             Levels = 3,
                             Name = "Khánh Trung",
                             NameWithType = "Xã Khánh Trung",
@@ -3419,7 +3634,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8badbcf6-884c-4ae7-bc3a-9e7f1419e972"),
+                            LocationId = new Guid("b0da05ca-f763-488e-b8c5-768c2f6d0f9f"),
                             Levels = 3,
                             Name = "Khánh Đông",
                             NameWithType = "Xã Khánh Đông",
@@ -3428,7 +3643,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("2a561188-46b8-49ba-a458-085c86db9d3b"),
+                            LocationId = new Guid("34f9b16e-a8e4-4526-91c2-7cc564ab7ac0"),
                             Levels = 3,
                             Name = "Khánh Thượng",
                             NameWithType = "Xã Khánh Thượng",
@@ -3437,7 +3652,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("06f1521b-1178-41be-95c9-b62c3a410f45"),
+                            LocationId = new Guid("4bf7fbce-8c6a-44e9-9345-d1c90bb84edb"),
                             Levels = 3,
                             Name = "Sông Cầu",
                             NameWithType = "Xã Sông Cầu",
@@ -3446,7 +3661,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("86e15591-e028-4562-8248-2fb5b9a1040e"),
+                            LocationId = new Guid("7d24dc2d-a580-4bf7-baa2-ec700e1d052f"),
                             Levels = 3,
                             Name = "Liên Sang",
                             NameWithType = "Xã Liên Sang",
@@ -3455,7 +3670,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("059fe31d-bd48-47d3-a807-169b1efa1b10"),
+                            LocationId = new Guid("57e91b66-593b-4b3b-9439-e588077481d6"),
                             Levels = 3,
                             Name = "Khánh Phú",
                             NameWithType = "Xã Khánh Phú",
@@ -3473,7 +3688,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("486e42ae-a341-455a-acd8-aa492d93506e"),
+                            LocationId = new Guid("f061b38f-88de-49fe-9572-ec91f9f1e4af"),
                             Levels = 3,
                             Name = "Diên Phước",
                             NameWithType = "Xã Diên Phước",
@@ -3482,7 +3697,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a0a5a5c8-67fc-4222-ac6b-76a59a10486a"),
+                            LocationId = new Guid("cfb672f7-47ba-4c44-851a-b1aef1021fb5"),
                             Levels = 3,
                             Name = "Diên Lạc",
                             NameWithType = "Xã Diên Lạc",
@@ -3491,7 +3706,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c63eb5bf-c162-41d3-b276-b02771146329"),
+                            LocationId = new Guid("5192c4c3-deae-4273-836b-19041c734938"),
                             Levels = 3,
                             Name = "Diên Tân",
                             NameWithType = "Xã Diên Tân",
@@ -3500,7 +3715,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4c26f8b4-d3ba-4cfa-9dfd-5e5aa66b7d86"),
+                            LocationId = new Guid("bafd83bc-933c-42ce-aa00-1fa972cd3b4e"),
                             Levels = 3,
                             Name = "Diên Hòa",
                             NameWithType = "Xã Diên Hòa",
@@ -3509,7 +3724,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("bf171d7c-871d-467f-839a-3486b370f7a3"),
+                            LocationId = new Guid("703531b0-023b-4557-9a0e-552dd98e6b47"),
                             Levels = 3,
                             Name = "Diên Thạnh",
                             NameWithType = "Xã Diên Thạnh",
@@ -3518,7 +3733,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ec1c704c-fa8e-45ee-9f96-7355797978b3"),
+                            LocationId = new Guid("60835618-9b2d-4b09-ab3f-e8920c80da2f"),
                             Levels = 3,
                             Name = "Diên Toàn",
                             NameWithType = "Xã Diên Toàn",
@@ -3527,7 +3742,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c2ed8898-5f5e-4497-a5cd-749390d3a16d"),
+                            LocationId = new Guid("4cffbd63-7804-4df6-b1cf-d06f68864c9c"),
                             Levels = 3,
                             Name = "Diên An",
                             NameWithType = "Xã Diên An",
@@ -3536,7 +3751,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1aaaa13b-9245-4388-99f3-aa169edfe2cd"),
+                            LocationId = new Guid("0bdf4176-f149-49cf-9571-b6f9ea66508e"),
                             Levels = 3,
                             Name = "Diên Bình",
                             NameWithType = "Xã Diên Bình",
@@ -3545,7 +3760,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("76e819cc-3017-491b-9929-22345003cc0d"),
+                            LocationId = new Guid("46420156-4760-4fcb-a9ac-a856e7d059fc"),
                             Levels = 3,
                             Name = "Diên Lộc",
                             NameWithType = "Xã Diên Lộc",
@@ -3571,7 +3786,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("56e3b437-15e0-4c74-bf2b-1f184624d7a8"),
+                            LocationId = new Guid("5a334fd9-63f2-4907-9a97-51111a546993"),
                             Levels = 3,
                             Name = "Bến Nghé",
                             NameWithType = "Phường Bến Nghé",
@@ -3580,7 +3795,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("159a2328-27ec-4d7c-94e9-bc987de05666"),
+                            LocationId = new Guid("173c83c3-531a-41d8-af4f-184e33f04335"),
                             Levels = 3,
                             Name = "Bến Thành",
                             NameWithType = "Phường Bến Thành",
@@ -3589,7 +3804,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("87d61836-9639-4515-9c47-2d9bbdd5f9c9"),
+                            LocationId = new Guid("3830d731-0ea2-45be-9a86-05b4654612c2"),
                             Levels = 3,
                             Name = "Cô Giang",
                             NameWithType = "Phường Cô Giang",
@@ -3598,7 +3813,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("68119782-4c2a-424b-929d-e854f248fc9b"),
+                            LocationId = new Guid("99bc5269-72a1-4dee-913b-3cd91605d884"),
                             Levels = 3,
                             Name = "Cầu Kho",
                             NameWithType = "Phường Cầu Kho",
@@ -3607,7 +3822,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("70623e50-bb8a-4309-b665-d09b39ee20ce"),
+                            LocationId = new Guid("e49482a8-f71e-4b11-b8a3-4afd13e55350"),
                             Levels = 3,
                             Name = "Cầu Ông Lãnh",
                             NameWithType = "Phường Cầu Ông Lãnh",
@@ -3616,7 +3831,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("dca0cb34-c16b-458d-a325-2a30057365bb"),
+                            LocationId = new Guid("1f01486e-b2eb-4ed4-a37a-185559bdff23"),
                             Levels = 3,
                             Name = "Nguyễn Cư Trinh",
                             NameWithType = "Phường Nguyễn Cư Trinh",
@@ -3625,7 +3840,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0b03379e-41e4-41d7-8576-8283d52ad045"),
+                            LocationId = new Guid("bbe65e3b-ba36-408b-8231-37c30fcee961"),
                             Levels = 3,
                             Name = "Nguyễn Thái Bình",
                             NameWithType = "Phường Nguyễn Thái Bình",
@@ -3634,7 +3849,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("2f510263-f12e-41a6-b96c-542e3044eb36"),
+                            LocationId = new Guid("5a039651-0bd3-4b1a-9b7d-c37f589cbabc"),
                             Levels = 3,
                             Name = "Phạm Ngũ Lão",
                             NameWithType = "Phường Phạm Ngũ Lão",
@@ -3643,7 +3858,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("36b0ca58-344c-4c53-ba69-f03656158d05"),
+                            LocationId = new Guid("5de91691-73eb-454e-890f-1d845599123d"),
                             Levels = 3,
                             Name = "Phạm Tân Định",
                             NameWithType = "Phường Tân Định",
@@ -3661,7 +3876,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7888b1aa-db5a-4d44-8c38-b8b7cd9bc172"),
+                            LocationId = new Guid("a1c172a2-0185-4e5b-8fa4-a75d910b8e20"),
                             Levels = 3,
                             Name = "1",
                             NameWithType = "Phường 1",
@@ -3670,7 +3885,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("861b3364-7887-4b35-b290-ca97d7e2771f"),
+                            LocationId = new Guid("77764712-d6f2-4c23-ae7a-c58058966a21"),
                             Levels = 3,
                             Name = "2",
                             NameWithType = "Phường 2",
@@ -3679,7 +3894,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("fc606b30-2806-4e45-84ba-e094e9ba8465"),
+                            LocationId = new Guid("223b6867-955f-4168-bb70-ba09ed57bc3a"),
                             Levels = 3,
                             Name = "3",
                             NameWithType = "Phường 3",
@@ -3688,7 +3903,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c2dc2de7-0b66-4d63-ab9a-d27dedfe64b3"),
+                            LocationId = new Guid("c210ff5b-dcdf-4302-9a8e-91ecf83798bf"),
                             Levels = 3,
                             Name = "4",
                             NameWithType = "Phường 4",
@@ -3697,7 +3912,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8881bbd2-028a-46b9-b480-de7e72661eb3"),
+                            LocationId = new Guid("176c585f-7bad-45fe-9f99-85de230868e8"),
                             Levels = 3,
                             Name = "5",
                             NameWithType = "Phường 5",
@@ -3706,7 +3921,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9c9b4bd9-5b4e-44e2-9dd7-191f9bbfdff7"),
+                            LocationId = new Guid("a875edb0-caeb-43b6-b525-3ee5d6345117"),
                             Levels = 3,
                             Name = "6",
                             NameWithType = "Phường 6",
@@ -3715,7 +3930,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9f8952aa-d5cf-4763-aa67-203a864ee7dc"),
+                            LocationId = new Guid("d4b121fa-755b-4fd1-b00f-8685f75338a5"),
                             Levels = 3,
                             Name = "7",
                             NameWithType = "Phường 7",
@@ -3724,7 +3939,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("04df4088-00c7-469b-b92a-d3cf19996ec4"),
+                            LocationId = new Guid("072f7691-8645-4caa-aa6a-623bd65b8f95"),
                             Levels = 3,
                             Name = "8",
                             NameWithType = "Phường 8",
@@ -3733,7 +3948,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4ac1f019-f02d-422b-8f50-6f4ba0fbfe66"),
+                            LocationId = new Guid("d3fad483-5871-4002-a0d9-595cf66cf544"),
                             Levels = 3,
                             Name = "9",
                             NameWithType = "Phường 9",
@@ -3742,7 +3957,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c94707a8-f6d2-43e1-b2a2-69ea695c552b"),
+                            LocationId = new Guid("3e880182-c065-45b8-8e45-a04e74e30e3c"),
                             Levels = 3,
                             Name = "10",
                             NameWithType = "Phường 10",
@@ -3751,7 +3966,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6002f82c-640c-40f7-91bb-86d410fb66e2"),
+                            LocationId = new Guid("3a8e88cf-9d5d-489a-a0cd-fb8f7c93a42a"),
                             Levels = 3,
                             Name = "11",
                             NameWithType = "Phường 11",
@@ -3760,7 +3975,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d05330a4-0de1-4694-9880-85c13dd52f21"),
+                            LocationId = new Guid("76abb6f0-302a-487f-aed3-cdcc12825c74"),
                             Levels = 3,
                             Name = "12",
                             NameWithType = "Phường 12",
@@ -3769,7 +3984,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ea605aee-22d7-423e-a04d-52b776c8f29a"),
+                            LocationId = new Guid("3387e056-9678-4a8d-8461-687da1c76310"),
                             Levels = 3,
                             Name = "13",
                             NameWithType = "Phường 13",
@@ -3778,7 +3993,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ab18380c-06cb-4403-a190-78f9b153f611"),
+                            LocationId = new Guid("e9ef5f26-094b-4c10-9986-f09d608aed4d"),
                             Levels = 3,
                             Name = "14",
                             NameWithType = "Phường 14",
@@ -3796,7 +4011,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a38dcb97-e055-44c0-978d-c449d6306711"),
+                            LocationId = new Guid("f3aa648b-ae93-40f5-b5fd-e087b7c6261d"),
                             Levels = 3,
                             Name = "An Khánh",
                             NameWithType = "Phường An Khánh",
@@ -3805,7 +4020,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a9b66a54-9e3f-4f0f-8017-f6748f3dbea7"),
+                            LocationId = new Guid("5c02e1e9-0d7f-4990-895d-120a56e4b132"),
                             Levels = 3,
                             Name = "An Lợi Đông",
                             NameWithType = "Phường An Lợi Đông",
@@ -3814,7 +4029,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8f22c6d5-5ac2-4248-a545-c53170fea00b"),
+                            LocationId = new Guid("fab75a34-0087-4b82-a0c8-211cecdecc37"),
                             Levels = 3,
                             Name = "An Phú",
                             NameWithType = "Phường An Phú",
@@ -3823,7 +4038,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("df98d86f-96f1-4849-afbb-672392d7f001"),
+                            LocationId = new Guid("171b8a4f-911b-461e-9c8e-8e1a114b1e9b"),
                             Levels = 3,
                             Name = "Bình An",
                             NameWithType = "Phường Bình An",
@@ -3832,7 +4047,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("09e46557-e7cb-4708-acc2-f0589232f62c"),
+                            LocationId = new Guid("e1c8d742-3290-4365-8543-ba284b27d7a2"),
                             Levels = 3,
                             Name = "Bình Khánh",
                             NameWithType = "Phường Bình Khánh",
@@ -3841,7 +4056,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("27a3788d-2fd8-43bf-97d0-d39f14a6c0b9"),
+                            LocationId = new Guid("4777bf80-a879-4e7c-9c53-5ca32e4ff4bd"),
                             Levels = 3,
                             Name = "Bình Trưng Đông",
                             NameWithType = "Phường Bình Trưng Đông",
@@ -3850,7 +4065,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("459c2f29-1274-496e-b553-bd0bca94db64"),
+                            LocationId = new Guid("5b121134-1897-44f2-8c77-8385371fdd1b"),
                             Levels = 3,
                             Name = "Bình Trưng Tây",
                             NameWithType = "Phường Bình Trưng Tây",
@@ -3859,7 +4074,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("bf00fa31-c824-4d46-8012-7fa268dce926"),
+                            LocationId = new Guid("5d818fe9-7986-4b16-9ab8-af9128129f74"),
                             Levels = 3,
                             Name = "Bình Cát Lái",
                             NameWithType = "Phường Bình Cát Lái",
@@ -3868,7 +4083,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c7167e27-e37e-4bed-88a4-815ef5615726"),
+                            LocationId = new Guid("04831368-dcb6-4c94-b427-0c26c2171a75"),
                             Levels = 3,
                             Name = "Thạnh Mỹ Lợi",
                             NameWithType = "Phường Thạnh Mỹ Lợi",
@@ -3877,7 +4092,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("609eb118-d69c-402e-bd5a-58315008b0f3"),
+                            LocationId = new Guid("b5d59239-12b4-4bb6-9000-6ecec8f91f55"),
                             Levels = 3,
                             Name = "Thảo Điền",
                             NameWithType = "Phường Thảo Điền",
@@ -3886,7 +4101,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c90141d2-4e45-4149-b042-4bd36c183141"),
+                            LocationId = new Guid("3682ee5d-a972-48dc-8227-0a31e877901c"),
                             Levels = 3,
                             Name = "Thủ Thiêm",
                             NameWithType = "Phường Thủ Thiêm",
@@ -3904,7 +4119,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("aa57474d-f3d6-4494-b0e9-93b89a320dd2"),
+                            LocationId = new Guid("031acf01-3d0a-451f-ac75-1fe637efbaf9"),
                             Levels = 3,
                             Name = "1",
                             NameWithType = "Phường 1",
@@ -3913,7 +4128,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("36de6e94-0301-44bf-b0a7-bd99ba0258eb"),
+                            LocationId = new Guid("ec360f2d-ba70-4637-868c-84664df97cf0"),
                             Levels = 3,
                             Name = "2",
                             NameWithType = "Phường 2",
@@ -3922,7 +4137,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("fb034550-cb4e-434a-a84b-1ac974463760"),
+                            LocationId = new Guid("9f693ef7-6c44-4baf-a89f-14566c9ade05"),
                             Levels = 3,
                             Name = "3",
                             NameWithType = "Phường 3",
@@ -3931,7 +4146,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b43b519e-2f04-4844-b78d-d776f3892436"),
+                            LocationId = new Guid("d666c83d-e804-4d35-8ed5-36bc9bf570d8"),
                             Levels = 3,
                             Name = "4",
                             NameWithType = "Phường 5",
@@ -3940,7 +4155,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a2a922ae-9551-4553-ac31-93b759f347c1"),
+                            LocationId = new Guid("9d45922b-fd1c-48b1-9b2a-221fb6f1e564"),
                             Levels = 3,
                             Name = "6",
                             NameWithType = "Phường 6",
@@ -3949,7 +4164,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6872c5fe-425f-46ec-92ec-a5c70a546a32"),
+                            LocationId = new Guid("b1f487d7-6f37-4856-8f21-77f3e50e9e14"),
                             Levels = 3,
                             Name = "7",
                             NameWithType = "Phường 7",
@@ -3958,7 +4173,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("12681b64-29ba-4bf8-b0ce-3f6794df34df"),
+                            LocationId = new Guid("99a3e3fc-53c8-4253-9514-0fa5a56dac79"),
                             Levels = 3,
                             Name = "8",
                             NameWithType = "Phường 8",
@@ -3967,7 +4182,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b5b613e2-0158-465e-b8f4-161897b6a015"),
+                            LocationId = new Guid("b2295e0d-7a92-4102-8a7c-9604c9d0f3ad"),
                             Levels = 3,
                             Name = "9",
                             NameWithType = "Phường 9",
@@ -3976,7 +4191,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("764c8096-f0be-42fb-88c8-e44488e92519"),
+                            LocationId = new Guid("3afa7e67-5753-44c5-b360-d0c63684cd71"),
                             Levels = 3,
                             Name = "10",
                             NameWithType = "Phường 10",
@@ -3985,7 +4200,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("06b95bcf-2b57-4cd2-a982-cca38b7e5d91"),
+                            LocationId = new Guid("e9ccf559-1ba2-4af9-8927-74a4f246096a"),
                             Levels = 3,
                             Name = "11",
                             NameWithType = "Phường 11",
@@ -3994,7 +4209,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("088ff33b-24f6-45a5-8f93-c56aaa1d4f44"),
+                            LocationId = new Guid("2677cd46-5c06-454a-86a2-8d72cb7c876e"),
                             Levels = 3,
                             Name = "12",
                             NameWithType = "Phường 12",
@@ -4003,7 +4218,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7cfda163-44b5-41d4-a4dc-40b8cfb4e07e"),
+                            LocationId = new Guid("67fb98c5-5220-4f60-a01d-89cc0b6338c5"),
                             Levels = 3,
                             Name = "13",
                             NameWithType = "Phường 13",
@@ -4012,7 +4227,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("889a44e4-01dc-4c50-b0dc-bf94722118b9"),
+                            LocationId = new Guid("2c114045-eb1a-4797-8b48-f45b7af91bf1"),
                             Levels = 3,
                             Name = "14",
                             NameWithType = "Phường 14",
@@ -4021,7 +4236,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("2568db44-3381-4b9c-a949-c668fd36ea7d"),
+                            LocationId = new Guid("cac22691-432d-4f8c-ab45-4b6860903165"),
                             Levels = 3,
                             Name = "15",
                             NameWithType = "Phường 15",
@@ -4030,7 +4245,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d33ed81f-3047-4c0b-8962-785f12557113"),
+                            LocationId = new Guid("d58bb53a-8bb0-4f6a-a177-283cc8a204f1"),
                             Levels = 3,
                             Name = "16",
                             NameWithType = "Phường 16",
@@ -4048,7 +4263,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("88029540-f216-4012-b477-1e2baf69ee22"),
+                            LocationId = new Guid("8a9b40b8-5d8e-438a-8e2c-dc7c2600471c"),
                             Levels = 3,
                             Name = "1",
                             NameWithType = "Phường 1",
@@ -4057,7 +4272,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("78864ab7-173a-4717-b18d-22c2b8e5d04e"),
+                            LocationId = new Guid("e010ca9c-39c8-426d-87cb-3ed2c2de11c0"),
                             Levels = 3,
                             Name = "2",
                             NameWithType = "Phường 2",
@@ -4066,7 +4281,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("831f7eb2-5588-4f48-b3ff-ea48f311c54e"),
+                            LocationId = new Guid("abafe729-897f-4c71-a61b-bb62704b92a8"),
                             Levels = 3,
                             Name = "3",
                             NameWithType = "Phường 3",
@@ -4075,7 +4290,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("291b42f5-e599-421e-855f-b91c254651c3"),
+                            LocationId = new Guid("5fa7a5e3-bd3e-459d-85c5-44a284e5247e"),
                             Levels = 3,
                             Name = "4",
                             NameWithType = "Phường 4",
@@ -4084,7 +4299,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("58e6cf3a-b625-47cd-8c44-d62927280910"),
+                            LocationId = new Guid("4c042e45-709f-4da5-9164-ee2a177b6905"),
                             Levels = 3,
                             Name = "5",
                             NameWithType = "Phường 5",
@@ -4093,7 +4308,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ea180e4b-4b69-4938-8733-6ca852dca5f2"),
+                            LocationId = new Guid("a05bb9d0-d7f7-4f7f-9686-bb27ac10c844"),
                             Levels = 3,
                             Name = "6",
                             NameWithType = "Phường 6",
@@ -4102,7 +4317,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6e71fe8d-04f8-47ca-a4fe-f204b8cda62d"),
+                            LocationId = new Guid("65982593-11e2-4e3d-a3af-1f0ac24da5c8"),
                             Levels = 3,
                             Name = "7",
                             NameWithType = "Phường 7",
@@ -4111,7 +4326,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("843acde6-345b-4ef7-87c1-0c8f1ee27b07"),
+                            LocationId = new Guid("48d8a5d9-5067-4298-82eb-5b6582b13466"),
                             Levels = 3,
                             Name = "8",
                             NameWithType = "Phường 8",
@@ -4120,7 +4335,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ea2bc22e-14ee-4587-b069-8b6746e985cf"),
+                            LocationId = new Guid("2e23f390-763d-4428-a03c-70dd2f6d662f"),
                             Levels = 3,
                             Name = "9",
                             NameWithType = "Phường 9",
@@ -4129,7 +4344,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a51036ec-201f-4aa9-991b-89c410d39afe"),
+                            LocationId = new Guid("057d6923-3fe9-474b-b5d1-d5269dba48dc"),
                             Levels = 3,
                             Name = "10",
                             NameWithType = "Phường 10",
@@ -4138,7 +4353,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b6600457-6909-4515-9dfa-d96342959aaf"),
+                            LocationId = new Guid("759d9f51-9fb5-4d61-b4a6-7e09e4045924"),
                             Levels = 3,
                             Name = "11",
                             NameWithType = "Phường 11",
@@ -4147,7 +4362,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("750156ff-78ce-402f-a108-1b3fead52e19"),
+                            LocationId = new Guid("5307be83-3895-4e5e-aadd-f08e1cfdaf54"),
                             Levels = 3,
                             Name = "12",
                             NameWithType = "Phường 12",
@@ -4156,7 +4371,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("89c7b753-818b-4b6c-9b94-eb0d9e1e3654"),
+                            LocationId = new Guid("ec92fcc4-4b53-40e8-9e3e-a2504ac63448"),
                             Levels = 3,
                             Name = "13",
                             NameWithType = "Phường 13",
@@ -4165,7 +4380,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4a875579-4b37-40a4-9667-bed2b15253c4"),
+                            LocationId = new Guid("78a46955-ab96-41f7-bbe0-4dcfc4d065ba"),
                             Levels = 3,
                             Name = "14",
                             NameWithType = "Phường 14",
@@ -4174,7 +4389,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a446a56d-cee1-4bec-9609-af5a5191b14e"),
+                            LocationId = new Guid("a9c7608c-8eca-4f6c-a5dd-31e88d39fefa"),
                             Levels = 3,
                             Name = "15",
                             NameWithType = "Phường 15",
@@ -4192,7 +4407,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0a17b331-1073-4912-a23a-2fe1c5da6ef7"),
+                            LocationId = new Guid("5141e6a5-2c05-48c7-a0d1-c940e9ad886c"),
                             Levels = 3,
                             Name = "1",
                             NameWithType = "Phường 1",
@@ -4201,7 +4416,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5190a06b-2aba-4307-b7e2-f639bc5298f6"),
+                            LocationId = new Guid("36e5fccb-124e-41bb-b326-79ac0ee228ec"),
                             Levels = 3,
                             Name = "2",
                             NameWithType = "Phường 2",
@@ -4210,7 +4425,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4044db66-9629-4e2d-bbcc-466836edfc1c"),
+                            LocationId = new Guid("f3b58911-74f6-48fe-92f3-f93115d74bec"),
                             Levels = 3,
                             Name = "3",
                             NameWithType = "Phường 3",
@@ -4219,7 +4434,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0d16fe9c-9df8-4299-b27a-7b6adcbac682"),
+                            LocationId = new Guid("f71a9459-b99d-4254-907e-d4e94b87863d"),
                             Levels = 3,
                             Name = "4",
                             NameWithType = "Phường 4",
@@ -4228,7 +4443,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a15bd042-acea-4986-a549-db5b5e0dc535"),
+                            LocationId = new Guid("aa61e3f3-d95f-4ad6-8f61-385db1fe7443"),
                             Levels = 3,
                             Name = "5",
                             NameWithType = "Phường 5",
@@ -4237,7 +4452,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0d0a8284-8a0f-45cf-9485-0e8f99d1a30a"),
+                            LocationId = new Guid("480d060c-089d-4e1d-ad2e-17be05f00509"),
                             Levels = 3,
                             Name = "6",
                             NameWithType = "Phường 6",
@@ -4246,7 +4461,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("478c1ffd-9bf7-458b-aec5-032f1fa669c3"),
+                            LocationId = new Guid("49e43878-dd75-4548-82ad-b061449d310f"),
                             Levels = 3,
                             Name = "7",
                             NameWithType = "Phường 7",
@@ -4255,7 +4470,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("374f0bb4-542e-47f4-8a04-64c7f30e9081"),
+                            LocationId = new Guid("98843064-6d05-4b76-930d-bb2ec9eab8c5"),
                             Levels = 3,
                             Name = "8",
                             NameWithType = "Phường 8",
@@ -4264,7 +4479,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("99ddca5f-d555-48e2-a60c-c76eab78e07d"),
+                            LocationId = new Guid("623329bb-b219-4270-a0f3-38d626daf9c9"),
                             Levels = 3,
                             Name = "9",
                             NameWithType = "Phường 9",
@@ -4273,7 +4488,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f6308bb2-68b9-4158-aa6f-09cd770aa048"),
+                            LocationId = new Guid("c663e4e5-b66d-4fde-aa40-f6a85e17a77c"),
                             Levels = 3,
                             Name = "10",
                             NameWithType = "Phường 10",
@@ -4282,7 +4497,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b3cb663b-ae28-46d4-b98a-f0dc680beb0c"),
+                            LocationId = new Guid("9971669d-54c5-4f42-831c-7308bca6f262"),
                             Levels = 3,
                             Name = "11",
                             NameWithType = "Phường 11",
@@ -4291,7 +4506,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("fe75986d-f2ff-4fd6-a955-3059952c4ac5"),
+                            LocationId = new Guid("3f49f407-dd6c-435c-8e1c-4a2ec1a1840f"),
                             Levels = 3,
                             Name = "12",
                             NameWithType = "Phường 12",
@@ -4300,7 +4515,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d9b45c20-63a3-485c-b54e-8b5bfca4377d"),
+                            LocationId = new Guid("0cd85fe3-0014-4f47-a70c-ebcf9bdf1704"),
                             Levels = 3,
                             Name = "13",
                             NameWithType = "Phường 13",
@@ -4309,7 +4524,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5fef7dd1-f2fe-45fe-bc91-b80c31e06523"),
+                            LocationId = new Guid("7fa57b39-711f-4c2b-8ba4-b1e3c2eb879d"),
                             Levels = 3,
                             Name = "14",
                             NameWithType = "Phường 14",
@@ -4318,7 +4533,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("35eeb032-f878-4ffe-9751-6aec954cfcc6"),
+                            LocationId = new Guid("e30ec5b7-d437-4cdd-937e-0c257ee1d097"),
                             Levels = 3,
                             Name = "15",
                             NameWithType = "Phường 15",
@@ -4336,7 +4551,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0865e124-1abd-4bb2-a32f-a2ebcea8130f"),
+                            LocationId = new Guid("e7ed7f8d-a2a8-40c6-96a0-7726068d881a"),
                             Levels = 3,
                             Name = "Tân Thuận Đông",
                             NameWithType = "Phường Tân Thuận Đông",
@@ -4345,7 +4560,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4b889c41-763a-4dff-99c6-cff78f7c4ed5"),
+                            LocationId = new Guid("377df2e1-1a4a-4823-bec4-22b869706d1d"),
                             Levels = 3,
                             Name = "Tân Thuận Tây",
                             NameWithType = "Phường Tân Thuận Tây",
@@ -4354,7 +4569,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("609dc280-a051-4ccd-a515-0cbdd06c0207"),
+                            LocationId = new Guid("34be5b8c-a1f0-4160-a802-a49d2884ca00"),
                             Levels = 3,
                             Name = "Tân Kiểng",
                             NameWithType = "Phường Tân Kiểng",
@@ -4363,7 +4578,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a9a2e5fb-2d5a-43c3-837c-fc1e5e1f3f40"),
+                            LocationId = new Guid("ebb7ec1f-8fcf-4256-a0f4-c0c2579a85ce"),
                             Levels = 3,
                             Name = "Tân Hưng",
                             NameWithType = "Phường Tân Hưng",
@@ -4372,7 +4587,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("94fdcbfc-c880-4645-b208-021e45c9f3ae"),
+                            LocationId = new Guid("1bbfa73a-d410-4145-83cd-b739a568b39f"),
                             Levels = 3,
                             Name = "Bình Thuận",
                             NameWithType = "Phường Bình Thuận",
@@ -4381,7 +4596,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("98ac4ee7-56ab-4f2e-8319-5c376b56d8a3"),
+                            LocationId = new Guid("32793b17-74a6-4309-b2ae-efa028d4a2e1"),
                             Levels = 3,
                             Name = "Tân Quy",
                             NameWithType = "Phường Tân Quy",
@@ -4390,7 +4605,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1a1e1f51-d656-4426-bfa4-20bef304f35d"),
+                            LocationId = new Guid("208cc21e-794e-4e25-aabf-ebacc0d23541"),
                             Levels = 3,
                             Name = "Phú Thuận",
                             NameWithType = "Phường Phú Thuận",
@@ -4408,7 +4623,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b243fb6a-8466-46d3-b7e3-4f858eb2b871"),
+                            LocationId = new Guid("3e9ae904-d7f9-49c3-874b-25fde1dcc394"),
                             Levels = 3,
                             Name = "Phường 1",
                             NameWithType = "Phường 1",
@@ -4417,7 +4632,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("268726cb-4c1d-49da-afaf-dc82a4cc46d8"),
+                            LocationId = new Guid("aa6a90e6-1476-4462-aa8c-28fced955c0b"),
                             Levels = 3,
                             Name = "Phường 2",
                             NameWithType = "Phường 2",
@@ -4426,7 +4641,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a3782866-aa31-4816-a095-d46bb2be62f0"),
+                            LocationId = new Guid("ad20ea87-7b19-4d11-8753-a3f9e15b3c90"),
                             Levels = 3,
                             Name = "Phường 3",
                             NameWithType = "Phường 3",
@@ -4435,7 +4650,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f2d8408f-aca8-464a-b0df-da133d80c033"),
+                            LocationId = new Guid("556e864b-f567-45c9-b61f-b8dcc5436e65"),
                             Levels = 3,
                             Name = "Phường 4",
                             NameWithType = "Phường 4",
@@ -4444,7 +4659,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8a9778ec-e275-4c79-beff-377ab3bdf839"),
+                            LocationId = new Guid("2fd08d75-d7a1-488f-940b-6715205a0059"),
                             Levels = 3,
                             Name = "Phường 5",
                             NameWithType = "Phường 5",
@@ -4453,7 +4668,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5f96ffb8-682c-4813-993a-09849ba95e72"),
+                            LocationId = new Guid("fafb6141-dbd5-4d9a-bf9c-b36338de67ba"),
                             Levels = 3,
                             Name = "Phường 6",
                             NameWithType = "Phường 6",
@@ -4462,7 +4677,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9536193b-d448-483b-b036-573090e3d617"),
+                            LocationId = new Guid("1c9fee44-2e2e-4152-815d-ff9ac2b3aaf5"),
                             Levels = 3,
                             Name = "Phường 7",
                             NameWithType = "Phường 7",
@@ -4471,7 +4686,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a0d44ba5-c86b-47f9-8a86-e44c8e6da6cc"),
+                            LocationId = new Guid("82618e63-d751-4761-a3fc-812a1bb7feaa"),
                             Levels = 3,
                             Name = "Phường 8",
                             NameWithType = "Phường 8",
@@ -4480,7 +4695,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("dd12f884-b721-4633-9eb2-37104be632f7"),
+                            LocationId = new Guid("9c478cb6-05aa-49d8-8d17-c7016350b2f0"),
                             Levels = 3,
                             Name = "Phường 9",
                             NameWithType = "Phường 9",
@@ -4489,7 +4704,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("eef527df-131e-4e45-bf42-ebca5d2fb49c"),
+                            LocationId = new Guid("05e16b0f-27c3-4086-8994-b53779fa4675"),
                             Levels = 3,
                             Name = "Phường 10",
                             NameWithType = "Phường 10",
@@ -4498,7 +4713,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8f37fcc3-3f64-4b24-a1f9-79ff2c3e2949"),
+                            LocationId = new Guid("6ac977c5-ed82-4119-b371-b7837a0f0819"),
                             Levels = 3,
                             Name = "Phường 11",
                             NameWithType = "Phường 11",
@@ -4507,7 +4722,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6bd6b383-29f0-42e1-97af-6b84478ef0b7"),
+                            LocationId = new Guid("ab6a326b-1613-4f78-aef5-75d808148017"),
                             Levels = 3,
                             Name = "Phường 12",
                             NameWithType = "Phường 12",
@@ -4516,7 +4731,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6e5ae229-0a90-43d5-812e-9e7e15ff3833"),
+                            LocationId = new Guid("64724112-4ddd-4c68-a877-3d8a1f791c66"),
                             Levels = 3,
                             Name = "Phường 13",
                             NameWithType = "Phường 13",
@@ -4525,7 +4740,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("01fe3099-96a0-4535-bf15-47c5d8a805f5"),
+                            LocationId = new Guid("8358597a-badb-4d9f-a5e7-bec98dd401fb"),
                             Levels = 3,
                             Name = "Phường 14",
                             NameWithType = "Phường 14",
@@ -4543,7 +4758,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9e98757f-88f0-4c29-b286-94b3b9d4d616"),
+                            LocationId = new Guid("68c7a1a1-d28d-48b7-83e2-d2d82255b894"),
                             Levels = 3,
                             Name = "Phường 1",
                             NameWithType = "Phường 1",
@@ -4552,7 +4767,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3b321275-b4ba-4d3d-af83-2ce8f1467016"),
+                            LocationId = new Guid("47b64814-63db-46ee-b384-4da0700dbf78"),
                             Levels = 3,
                             Name = "Phường 2",
                             NameWithType = "Phường 2",
@@ -4561,7 +4776,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("563e945b-49ef-46f0-8b37-e713e01b6b53"),
+                            LocationId = new Guid("d7db29e2-e410-4a32-b8c2-1d41c95708ac"),
                             Levels = 3,
                             Name = "Phường 3",
                             NameWithType = "Phường 3",
@@ -4570,7 +4785,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("60d29f5e-51e8-4bc5-896c-ab1b755d7de4"),
+                            LocationId = new Guid("3d644be8-1355-4c48-8c18-c14709784fef"),
                             Levels = 3,
                             Name = "Phường 4",
                             NameWithType = "Phường 4",
@@ -4579,7 +4794,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("076e422c-f60b-4f74-87f1-0a8bd4c79f01"),
+                            LocationId = new Guid("823fb0eb-ff19-4d08-ac0f-a74762264b6d"),
                             Levels = 3,
                             Name = "Phường 5",
                             NameWithType = "Phường 5",
@@ -4588,7 +4803,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f81a4735-df97-4bc5-9981-f8b72a0b5b2d"),
+                            LocationId = new Guid("be73b8fc-e3e9-45b9-b153-b0b589ea384a"),
                             Levels = 3,
                             Name = "Phường 6",
                             NameWithType = "Phường 6",
@@ -4597,7 +4812,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ee3915a0-b348-4fdd-b6a6-1f4744616cb3"),
+                            LocationId = new Guid("2a74aa04-3ef2-4444-8c6c-846ed1f65b42"),
                             Levels = 3,
                             Name = "Phường 7",
                             NameWithType = "Phường 7",
@@ -4606,7 +4821,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0c5169bc-d2e2-4052-b73c-04ed0e7352e7"),
+                            LocationId = new Guid("1671dfbe-1cff-4008-a694-8de78d1b10d3"),
                             Levels = 3,
                             Name = "Phường 8",
                             NameWithType = "Phường 8",
@@ -4615,7 +4830,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("22ea0aee-7955-4f32-98d2-90ce65c24b27"),
+                            LocationId = new Guid("713931cf-28af-46df-907e-b2d9c3d1df85"),
                             Levels = 3,
                             Name = "Phường 9",
                             NameWithType = "Phường 9",
@@ -4624,7 +4839,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("37cf3e22-f7f0-4c0b-ae0f-8794b011d965"),
+                            LocationId = new Guid("9b8b5547-0dda-4129-b6d9-e4a824362311"),
                             Levels = 3,
                             Name = "Phường 10",
                             NameWithType = "Phường 10",
@@ -4633,7 +4848,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("596f3882-8656-49e1-9093-e7fa8f92cfaa"),
+                            LocationId = new Guid("01219813-929c-4704-a6eb-6cffeae732ee"),
                             Levels = 3,
                             Name = "Phường 11",
                             NameWithType = "Phường 11",
@@ -4642,7 +4857,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("fe4dc063-8bfe-4962-b1b0-52a846619547"),
+                            LocationId = new Guid("d3f1c0d8-41de-4b63-b337-e79c0d073e70"),
                             Levels = 3,
                             Name = "Phường 12",
                             NameWithType = "Phường 12",
@@ -4651,7 +4866,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0ada53e5-b0ed-4d6b-affd-744181e00269"),
+                            LocationId = new Guid("c91f7054-e047-4828-968a-e56cb067f8ab"),
                             Levels = 3,
                             Name = "Phường 13",
                             NameWithType = "Phường 13",
@@ -4660,7 +4875,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("65e03af2-d587-49a9-9fa0-557bfcf1be9a"),
+                            LocationId = new Guid("fca15119-1930-41f8-a574-5b54b0cca930"),
                             Levels = 3,
                             Name = "Phường 14",
                             NameWithType = "Phường 14",
@@ -4669,7 +4884,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f17f6035-9a70-4176-90aa-977c81eff307"),
+                            LocationId = new Guid("113735dd-241a-4b32-8303-761c3f48a3cc"),
                             Levels = 3,
                             Name = "Phường 15",
                             NameWithType = "Phường 15",
@@ -4678,7 +4893,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ca6717fa-1d62-4fa1-8585-17ebe982a53c"),
+                            LocationId = new Guid("782d9358-ed39-4d8f-9ca0-a5a5304bd999"),
                             Levels = 3,
                             Name = "Phường 16",
                             NameWithType = "Phường 16",
@@ -4687,7 +4902,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6b857e6e-ec85-4448-ae38-02c1407e8e6b"),
+                            LocationId = new Guid("4798371b-ba48-4d66-a11e-37442fa00674"),
                             Levels = 3,
                             Name = "Phường 17",
                             NameWithType = "Phường 17",
@@ -4696,7 +4911,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("00125605-e66a-4c28-98e3-5445075d41e2"),
+                            LocationId = new Guid("62b6c461-5646-4ecc-a0ef-afab093e38ae"),
                             Levels = 3,
                             Name = "Phường 18",
                             NameWithType = "Phường 18",
@@ -4705,7 +4920,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a2932d45-d6d1-4734-af8b-f3dc9588351c"),
+                            LocationId = new Guid("e132980d-480a-424a-b6fb-f3741b8d5884"),
                             Levels = 3,
                             Name = "Phường 19",
                             NameWithType = "Phường 19",
@@ -4714,7 +4929,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d693de7c-fbb9-4fec-a4e1-4b88caee14bc"),
+                            LocationId = new Guid("797077d5-00b9-4131-8094-580f38c2b82f"),
                             Levels = 3,
                             Name = "Phường 20",
                             NameWithType = "Phường 20",
@@ -4732,7 +4947,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("694fa03a-327f-4345-9b9a-bfa6ec0ce7c3"),
+                            LocationId = new Guid("62dc2367-4461-4b0e-ac5e-6cb0c56d3b9b"),
                             Levels = 3,
                             Name = "Phường 1",
                             NameWithType = "Phường 1",
@@ -4741,7 +4956,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("eb99684f-57db-44c4-aaa7-304140aa42ef"),
+                            LocationId = new Guid("1c9626ad-1426-4868-af7f-89e767acc0d2"),
                             Levels = 3,
                             Name = "Phường 2",
                             NameWithType = "Phường 2",
@@ -4750,7 +4965,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8ce49f08-f7a7-46ea-927a-0ebaa8d05b9a"),
+                            LocationId = new Guid("66477a69-c185-4f0c-a1a8-66000bdef7ef"),
                             Levels = 3,
                             Name = "Phường 3",
                             NameWithType = "Phường 3",
@@ -4759,7 +4974,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("26571453-2800-4c55-b735-916e2f3b128b"),
+                            LocationId = new Guid("018ec29a-03a7-4b64-9434-579097a87249"),
                             Levels = 3,
                             Name = "Phường 4",
                             NameWithType = "Phường 4",
@@ -4768,7 +4983,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0d4436b3-ab71-4eaa-8996-5cca1583c2da"),
+                            LocationId = new Guid("0ba52296-cadb-4632-bbcd-8d821d4edf1d"),
                             Levels = 3,
                             Name = "Phường 5",
                             NameWithType = "Phường 5",
@@ -4777,7 +4992,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0a9b9edb-aca1-4e0e-852c-1383fdbba4cb"),
+                            LocationId = new Guid("c26935d2-8681-4b8f-a83f-353972e5d9c0"),
                             Levels = 3,
                             Name = "Phường 6",
                             NameWithType = "Phường 6",
@@ -4786,7 +5001,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("526558df-a5f7-43ca-bedf-87277540a316"),
+                            LocationId = new Guid("0504e47e-04a5-4542-a54f-0311435b81d3"),
                             Levels = 3,
                             Name = "Phường 7",
                             NameWithType = "Phường 7",
@@ -4795,7 +5010,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9d92cf35-badd-4a55-a9e8-2904d1bb064a"),
+                            LocationId = new Guid("aa1d9158-ba95-4622-a9fb-c9c0859eefbf"),
                             Levels = 3,
                             Name = "Phường 8",
                             NameWithType = "Phường 8",
@@ -4804,7 +5019,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("da2cf89a-964b-41b7-bdd6-b5add5dcfea9"),
+                            LocationId = new Guid("1481a070-1ae0-4240-9825-646bc91a04b8"),
                             Levels = 3,
                             Name = "Phường 9",
                             NameWithType = "Phường 9",
@@ -4813,7 +5028,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("089ca432-a72b-4182-8b5a-189df28d9643"),
+                            LocationId = new Guid("a4af3804-3c49-40ab-ac66-d58e5feadfa8"),
                             Levels = 3,
                             Name = "Phường 10",
                             NameWithType = "Phường 10",
@@ -4822,7 +5037,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("eac15025-21aa-4c02-a12f-bd93afe09e75"),
+                            LocationId = new Guid("42b47a9c-f375-468a-9883-db4ad28a0686"),
                             Levels = 3,
                             Name = "Phường 11",
                             NameWithType = "Phường 11",
@@ -4831,7 +5046,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("dbc7c68f-289f-4acf-902f-818939378549"),
+                            LocationId = new Guid("a15d8d3e-36c0-4473-a47d-62ecf5ad14a2"),
                             Levels = 3,
                             Name = "Phường 12",
                             NameWithType = "Phường 12",
@@ -4840,7 +5055,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("57f417c5-4374-44d4-991a-9ec57f3b586d"),
+                            LocationId = new Guid("3ded1671-1232-4df1-a0b0-caa344906e85"),
                             Levels = 3,
                             Name = "Phường 13",
                             NameWithType = "Phường 13",
@@ -4858,7 +5073,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0af4f920-14d1-4367-b14f-03bc52ce1e56"),
+                            LocationId = new Guid("018b77b5-53bd-4307-9d53-dbb774c4c77d"),
                             Levels = 3,
                             Name = "Thạnh Lộc",
                             NameWithType = "Phường Thạnh Lộc",
@@ -4867,7 +5082,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("17e29b2c-074b-49cf-a696-9ff37bfba6dc"),
+                            LocationId = new Guid("8c955627-c394-4bf0-9e24-941d126d478c"),
                             Levels = 3,
                             Name = "Hiệp Thành",
                             NameWithType = "Phường Hiệp Thành",
@@ -4876,7 +5091,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0f07b13c-c89d-44a0-b816-480562621769"),
+                            LocationId = new Guid("476d78c7-0bf8-436a-a6cd-483b526ce091"),
                             Levels = 3,
                             Name = "Thới An",
                             NameWithType = "Phường Thới An",
@@ -4885,7 +5100,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9f127cf7-d3d9-486b-8049-aac7ef301d73"),
+                            LocationId = new Guid("8f187153-d781-4d05-8886-f2c5863d115e"),
                             Levels = 3,
                             Name = "Tân Chánh Hiệp",
                             NameWithType = "Phường Tân Chánh Hiệp",
@@ -4894,7 +5109,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3ae65955-283c-435c-bcd8-3b3e5057b319"),
+                            LocationId = new Guid("d93f9f11-cf46-4fdf-8cc3-c330a025c5f4"),
                             Levels = 3,
                             Name = "An Phú Đông",
                             NameWithType = "Phường An Phú Đông",
@@ -4903,7 +5118,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("146f994c-6d85-40c4-962d-e617fd7e981d"),
+                            LocationId = new Guid("882172a5-a4c7-46b0-b113-cec4f530effe"),
                             Levels = 3,
                             Name = "Tân Thới Hiệp",
                             NameWithType = "Phường Tân Thới Hiệp",
@@ -4912,7 +5127,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0195c537-5106-49c9-acd2-e1cbab86473a"),
+                            LocationId = new Guid("24043de2-a046-4ab5-99b5-3c1a005ac198"),
                             Levels = 3,
                             Name = "Trung Mỹ Tây",
                             NameWithType = "Phường Trung Mỹ Tây",
@@ -4921,7 +5136,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a083e323-f59f-4c1d-971f-3308c9fe072a"),
+                            LocationId = new Guid("c0562e1c-37ae-49da-9c70-f2045240a20f"),
                             Levels = 3,
                             Name = "Tân Hưng Thuận",
                             NameWithType = "Phường Tân Hưng Thuận",
@@ -4930,7 +5145,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c879cd50-ea6c-4357-86fe-068826aa53be"),
+                            LocationId = new Guid("4afc7bd8-1fcf-402d-989a-29ba5cf475b2"),
                             Levels = 3,
                             Name = "Đông Hưng Thuận",
                             NameWithType = "Phường Đông Hưng Thuận",
@@ -4939,7 +5154,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f218d15d-94f4-4905-82bd-652ceb74c65e"),
+                            LocationId = new Guid("3f6b66b1-bd9e-4a7f-807f-cd3a6f1b226e"),
                             Levels = 3,
                             Name = "Tân Thới Nhất",
                             NameWithType = "Phường Tân Thới Nhất",
@@ -4948,7 +5163,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0d77ff11-7f90-4d3a-8172-c67eac3aebf3"),
+                            LocationId = new Guid("5da2db12-c96c-4f78-bb3b-4614a4d39c59"),
                             Levels = 3,
                             Name = "Linh Xuân",
                             NameWithType = "Phường Linh Xuân",
@@ -4957,7 +5172,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e79ff5e4-3f2b-4001-9c71-b910d638e9a8"),
+                            LocationId = new Guid("b5cacc7a-bea1-4b58-bde0-d839ae39b971"),
                             Levels = 3,
                             Name = "Tam Bình",
                             NameWithType = "Phường Tam Bình",
@@ -4966,7 +5181,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4e5f8709-6a4b-4d2b-99fd-0414b845f1eb"),
+                            LocationId = new Guid("fce7e336-7c3c-4e79-8592-f79a2fd38007"),
                             Levels = 3,
                             Name = "Hiệp Bình Phước",
                             NameWithType = "Phường Hiệp Bình Phước",
@@ -4975,7 +5190,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("17fc58bd-d73f-48f1-b8cc-5baf27881345"),
+                            LocationId = new Guid("7d0f4cd3-3d45-424c-bcbe-4ff7c5191545"),
                             Levels = 3,
                             Name = "Hiệp Bình Chánh",
                             NameWithType = "Phường Hiệp Bình Chánh",
@@ -4984,7 +5199,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("029a741c-0061-42c6-b20e-9cb3c8c333a2"),
+                            LocationId = new Guid("170285fb-89d7-4667-bee2-06a8f4dc47e2"),
                             Levels = 3,
                             Name = "Linh Trung",
                             NameWithType = "Phường Linh Trung",
@@ -4993,7 +5208,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5e7895de-67d0-4d74-8063-e528850686a0"),
+                            LocationId = new Guid("a54b2774-1151-4157-b3af-50cc655c1854"),
                             Levels = 3,
                             Name = "Linh Tây",
                             NameWithType = "Phường Linh Tây",
@@ -5011,7 +5226,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a65e908a-373b-4182-bad4-cb08fa080391"),
+                            LocationId = new Guid("0d8b803b-d6ec-40c8-a187-e43aac1edcde"),
                             Levels = 3,
                             Name = "2",
                             NameWithType = "Phường 2",
@@ -5020,7 +5235,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b39b6506-56be-436e-ae1a-9ecc363d45a0"),
+                            LocationId = new Guid("5c028291-360d-4f3f-8977-fcf8a6c31b2d"),
                             Levels = 3,
                             Name = "3",
                             NameWithType = "Phường 3",
@@ -5029,7 +5244,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5ba4f207-8bc0-498c-af41-c0ffe2e32fe2"),
+                            LocationId = new Guid("02ae535e-3233-44f0-9e2f-7d72abe03fcf"),
                             Levels = 3,
                             Name = "4",
                             NameWithType = "Phường 4",
@@ -5038,7 +5253,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7e9be274-41e1-4771-9f72-9845e55a1eab"),
+                            LocationId = new Guid("0a303310-a031-49fd-904d-193d5c50d533"),
                             Levels = 3,
                             Name = "5",
                             NameWithType = "Phường 5",
@@ -5047,7 +5262,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1ad73869-e4b5-4a7f-9339-8e9f37aa9201"),
+                            LocationId = new Guid("1a10df14-ab42-4ad1-b139-7513e83c5a00"),
                             Levels = 3,
                             Name = "6",
                             NameWithType = "Phường 6",
@@ -5056,7 +5271,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("37d00e6a-2421-4c78-a817-59737dfac191"),
+                            LocationId = new Guid("d235ecfd-413e-46f7-8717-dfd7b1f6e56f"),
                             Levels = 3,
                             Name = "7",
                             NameWithType = "Phường 7",
@@ -5065,7 +5280,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8195c072-6e24-4dd5-bc26-4c71f1d9e9eb"),
+                            LocationId = new Guid("4db66fbd-b02d-45e4-99c7-18c54dd79503"),
                             Levels = 3,
                             Name = "8",
                             NameWithType = "Phường 8",
@@ -5074,7 +5289,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("bd165912-10fd-44ab-ada8-e3d589f4fedd"),
+                            LocationId = new Guid("b70943c7-824d-4e97-bf93-3c1b6ecb2de0"),
                             Levels = 3,
                             Name = "9",
                             NameWithType = "Phường 9",
@@ -5083,7 +5298,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e93b5df2-9ac1-4897-9fb6-71a8e6d019a4"),
+                            LocationId = new Guid("609f72e2-855a-4b8f-87bb-93aa359034ac"),
                             Levels = 3,
                             Name = "10",
                             NameWithType = "Phường 10",
@@ -5092,7 +5307,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("db173b07-712a-448a-9710-410df58de082"),
+                            LocationId = new Guid("313e674b-a6f6-44d7-8f25-75432aaa9586"),
                             Levels = 3,
                             Name = "11",
                             NameWithType = "Phường 11",
@@ -5101,7 +5316,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("895ec750-fb0e-4ae8-94cf-2e6e02685384"),
+                            LocationId = new Guid("1d145973-fd6d-4e06-9e93-10b63e0225c9"),
                             Levels = 3,
                             Name = "12",
                             NameWithType = "Phường 12",
@@ -5110,7 +5325,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7e928490-a573-4512-9068-7d04a69ed245"),
+                            LocationId = new Guid("8b873f44-94b5-40d7-b22e-61a30947618b"),
                             Levels = 3,
                             Name = "13",
                             NameWithType = "Phường 13",
@@ -5119,7 +5334,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5e789e38-acca-4e24-b8ef-fd2dc6401ea8"),
+                            LocationId = new Guid("eda187f5-8fc8-41db-9130-642312b9fe22"),
                             Levels = 3,
                             Name = "14",
                             NameWithType = "Phường 14",
@@ -5128,7 +5343,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1e9fcf93-1ef7-4eb1-abd2-4895cd677a50"),
+                            LocationId = new Guid("89240c3d-aedd-4bd8-8749-bbfb1efc714e"),
                             Levels = 3,
                             Name = "15",
                             NameWithType = "Phường 15",
@@ -5137,7 +5352,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b05a6669-7128-47fd-ad4e-6b9f319539bf"),
+                            LocationId = new Guid("4bff6d4c-95e8-4ed2-aa1d-11ccc5508d8e"),
                             Levels = 3,
                             Name = "16",
                             NameWithType = "Phường 16",
@@ -5146,7 +5361,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e8e24bb7-7248-4cc5-9960-67d896936b4d"),
+                            LocationId = new Guid("cae93831-3f44-4df8-86d4-894b51f29910"),
                             Levels = 3,
                             Name = "17",
                             NameWithType = "Phường 17",
@@ -5155,7 +5370,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4eec20ed-b5f7-4951-ba9e-4eba9f6925e1"),
+                            LocationId = new Guid("d68cfa51-e70f-4123-b7c3-78c4288f06cb"),
                             Levels = 3,
                             Name = "18",
                             NameWithType = "Phường 18",
@@ -5173,7 +5388,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c9e1c3f1-c244-4900-82e5-9609e14e48bd"),
+                            LocationId = new Guid("7a137a0b-5e3e-48ae-a01e-22a727f96f2e"),
                             Levels = 3,
                             Name = "1",
                             NameWithType = "Phường 1",
@@ -5182,7 +5397,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f14916d7-5c9c-43d3-8c16-636c4c47be5f"),
+                            LocationId = new Guid("f9027707-80ad-4df7-9add-19ad15d37ec0"),
                             Levels = 3,
                             Name = "2",
                             NameWithType = "Phường 2",
@@ -5191,7 +5406,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("49cba864-26b2-43f5-9421-01eb6b9aa4aa"),
+                            LocationId = new Guid("9c065032-0df7-4b04-a7fa-c4e452a521b2"),
                             Levels = 3,
                             Name = "3",
                             NameWithType = "Phường 3",
@@ -5200,7 +5415,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("cfcf14e9-e21f-41fb-acaa-c775101bc3dd"),
+                            LocationId = new Guid("68c3e54b-e5ca-43d9-a30a-df5f593024a4"),
                             Levels = 3,
                             Name = "4",
                             NameWithType = "Phường 4",
@@ -5209,7 +5424,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("54172e30-a1d0-4246-8c1c-b83176fb87ec"),
+                            LocationId = new Guid("4f11c824-bde8-4f0b-9033-44a2b663d6f1"),
                             Levels = 3,
                             Name = "5",
                             NameWithType = "Phường 5",
@@ -5218,7 +5433,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("dcdfc39f-6b53-4dca-a091-08da588d56c5"),
+                            LocationId = new Guid("b7686bb7-0556-450b-ba92-e5d3e8dbbfb6"),
                             Levels = 3,
                             Name = "6",
                             NameWithType = "Phường 6",
@@ -5227,7 +5442,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("dd83c12f-2d94-45ec-9fb0-b6f764d909f3"),
+                            LocationId = new Guid("8f1da6cd-6177-4320-8623-5c926dce61c1"),
                             Levels = 3,
                             Name = "7",
                             NameWithType = "Phường 7",
@@ -5236,7 +5451,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9a05acca-f8fd-4125-b993-80989c238f0f"),
+                            LocationId = new Guid("d304dae7-59f3-466a-b83e-3a2b5e684eb6"),
                             Levels = 3,
                             Name = "8",
                             NameWithType = "Phường 8",
@@ -5245,7 +5460,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a4217ab8-acdd-4a6d-91b6-75747dd2c84d"),
+                            LocationId = new Guid("d47ebdcf-0158-4f4d-9d4a-8ac792797db7"),
                             Levels = 3,
                             Name = "9",
                             NameWithType = "Phường 9",
@@ -5254,7 +5469,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b4cdee55-5047-49d8-abd3-e582c98ae70e"),
+                            LocationId = new Guid("58a59cc9-42a0-41b7-891a-324d0196516b"),
                             Levels = 3,
                             Name = "10",
                             NameWithType = "Phường 10",
@@ -5263,7 +5478,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d1aef24c-76af-4031-b749-8450f2045a58"),
+                            LocationId = new Guid("19152119-fa9a-417c-b320-e7ef63e09ffb"),
                             Levels = 3,
                             Name = "11",
                             NameWithType = "Phường 11",
@@ -5272,7 +5487,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("fb66a98c-92c2-4e76-8d4c-784d94c92349"),
+                            LocationId = new Guid("fcaf1e65-a5c5-4e00-917c-2cd0c95a1cd4"),
                             Levels = 3,
                             Name = "12",
                             NameWithType = "Phường 12",
@@ -5290,7 +5505,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e68e9ba4-d086-484b-b1d3-5032a699bc9f"),
+                            LocationId = new Guid("6ba48e49-dbe6-4308-a696-7be8d08ea2de"),
                             Levels = 3,
                             Name = "Hiệp Bình Chánh",
                             NameWithType = "Phường Hiệp Bình Chánh",
@@ -5299,7 +5514,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("316b47be-ea78-4fc1-9c63-3f21611726d1"),
+                            LocationId = new Guid("d5097a2e-749c-4675-ae89-d34884622681"),
                             Levels = 3,
                             Name = "Hiệp Bình Phước",
                             NameWithType = "Phường Hiệp Bình Phước",
@@ -5308,7 +5523,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("440d20f3-2069-46b2-8f60-d7183870e585"),
+                            LocationId = new Guid("bb46b503-d5ca-44db-9d5c-435238beaffb"),
                             Levels = 3,
                             Name = "Linh Chiểu",
                             NameWithType = "Phường Linh Chiểu",
@@ -5317,7 +5532,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("11c2aa95-a68b-423f-901e-091bb1536fa7"),
+                            LocationId = new Guid("c076ca6b-d1b8-4550-b67f-f158fad5f00f"),
                             Levels = 3,
                             Name = "Linh Đông",
                             NameWithType = "Phường Linh Đông",
@@ -5326,7 +5541,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3425d019-4179-4657-9ac6-4c0f3c094318"),
+                            LocationId = new Guid("8d7a5a8d-a86c-487b-a1f5-7a2af9a6b1b6"),
                             Levels = 3,
                             Name = "Linh Tây",
                             NameWithType = "Phường Linh Tây",
@@ -5335,7 +5550,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8e9624c0-2dad-44ae-a54b-e224606d1613"),
+                            LocationId = new Guid("3f3d61a3-9b42-4596-914f-4ee0712fe261"),
                             Levels = 3,
                             Name = "Linh Trung",
                             NameWithType = "Phường Linh Trung",
@@ -5344,7 +5559,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("eb277942-30ad-4c8e-8bbd-cc6bbbf5db03"),
+                            LocationId = new Guid("8fc0c7c7-c184-430c-b0f9-a335bf0b42ae"),
                             Levels = 3,
                             Name = "Linh Xuân",
                             NameWithType = "Phường Linh Xuân",
@@ -5353,7 +5568,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4ff99a39-2912-48a0-8a08-d8dfa724fb4b"),
+                            LocationId = new Guid("afa2216c-2dd5-4458-885c-5d77eee0578d"),
                             Levels = 3,
                             Name = "Tam Bình",
                             NameWithType = "Phường Tam Bình",
@@ -5362,7 +5577,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d2b07a01-640f-481e-b073-9133c9f19a26"),
+                            LocationId = new Guid("ff94a394-c0dd-463b-9df7-bc623cd83e95"),
                             Levels = 3,
                             Name = "Tam Phú",
                             NameWithType = "Phường Tam Phú",
@@ -5371,7 +5586,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e386160d-3c5a-4241-8937-5ed352f1ba55"),
+                            LocationId = new Guid("ecf61d92-b1dc-49d5-bee6-1f941399aed9"),
                             Levels = 3,
                             Name = "Trường Thọ",
                             NameWithType = "Phường Trường Thọ",
@@ -5380,7 +5595,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("57013283-3006-4227-9ae1-deab280c575a"),
+                            LocationId = new Guid("6f49d9b6-d2e8-4472-9e2b-aee8ffcfe0ad"),
                             Levels = 3,
                             Name = "Tân Chánh Hiệp",
                             NameWithType = "Phường Tân Chánh Hiệp",
@@ -5389,7 +5604,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0259a24a-fcea-4b6f-bf98-ac153f9f54c7"),
+                            LocationId = new Guid("97b78901-e38c-40a1-b106-38454bbf7f03"),
                             Levels = 3,
                             Name = "Tân Hưng Thuận",
                             NameWithType = "Phường Tân Hưng Thuận",
@@ -5398,7 +5613,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e3db9494-4a6c-413e-8916-0a3b6f66f443"),
+                            LocationId = new Guid("8f84fc40-88f7-4740-8e33-2f08d726efc1"),
                             Levels = 3,
                             Name = "Tân Thới Hiệp",
                             NameWithType = "Phường Tân Thới Hiệp",
@@ -5407,7 +5622,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3f817454-3dc9-4545-8c3f-e13b35c7a793"),
+                            LocationId = new Guid("21cc6bdc-1057-4b58-9871-da2999e8751a"),
                             Levels = 3,
                             Name = "Tăng Nhơn Phú A",
                             NameWithType = "Phường Tăng Nhơn Phú A",
@@ -5416,7 +5631,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b2a8b08d-44f6-442f-b99e-10de05b936b7"),
+                            LocationId = new Guid("464dd9e3-9933-49c5-a9c8-2ca6e752b65a"),
                             Levels = 3,
                             Name = "Tăng Nhơn Phú B",
                             NameWithType = "Phường Tăng Nhơn Phú B",
@@ -5425,7 +5640,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ec73ab6f-8a12-49c0-b63d-21cc5b5edd78"),
+                            LocationId = new Guid("7defea45-9021-483c-9688-4bd426c835d2"),
                             Levels = 3,
                             Name = "Trường Thạnh",
                             NameWithType = "Phường Trường Thạnh",
@@ -5443,7 +5658,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("55bd4ef1-1a78-4a08-b8fe-30a9d793892b"),
+                            LocationId = new Guid("6d2efd6c-2e77-4736-bfbf-df8a42e69d59"),
                             Levels = 3,
                             Name = "1",
                             NameWithType = "Phường 1",
@@ -5452,7 +5667,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0a8dba58-53e1-4a68-b238-6cac025ca5bb"),
+                            LocationId = new Guid("be90a13d-b1e8-4b88-b782-74ddea324628"),
                             Levels = 3,
                             Name = "2",
                             NameWithType = "Phường 2",
@@ -5461,7 +5676,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("726d15ad-1c9b-451a-afa1-07a78bee6e24"),
+                            LocationId = new Guid("ea3caa74-51ff-43b5-8763-be18179b46c8"),
                             Levels = 3,
                             Name = "3",
                             NameWithType = "Phường 3",
@@ -5470,7 +5685,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("75e55180-a13a-4ff1-9ad0-2a6c1285a212"),
+                            LocationId = new Guid("89730af6-0db1-452f-9cb3-8a434c4612ed"),
                             Levels = 3,
                             Name = "5",
                             NameWithType = "Phường 5",
@@ -5479,7 +5694,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e99c4c51-8239-4230-bc13-7645b492266e"),
+                            LocationId = new Guid("c6958e23-4546-421b-b849-4221a401ff9a"),
                             Levels = 3,
                             Name = "6",
                             NameWithType = "Phường 6",
@@ -5488,7 +5703,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("2f79c0dd-87db-43dd-b83f-e287e5edf73f"),
+                            LocationId = new Guid("aea12163-c8a9-42c4-96ad-4c2cae721b91"),
                             Levels = 3,
                             Name = "7",
                             NameWithType = "Phường 7",
@@ -5497,7 +5712,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("acbaa267-4e31-4dbb-b11c-2c483d6eb4db"),
+                            LocationId = new Guid("46d81116-2597-4fb3-8563-dace8bafe6cd"),
                             Levels = 3,
                             Name = "11",
                             NameWithType = "Phường 11",
@@ -5506,7 +5721,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("983a5941-890e-430b-8cd0-53c1c27f18a6"),
+                            LocationId = new Guid("f8f76817-260a-411c-a9d9-d68f98dd8957"),
                             Levels = 3,
                             Name = "12",
                             NameWithType = "Phường 12",
@@ -5515,7 +5730,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("bcdbedb3-5646-492b-b62a-6cb822053b9d"),
+                            LocationId = new Guid("674c6c9f-899c-412d-a7d4-5f486f1d84ff"),
                             Levels = 3,
                             Name = "13",
                             NameWithType = "Phường 13",
@@ -5524,7 +5739,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e7405c31-bf77-46b0-a235-5bad8f79a78e"),
+                            LocationId = new Guid("8d8e4fe5-c822-43a8-93cb-c2ce3ae7650b"),
                             Levels = 3,
                             Name = "14",
                             NameWithType = "Phường 14",
@@ -5533,7 +5748,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("cd872bbe-d1e9-4f79-aed4-91917b489a8e"),
+                            LocationId = new Guid("74d42644-87e1-448b-96ec-bcc0619cf51b"),
                             Levels = 3,
                             Name = "15",
                             NameWithType = "Phường 15",
@@ -5542,7 +5757,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ea6f63e2-b376-42d6-bf28-c5a4d9fa5353"),
+                            LocationId = new Guid("abf05a7a-3d66-471a-9916-eefffdd4acc5"),
                             Levels = 3,
                             Name = "17",
                             NameWithType = "Phường 17",
@@ -5568,7 +5783,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("65643593-4067-442f-9cca-46b852d5bdee"),
+                            LocationId = new Guid("b9fed122-ac8c-4dda-be70-c963b9741757"),
                             Levels = 3,
                             Name = "Hòa Hiệp Bắc",
                             NameWithType = "Phường Hòa Hiệp Bắc",
@@ -5577,7 +5792,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("78f5aab4-339d-4c82-bb37-b74cd905ef9e"),
+                            LocationId = new Guid("45f48e49-0d1f-4379-ade5-a461d8a39d21"),
                             Levels = 3,
                             Name = "Hòa Hiệp Nam",
                             NameWithType = "Phường Hòa Hiệp Nam",
@@ -5586,7 +5801,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d92f8a1f-9ef9-4a18-9c00-b5b6d1ca8bfc"),
+                            LocationId = new Guid("9f57c1a4-cb63-4d0e-8856-d2bba83c3e89"),
                             Levels = 3,
                             Name = "Hòa Khương",
                             NameWithType = "Phường Hòa Khương",
@@ -5595,7 +5810,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0e3ccf14-b394-4c79-b380-a43e5f8ac8be"),
+                            LocationId = new Guid("7e49bffd-2a76-4582-85ad-9d14ff116146"),
                             Levels = 3,
                             Name = "Hòa Minh",
                             NameWithType = "Phường Hòa Minh",
@@ -5604,7 +5819,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1773725e-6d00-44c5-89ed-91bb7369e9ad"),
+                            LocationId = new Guid("fd3b3e1a-42c7-4c7c-91a9-91066b02c2ed"),
                             Levels = 3,
                             Name = "Hòa Quý",
                             NameWithType = "Phường Hòa Quý",
@@ -5613,7 +5828,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c1f6cc3a-da1f-4aa2-bb1b-1d8f9e7cfd6d"),
+                            LocationId = new Guid("724f1d6b-5348-4f9d-8839-9e8e13bf3a40"),
                             Levels = 3,
                             Name = "Hòa Thọ Đông",
                             NameWithType = "Phường Hòa Thọ Đông",
@@ -5622,7 +5837,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("896db9f2-7f7c-4660-8de5-9e0fdd25a6cb"),
+                            LocationId = new Guid("c4aa5fa1-8c2d-4420-b799-e33f75407970"),
                             Levels = 3,
                             Name = "Hòa Thọ Tây",
                             NameWithType = "Phường Hòa Thọ Tây",
@@ -5631,7 +5846,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("357dab03-102e-43df-836c-ccba9408948e"),
+                            LocationId = new Guid("3214a901-5aad-48b1-bf5a-45358cc64701"),
                             Levels = 3,
                             Name = "Hòa Xuân",
                             NameWithType = "Phường Hòa Xuân",
@@ -5640,7 +5855,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("341f70b6-e17e-4c7c-a29a-14c3183c49be"),
+                            LocationId = new Guid("14ab8297-c89f-4c1e-96cb-6bf43680d9c8"),
                             Levels = 3,
                             Name = "Khuê Trung",
                             NameWithType = "Phường Khuê Trung",
@@ -5649,7 +5864,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("270b14eb-6e18-431c-981a-44a97d785d43"),
+                            LocationId = new Guid("ae352adc-b53f-4e10-9d19-e5083d779725"),
                             Levels = 3,
                             Name = "Hòa Phát",
                             NameWithType = "Phường Hòa Phát",
@@ -5658,7 +5873,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("818541b1-e090-411e-87f4-1c984a84fb87"),
+                            LocationId = new Guid("894fd431-62c1-48c1-8a39-8015c9f933ac"),
                             Levels = 3,
                             Name = "Hòa Khánh Bắc",
                             NameWithType = "Phường Hòa Khánh Bắc",
@@ -5667,7 +5882,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8dba14bb-874b-438c-bf26-36cfdefbecba"),
+                            LocationId = new Guid("eb41ebc9-7abb-4cf9-8d9d-72dc14079f8e"),
                             Levels = 3,
                             Name = "Hòa Khánh Nam",
                             NameWithType = "Phường Hòa Khánh Nam",
@@ -5676,7 +5891,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("0e8c62ac-ceaf-4f85-b2ae-079608cb4ab3"),
+                            LocationId = new Guid("75cdd833-8a5b-4da6-a9da-0ce9ca2839e0"),
                             Levels = 3,
                             Name = "Hòa Minh Tây",
                             NameWithType = "Phường Hòa Minh Tây",
@@ -5685,7 +5900,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("55e49963-810d-4835-8c7e-6f9735630a8e"),
+                            LocationId = new Guid("283ca78b-66ab-4ef3-ad8b-293706c3906a"),
                             Levels = 3,
                             Name = "Hòa Phú",
                             NameWithType = "Phường Hòa Phú",
@@ -5703,7 +5918,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6d7c5ee6-fd81-4e1c-960f-1faf40a160c7"),
+                            LocationId = new Guid("8d83739a-9580-4e9b-a277-d49f030fa66a"),
                             Levels = 3,
                             Name = "An Khê",
                             NameWithType = "Phường An Khê",
@@ -5712,7 +5927,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("59bcc6cb-deb7-4803-87d5-8f3aa5e82a00"),
+                            LocationId = new Guid("9d364d7f-ae8d-4d10-a632-25a2f644f1b1"),
                             Levels = 3,
                             Name = "Chính Gián",
                             NameWithType = "Phường Chính Gián",
@@ -5721,7 +5936,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5751ce84-5f02-4cab-81bf-04baef9c95a5"),
+                            LocationId = new Guid("23a929cb-1ce5-483c-baea-85077f8ea81c"),
                             Levels = 3,
                             Name = "Hòa Khê",
                             NameWithType = "Phường Hòa Khê",
@@ -5730,7 +5945,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ababf1a2-c8b0-4d33-abb1-e191398b2e36"),
+                            LocationId = new Guid("ebe3fe77-c85a-4931-bfed-bc534973f4e1"),
                             Levels = 3,
                             Name = "Tam Thuận",
                             NameWithType = "Phường Tam Thuận",
@@ -5739,7 +5954,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("674eae2f-47e1-467e-9aa3-2fa1573a0476"),
+                            LocationId = new Guid("257ed683-207f-4810-8421-c0ad8120a7bf"),
                             Levels = 3,
                             Name = "Thanh Khê Đông",
                             NameWithType = "Phường Thanh Khê Đông",
@@ -5748,7 +5963,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("222f6784-f6c7-4c3f-b229-33f3eb2092d8"),
+                            LocationId = new Guid("820dd6a4-85f1-40dd-9f6b-4f32abde926b"),
                             Levels = 3,
                             Name = "Thanh Khê Tây",
                             NameWithType = "Phường Thanh Khê Tây",
@@ -5757,7 +5972,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("69bd1bab-b82c-4f40-9eec-c1f590d6fbdf"),
+                            LocationId = new Guid("150b3d34-0192-42c4-bf92-74c2cb55d1c4"),
                             Levels = 3,
                             Name = "Vĩnh Trung",
                             NameWithType = "Phường Vĩnh Trung",
@@ -5766,7 +5981,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ffb45fa2-cbc6-4af6-a99b-899322b069af"),
+                            LocationId = new Guid("31fbf790-96a0-4585-b46d-afd934bba1ff"),
                             Levels = 3,
                             Name = "Xuân Hà",
                             NameWithType = "Phường Xuân Hà",
@@ -5784,7 +5999,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("f0316559-c015-4d21-96f1-e3f8bba0a16a"),
+                            LocationId = new Guid("0986ab4a-4bd3-4e16-9e57-be7b2d90ede9"),
                             Levels = 3,
                             Name = "Bình Hiên",
                             NameWithType = "Phường Bình Hiên",
@@ -5793,7 +6008,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("1cf512f9-561c-4b48-a793-e75b4b84362d"),
+                            LocationId = new Guid("4c3a184f-5b99-4d8c-a6dc-6ecbcdd3ea1f"),
                             Levels = 3,
                             Name = "Bình Thuận",
                             NameWithType = "Phường Bình Thuận",
@@ -5802,7 +6017,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5673792b-c5ba-4533-8431-35baea395401"),
+                            LocationId = new Guid("e586bc1b-7d83-41d5-a692-aecc872dd3de"),
                             Levels = 3,
                             Name = "Hải Châu  I",
                             NameWithType = "Phường Hải Châu I",
@@ -5811,7 +6026,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5e501ca0-bfa3-46b2-b944-0910c87e18a8"),
+                            LocationId = new Guid("81c1f92a-0c2e-440b-9946-adbd7e330cbb"),
                             Levels = 3,
                             Name = "Hải Châu II",
                             NameWithType = "Phường Hải Châu II",
@@ -5820,7 +6035,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3a019059-345e-437d-88e8-9dbfb416cb96"),
+                            LocationId = new Guid("7244807d-a757-462a-b71d-ff752bdcbed4"),
                             Levels = 3,
                             Name = "Hòa Cường Bắc",
                             NameWithType = "Phường Hòa Cường Bắc",
@@ -5829,7 +6044,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("597e0912-451f-422e-ad52-1f8e495786e6"),
+                            LocationId = new Guid("75bf9237-593e-4560-b521-29dee442058c"),
                             Levels = 3,
                             Name = "Hòa Cường Nam",
                             NameWithType = "Phường Hòa Cường Nam",
@@ -5838,7 +6053,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c9d33d5c-7611-407c-9df5-98912272e7a7"),
+                            LocationId = new Guid("c8d71111-d982-4b53-9d2b-d257381b6081"),
                             Levels = 3,
                             Name = "Hòa Cường Đông",
                             NameWithType = "Phường Hòa Cường Đông",
@@ -5847,7 +6062,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8e75d679-0b24-4795-85dd-94595050624d"),
+                            LocationId = new Guid("f7e0cf15-7bd5-4b85-9a18-18688db312f4"),
                             Levels = 3,
                             Name = "Nam Dương",
                             NameWithType = "Phường Nam Dương",
@@ -5856,7 +6071,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("28d4729c-9d62-4404-ade1-cf101b3c88e7"),
+                            LocationId = new Guid("978d7633-5b2f-4f85-8a56-d713cb9bc958"),
                             Levels = 3,
                             Name = "Phước Ninh",
                             NameWithType = "Phường Phước Ninh",
@@ -5865,7 +6080,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e8ff6d1c-1bb4-4bda-9430-6b2fcc7f4d80"),
+                            LocationId = new Guid("2d5daf4f-3c35-44b1-9ff1-20978ac05114"),
                             Levels = 3,
                             Name = "Thạch Thang",
                             NameWithType = "Phường Thạch Thang",
@@ -5874,7 +6089,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("39b52388-fad0-4a15-804a-4a936b9034e1"),
+                            LocationId = new Guid("ea692ab0-e41a-419a-9513-a5217f777c44"),
                             Levels = 3,
                             Name = "Thanh Bình",
                             NameWithType = "Phường Thanh Bình",
@@ -5883,7 +6098,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7f25cf2f-9a42-432a-912c-fd5d03717b62"),
+                            LocationId = new Guid("1ed90642-7a73-46cc-8b7c-5788d6ddfbd7"),
                             Levels = 3,
                             Name = "Thuận Phước",
                             NameWithType = "Phường Thuận Phước",
@@ -5901,7 +6116,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4f27234b-f075-4b9d-99c1-f152b9a366dd"),
+                            LocationId = new Guid("716b4b38-03e2-4333-87bc-16b83163f2f0"),
                             Levels = 3,
                             Name = "An Hải Bắc",
                             NameWithType = "Phường An Hải Bắc",
@@ -5910,7 +6125,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("03ea8fab-b040-41d9-89b8-d4326f299cb2"),
+                            LocationId = new Guid("821b4aa4-850a-4b0d-b6ce-445c4e2e4961"),
                             Levels = 3,
                             Name = "An Hải Đông",
                             NameWithType = "Phường An Hải Đông",
@@ -5919,7 +6134,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("531ccd68-a2f3-4ccb-8899-1caafdd2cdbf"),
+                            LocationId = new Guid("ab113ca8-8407-43c4-8d3a-da18d8847318"),
                             Levels = 3,
                             Name = "An Hải Tây",
                             NameWithType = "Phường An Hải Tây",
@@ -5928,7 +6143,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5ccc2a0e-15e5-438c-b0ba-04e28492a133"),
+                            LocationId = new Guid("2e604086-8079-4202-8994-88c3c22a967a"),
                             Levels = 3,
                             Name = "Mân Thái",
                             NameWithType = "Phường Mân Thái",
@@ -5937,7 +6152,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("e4452742-a285-471e-bff1-629ec2517fd7"),
+                            LocationId = new Guid("b3a7a7dd-ebe9-4669-9260-7642048fbdf6"),
                             Levels = 3,
                             Name = "Nại Hiên Đông",
                             NameWithType = "Phường Nại Hiên Đông",
@@ -5946,7 +6161,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("b7839608-952b-4696-92d2-021c92e6934d"),
+                            LocationId = new Guid("02253daa-410a-4711-979e-557f74b7ece6"),
                             Levels = 3,
                             Name = "Phước Mỹ",
                             NameWithType = "Phường Phước Mỹ",
@@ -5955,7 +6170,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("241891ad-ede9-43ae-8118-1ef3801aee91"),
+                            LocationId = new Guid("772127db-1670-4865-aad2-f881f72d5084"),
                             Levels = 3,
                             Name = "Thọ Quang",
                             NameWithType = "Phường Thọ Quang",
@@ -5964,7 +6179,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("2a4195ed-bc1f-489b-bea0-b09ca72209f6"),
+                            LocationId = new Guid("17162c46-61a3-49b0-bc87-7db56b349a30"),
                             Levels = 3,
                             Name = "Phước Ninh",
                             NameWithType = "Phường Phước Ninh",
@@ -5982,7 +6197,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("d5fd1f3f-52c6-4ff4-b385-e3ba37350599"),
+                            LocationId = new Guid("5e38201b-1fa2-4af7-a325-d7e249e6870a"),
                             Levels = 3,
                             Name = "Hòa Hải",
                             NameWithType = "Phường Hòa Hải",
@@ -5991,7 +6206,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("47159c03-f040-4963-9f51-d4ce5c479b56"),
+                            LocationId = new Guid("80acf412-aef1-41b1-a4a6-6e601d785692"),
                             Levels = 3,
                             Name = "Khuê Mỹ",
                             NameWithType = "Phường Khuê Mỹ",
@@ -6000,7 +6215,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("6ef78a1d-274a-4b9a-80b7-d2c0fecd8cb7"),
+                            LocationId = new Guid("28ca8c15-6f37-437e-abaf-d2243a090f5f"),
                             Levels = 3,
                             Name = "Mỹ An",
                             NameWithType = "Phường Mỹ An",
@@ -6009,7 +6224,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("3d647b74-265b-4398-90ac-43f2ab798691"),
+                            LocationId = new Guid("372e12eb-5f74-4fea-bf67-4cb461374c6f"),
                             Levels = 3,
                             Name = "Mỹ Đa",
                             NameWithType = "Phường Mỹ Đa",
@@ -6018,7 +6233,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("65854c0e-4e9d-4339-8c3b-aa24ac3315e2"),
+                            LocationId = new Guid("1be10c86-576c-4026-a9f1-b2600b70ebed"),
                             Levels = 3,
                             Name = "Mỹ An",
                             NameWithType = "Phường Mỹ An",
@@ -6027,7 +6242,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7942a5d5-6522-41b7-970f-da79deb4b571"),
+                            LocationId = new Guid("7edd5278-7c33-4486-87d4-29aec266f748"),
                             Levels = 3,
                             Name = "Thanh Khê Đông",
                             NameWithType = "Phường Thanh Khê Đông",
@@ -6045,7 +6260,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("161789f6-0d18-4587-9ce5-bfc28db87ed5"),
+                            LocationId = new Guid("a3724d8b-d395-4886-87d3-916fa9d57e7a"),
                             Levels = 3,
                             Name = "Hòa Thọ Đông",
                             NameWithType = "Phường Hòa Thọ Đông",
@@ -6054,7 +6269,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a0308607-c78a-4aad-80ca-851cf37c686b"),
+                            LocationId = new Guid("1e8b9f2d-d5db-46f6-8e48-f652a5821143"),
                             Levels = 3,
                             Name = "Hòa Thọ Tây",
                             NameWithType = "Phường Hòa Thọ Tây",
@@ -6063,7 +6278,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5a580914-487a-403d-9754-8dc2d639bf85"),
+                            LocationId = new Guid("476582ea-2f5f-41f2-af75-dd390624171f"),
                             Levels = 3,
                             Name = "Hòa Phát",
                             NameWithType = "Phường Hòa Phát",
@@ -6072,7 +6287,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("32309ea8-8fdb-4ad1-a6c1-4f978dfa8845"),
+                            LocationId = new Guid("28dbcdf0-ff87-4889-8420-8ed8366e932e"),
                             Levels = 3,
                             Name = "Hòa An",
                             NameWithType = "Phường Hòa An",
@@ -6081,7 +6296,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("73b85b19-7aea-4d5c-a49f-43d185d56a49"),
+                            LocationId = new Guid("a312d5fa-ff7a-450d-a4ab-729e458fd9fe"),
                             Levels = 3,
                             Name = "Hòa Thọ Đông",
                             NameWithType = "Phường Hòa Thọ Đông",
@@ -6107,7 +6322,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("25a20f9f-e8b9-4886-aa09-8015aff9596d"),
+                            LocationId = new Guid("9a010321-d332-4dec-a485-e210374b85c3"),
                             Levels = 3,
                             Name = "Trần Phú",
                             NameWithType = "Phường Trần Phú",
@@ -6116,7 +6331,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("47b8eb50-f7de-45bb-bc31-206b4bd88bb2"),
+                            LocationId = new Guid("89946e7a-ce5b-4983-ace0-332ddb37b215"),
                             Levels = 3,
                             Name = "Nam Hà",
                             NameWithType = "Phường Nam Hà",
@@ -6125,7 +6340,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5b48c988-8ccb-4482-8250-b185c7ed0fba"),
+                            LocationId = new Guid("399bc56c-cb0f-4792-b5ab-cc27fca38c09"),
                             Levels = 3,
                             Name = "Bắc Hà",
                             NameWithType = "Phường Bắc Hà",
@@ -6134,7 +6349,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8c46fb6d-06fb-4af8-a5c1-c33b3c574345"),
+                            LocationId = new Guid("cc7d9bde-23ad-44bd-becb-cc8b77ce3d97"),
                             Levels = 3,
                             Name = "Nguyễn Du",
                             NameWithType = "Phường Nguyễn Du",
@@ -6143,7 +6358,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ea07bc49-4093-4c9b-8c72-9a7e29993a8d"),
+                            LocationId = new Guid("c9cfab4b-074c-4cef-b8d6-4bf1690498e0"),
                             Levels = 3,
                             Name = "Đại Nài",
                             NameWithType = "Phường Đại Nài",
@@ -6152,7 +6367,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("11bf0362-4f3b-4962-9fb7-d3edae23efe5"),
+                            LocationId = new Guid("62631651-e360-4458-8bee-440506e29b22"),
                             Levels = 3,
                             Name = "Thạch Linh",
                             NameWithType = "Phường Thạch Linh",
@@ -6161,7 +6376,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("4f102037-f554-4f7e-a587-4d28c94a0a14"),
+                            LocationId = new Guid("9d6a2894-91b8-45c6-8c1b-c3407a43a694"),
                             Levels = 3,
                             Name = "Văn Yên",
                             NameWithType = "Phường Văn Yên",
@@ -6170,7 +6385,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5bf7175a-388e-41d9-9369-a6bcee4a10b9"),
+                            LocationId = new Guid("5223beb2-7344-4d6d-a0e0-8e9f17d0cb7b"),
                             Levels = 3,
                             Name = "North Carolina",
                             NameWithType = "Phường North Carolina",
@@ -6179,7 +6394,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("046e0d96-cb63-4526-ac07-382890a5c2a5"),
+                            LocationId = new Guid("7719266b-eeee-4c3c-bf7e-290cb5891ff6"),
                             Levels = 3,
                             Name = "Ohio",
                             NameWithType = "Phường Ohio",
@@ -6197,7 +6412,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("02b3418c-9fb6-4c02-9547-4ea23ae8bc06"),
+                            LocationId = new Guid("9a496498-b482-41c6-aee9-ceedd22a252f"),
                             Levels = 3,
                             Name = "Bắc Hồng",
                             NameWithType = "Phường Bắc Hồng",
@@ -6206,7 +6421,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("df7ef194-1573-4e85-8578-306c5bcf1357"),
+                            LocationId = new Guid("ca914c62-4303-4b96-a93a-c196a6b0cd09"),
                             Levels = 3,
                             Name = "Đức Thuận",
                             NameWithType = "Phường Đức Thuận",
@@ -6215,7 +6430,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a5764b50-ede8-47f5-a02c-31c8ebad567d"),
+                            LocationId = new Guid("f1d405af-49db-4711-9999-f41ac8717565"),
                             Levels = 3,
                             Name = "Hưng Long",
                             NameWithType = "Phường Hưng Long",
@@ -6224,7 +6439,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("8e93d44b-73e2-40cd-bcf1-8356cf9bd37c"),
+                            LocationId = new Guid("3b659852-9409-43bd-8737-4c7bb478fb0c"),
                             Levels = 3,
                             Name = "Hưng Lộc",
                             NameWithType = "Phường Hưng Lộc",
@@ -6233,7 +6448,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9fac8763-218a-44a4-92ac-62ad113581f6"),
+                            LocationId = new Guid("962d9ad4-0b1e-4f89-bed1-5af126e9a170"),
                             Levels = 3,
                             Name = "Hưng Thịnh",
                             NameWithType = "Phường Hưng Thịnh",
@@ -6251,7 +6466,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("978d9f03-ad4a-468c-9b9a-e1f31ac2fd46"),
+                            LocationId = new Guid("6287f878-e041-49f0-a84d-9b59812f2629"),
                             Levels = 3,
                             Name = "Hương Vinh",
                             NameWithType = "Phường Hương Vinh",
@@ -6260,7 +6475,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("7532b00e-db9c-438e-bf16-c7db4aa10426"),
+                            LocationId = new Guid("2d01f2f2-10a8-4273-a431-8370ef561c9f"),
                             Levels = 3,
                             Name = "Hương Xuân",
                             NameWithType = "Phường Hương Xuân",
@@ -6269,7 +6484,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("a26f8b0e-3136-4931-91cb-21ff7f516812"),
+                            LocationId = new Guid("f125f502-b7c3-471c-91b5-e2e6ff3e9c13"),
                             Levels = 3,
                             Name = "Hương Trà",
                             NameWithType = "Phường Hương Trà",
@@ -6295,7 +6510,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("799f80f8-59c7-435d-93dc-6e2bcb370ba8"),
+                            LocationId = new Guid("2dcecd20-ff80-401c-bbf1-308a2a3ccbb4"),
                             Levels = 3,
                             Name = "Bồ Xuyên",
                             NameWithType = "Phường Bồ Xuyên",
@@ -6304,7 +6519,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("9c916af7-98a5-46aa-b88a-836a3e80300b"),
+                            LocationId = new Guid("a8863bab-a3b9-4113-b878-5b9005f55cb6"),
                             Levels = 3,
                             Name = "Phú Khánh",
                             NameWithType = "Phường Phú Khánh",
@@ -6313,7 +6528,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("c9fa67f5-2c4c-4916-a143-6775c40d7664"),
+                            LocationId = new Guid("f7ff64aa-b8a6-46e0-ac67-884e4bdea793"),
                             Levels = 3,
                             Name = "Kỳ Bá",
                             NameWithType = "Phường Kỳ Bá",
@@ -6322,7 +6537,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("11cf64f9-cf76-4e00-84b5-f46bee87b5e2"),
+                            LocationId = new Guid("b649e1a0-e7e7-4fd2-9f71-9c7dd3b37684"),
                             Levels = 3,
                             Name = "Tiền Phong",
                             NameWithType = "Phường Tiền Phong",
@@ -6331,7 +6546,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("ed8166e8-537b-4afe-bb30-ebc788a178bc"),
+                            LocationId = new Guid("900c42d3-1a8a-47af-8047-44d947f6b733"),
                             Levels = 3,
                             Name = "Quang Trung",
                             NameWithType = "Phường Quang Trung",
@@ -6340,7 +6555,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("2e579d3f-4580-4358-874d-a3e4b133cfa4"),
+                            LocationId = new Guid("9cb65219-e6c1-47d6-9175-1b01696e11e6"),
                             Levels = 3,
                             Name = "Trần Lãm",
                             NameWithType = "Phường Trần Lãm",
@@ -6349,7 +6564,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("5b36af7c-957f-43d0-9306-e23af60b7a12"),
+                            LocationId = new Guid("16814b2a-f020-4631-bc0c-43e0ae02217f"),
                             Levels = 3,
                             Name = "Lê Hồng Phong",
                             NameWithType = "Phường Lê Hồng Phong",
@@ -6358,7 +6573,7 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            LocationId = new Guid("bc0ab0bb-d6e1-45ca-84cf-32394c423d14"),
+                            LocationId = new Guid("357f060a-2085-4a8a-9039-c6b625e43029"),
                             Levels = 3,
                             Name = "Trần Hưng Đạo",
                             NameWithType = "Phường Trần Hưng Đạo",
@@ -6409,8 +6624,9 @@ namespace ecom.minhhai.bookstore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AccountId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("AccountId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -6542,8 +6758,8 @@ namespace ecom.minhhai.bookstore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AccountModelAccountId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("AccountModelId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Alias")
                         .HasColumnType("nvarchar(max)");
@@ -6586,18 +6802,18 @@ namespace ecom.minhhai.bookstore.Migrations
 
                     b.HasKey("PostId");
 
-                    b.HasIndex("AccountModelAccountId");
+                    b.HasIndex("AccountModelId");
 
                     b.ToTable("Posts");
 
                     b.HasData(
                         new
                         {
-                            PostId = new Guid("9c32207b-bdf3-4e21-acc2-691a711ce129"),
+                            PostId = new Guid("00a02b12-859e-40f9-af95-a98259d82e13"),
                             Alias = "tattered-cover-bookstore-files-for-bankruptcy",
                             Author = "Jim Milliot",
                             Contents = "Tattered Cover Book Store, one of the country’s largest and best-known independent bookstores, filed for reorganization under Chapter 11 Subchapter V in the U.S. Bankruptcy Court for the District of Colorado yesterday. According to the Denver Post, documents filed in the bankruptcy court show Tattered Cover was more than $660,000 in the red between January and September. The business owes more than $1 million to publishers, as well as more than $375,000 to Colorado's Office of the State Auditor for abandoned gift cards.\r\n\r\nThe Subchapter V portion of Chapter 11 was enacted by Congress in 2020 to provide a streamlined process for small companies to reorganize. If the financing is approved, Tattered Cover will have access of up to $1 million in debtor-in-possession financing, provided by a new company formed by current company board members and investors that include Leslie Rainbolt and Margie Gart. The new funding, the announcement said, “will be used to obtain much-needed additional inventory in time for the critical 2023 holiday consumer buying season, fulfill customer orders, upgrade technology, and to maintain operations and staff compensation during the restructuring process.”\r\n\r\nVarious companies that supply books to Tattered Cover said that they will need to time to get a better understanding of the store's new financing before deciding on how to continue to work with the store in the future. The store has been on credit hold with a number of publishers.\r\n\r\nThe current owners, Bended Page LLC, acquired Tattered Cover in 2020 and, after an initial period of expansion, found business slowing, due in part to the pandemic. The bookstore also endured some management changes when Kwame Spearman, one of the lead investors who was named CEO, stepped down from that position in April after deciding to run for mayor of Denver. He subsequently withdrew from that race, and is now running for the Denver school board.\r\n\r\nIn July, Brad Dempsey, a lawyer specializing in finance and business restructuring, was named interim CEO. “Our objective is to put Tattered Cover on a smaller, more modern and financially sustainable platform that will ensure our ability to serve Colorado readers for many more decades,” Dempsey said in a statement. “Restructuring for long-term viability requires managers to make very difficult business decisions that affect people and business partners, and we intend to do what we can to minimize these impacts.”\r\n\r\nDempsey was referring to a host of changes that are in the process of being implemented. Among them are closing three of its seven stores: the locations in Denver’s McGregor Square, Westminster, and Colorado Springs. Those stores are expected to be closed by early November, at which time inventory and technology from the three will be transferred to the store’s four other locations.\r\n\r\nThe store closures will result in cutting “at least” 27 staff positions out of Tattered Cover’s current 103 positions, though the company said that some employees may fill temporary seasonal positions at the remaining stores during the holiday season. Tattered Cover’s Denver International Airport locations will continue operating, as part of a licensing agreement with Hudson Bookstores.\r\n\r\nIn addition to Dempsey, the company’s restructuring will be led by its senior management team: CFO Margie Keenan, newly named COO Jeremy Patlen (formerly v-p of buying), and Alexis Miles, v-p of human resources.\r\n\r\nThe company said that all customer gift cards will be honored, and orders will continue to be fulfilled, while all loyalty programs will also continue as usual. Events currently scheduled for this October and November at closing locations will be rescheduled, if possible, to take place at the store’s remaining locations, with all event changes to be posted on the bookseller's website.\r\n\r\nThe original Tattered Cover was opened in 1971 by Stephen Cogil and purchased by Joyce Meskis in 1974. Meskis sold it to Len Vlahos and Kristen Gilligan in 2015, who sold it to the current owners. The store is considered among the leading independent bookstores in the country, and has a long history of being at the forefront in the fight for free speech and First Amendment rights.",
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8760),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2949),
                             IsHot = true,
                             IsNewFeed = true,
                             MetaDesc = "Tattered Cover Book Store Files for Bankruptcy",
@@ -6609,11 +6825,11 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            PostId = new Guid("1e009d2b-de3f-49fc-a82c-ee477fdb6489"),
+                            PostId = new Guid("64d77717-e322-412a-b341-c194429ebd79"),
                             Alias = "fans-recharge-the-conmics-industry-at-new-york-comic-con-2023",
                             Author = "Heidi MacDonald",
                             Contents = "New York Comic Con held an exhausting but exhilarating annual celebration of comics and pop culture October 12–15 at the Javits Center in New York City. While final attendance count is still pending, estimates are that crowds surpassed last year’s 200,000.\r\n\r\nThe show floor presented a psychedelic mash-up of pop culture, with manga and anime dominating. Massive character balloons of Goku from Dragon Ball and Luffy from One Piece loomed over the throngs, while immersive 3D manga displays from Shueisha and impressive activations from Crunchyroll, Manga Plus, and Bandai drew long lines. The prevalence of manga and anime-inspired costumes amongst cosplayers made clear just how much younger fans are riding the manga wave.\r\n\r\nFor publishers, it was a transitional year. Marvel was the only major comics publisher to invest in a prominent show floor presence, as DC, Dark Horse, and Image mostly sat it out, while IDW set up in Artist Alley on the lower level. But the gap left an opening for upstart exhibitors like Vault and Mad Cave to shine. And other new imprints, partnerships, and brands dotted the show floor.\r\n\r\nThe splashiest announcement was for Ghost Machine, added as an imprint at Image Comics led by veteran writer/producer and former DC Comics executive Geoff Johns. The brand promises a creator-owned line of comics with a shared universe and media development; creators involved include artists Gary Frank and Bryan Hitch and novelist Brad Meltzer. Also from Image, creator Rick Remender (Deadly Class) promoted his new Giant Generator imprint, sporting an international cast of creators including Daniel Acuña, Paul Azaceta, JG Jones, and Bengal. Another new player, Massive Publishing, serves as a publishing partner for various entities, such as collectibles auction app WhatNot and existing music-to-comics label Behemoth.\r\n\r\nThis buzz rose above reports of slower industry sales, discussed across the dedicated professional programming held Thursday. Direct market distributor Lunar kicked things off with a retailer breakfast, where Ghost Machine debuted. Retailer organization ComicsPRO followed with a slate of presentations, including updates on a metadata project that brings together an unprecedented mix of publishers, distributors, and retailers aiming to standardize industry metadata—with an eventual goal of sellthrough sales charts, now unavailable for the direct market.\r\n\r\nICv2’s presentation by Milton Griepp showed graphic novel sales strong and overall sales higher than 2019, but periodical comics sales slipping—even as the book market in general continues to soften following its pandemic highs. Concerns over inflation cutting into discretionary spending were also noted.\r\n\r\nYet the mood at the show was optimistic. Despite the high costs that prevented other publishers from exhibiting, Vault CEO and publisher Damian Wassel noted that Vault’s many readers in the NYC market made it worth their investment. “Attendance was incredible, and our sales were up dramatically over last year,” he said. “It's our best con ever.”\r\n\r\nMad Cave debuted recent licenses with Winx and Gatchaman, setting up their largest booth to date to showcase their expansion. “We got to show off Papercutz for the first time at NYCC [and] all the new things that we're doing, including more creator owned or licensed projects,” said CMO Allison Pond.\r\n\r\nAbrams ComicArts editor-in-chief Charles Kochman was pleased to see major book trade houses—including PRH, MacMillan, HarperCollins—and comics publishers united in one area on main the show floor. “By putting us together, you give people a sense of comparing and contrasting, but also there's a community among publishers,” he said.\r\n\r\nPRH highlighted their many genre imprints, along with new arrivals Ten Speed Graphic and a look-ahead to Inklore, a new imprint publishing manga, manhwa, and webtoons. According to PRH director of brand events Lindsey Elias, “people are super excited about Inklore and want to buy the [not yet released] books now,” adding: “We're able to do sales, marketing, and publicity all in one go.”",
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8767),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2956),
                             IsHot = true,
                             IsNewFeed = true,
                             MetaDesc = "Fans Recharge the Comics Industry at New York Comic Con 2023",
@@ -6625,11 +6841,11 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            PostId = new Guid("23e9cf3b-bbf4-45b8-af03-ffde8fa81549"),
+                            PostId = new Guid("04ae815d-a560-415e-9ec6-97153fb1788f"),
                             Alias = "new-thrillers-about-true-crime",
                             Author = "Liz Scheier",
                             Contents = "Amazon Publishing associate publisher Gracie Doyle understands the appeal of amateur sleuthing. “I can’t be the only kid who wanted to be a detective,” she says. “And with all of us home for a couple of years, there’s a Rear Window element. We all love a good mystery.”\r\n\r\nAmong the books on her list is Elle Marr’s The Alone Time (Thomas & Mercer, Mar. 2024), which sees long-buried truths coming to light. Twenty-five years after Fiona and Violet Seng survived the private plane crash that killed their parents and left the girls, then ages 13 and seven, stranded in the Pacific Northwest wilderness for three weeks, a persistent documentarian calls into question their version of the events.\r\n\r\nIn Janice Hallet’s The Mysterious Case of the Alperton Angels (Atria, Jan. 2024), two true crime authors tussle over the career-making untold story of a cultlike group who believed that the child of one of its members was the Antichrist. “There’s a fine line between what’s public safety and what’s invading people’s privacy,” says Atria senior editor Kaitlin Olson. “Amateur detectives can go too far. We’ve seen this play out in real investigations—while intentions are really good, people on social media can get in the way.”\r\n\r\nThe intentions aren’t even necessarily good in Dervla McTiernan’s What Happened to Nina?, in which a character posts videos with conflicting theories of what happened to a missing girl in order to sow confusion. (See PW’s q&a with Dervla McTiernan, “Trial by Internet.”) In Kellye Garrett’s next thriller, the entire internet is on the lookout for a woman who fits the ideal victim profile: a Missing White Woman (Mulholland, Apr. 2024; Garrett discusses the phenomenon in “Social Distortion.”)\r\n\r\nHusband and wife team Nicci Gerrard and Sean French, who’ve written numerous thrillers as Nicci French, probe the ramifications of reopening old wounds in their latest, Has Anyone Seen Charlotte Salter? (Morrow, Mar. 2024). The wife and devoted mother of the title disappears just before her husband’s 50th birthday party; when a neighbor’s body is found soon after, the police conclude that the two were having an affair and died in a murder-suicide. Thirty years later, the neighbor’s son produces a popular podcast about the tragedy, throwing both families into turmoil.\r\n\r\n“We need stories, they explain life to us,” Gerrard says; she and French are former journalists. “But sometimes there isn’t a shape to the mess of life. We read stories of serial killers, and when there’s no evident psychological motivation, it’s like trying to find a fingerhold in smooth rock.”\r\n\r\nAnything for the story\r\n\r\nJournalists are held to a standard the average TikTok creator isn’t, but they, too, can lose sight of the impact their work has on their subjects. Christina Estes draws on more than 20 years of reporting experience for her debut novel, Off the Air (Minotaur, Mar. 2024), in which journalist Jolene Garcia hopes that her investigation of a death at a local radio station will make her career. “She comes up against a line she isn’t sure she should cross,” says Minotaur associate editor Madeline Houpt. “She thinks, ‘Am I going too far?’ But she wants to solve the case.”\r\n\r\nJenny Hollander, director of content strategy at Marie Claire, turns the tables on a fellow journalist in her debut, Everyone Who Can Forgive Me Is Dead (Minotaur, Feb. 2024). Charlie Colbert, a successful magazine editor, witnessed a horrific event at her journalism school nine years earlier. When she learns that one of her former classmates is making a movie about the event, known as the Scarlet Christmas, Charlie worries that the truth will come out. “She doesn’t totally remember what happened,” says St. Martin’s editor Sallie Lotz, who edited the book. “But she knows she lied about it.”\r\n\r\nAlmost Surely Dead by Amina Akhtar (Mindy’s Book Studio, Feb. 2024) tells the story of Dunia, a woman who is attacked on the subway, unravels, and then goes missing. Two obsessed journalists launch a true crime podcast seeking fame from Dunia’s misfortune: they want a Netflix deal, they’re selling merch. “I wanted to dive into trauma as content,” Akhtar says. “There should be a code of ethics for true crime. Something horrible happened to somebody; if the family is willing to talk to you, you’re probably walking the right line. If someone doesn’t want their story told, whose decision is it to tell it? Who owns the story?”\r\n\r\nJason Pinter explores the tension between truth-telling and entertainment-selling in Past Crimes (Severn House, Feb. 2024), set in a near-future where true crime fans can immerse themselves in hyper-realistic simulations of gruesome historical killings; people can pay to search for clues inside Jeffrey Dahmer’s Wisconsin cabin, for instance, or attend Lincoln’s assassination. “In these virtual experiences, the evilness has been taken out,” Pinter says. “All we’re left with is the entertainment.”\r\n\r\nIn Jeffrey B. Burton’s The Dead Years (Severn House, Mar. 2024), a long-dormant serial killer sees a Netflix docudrama based on his crimes, and isn’t happy about his portrayal. “Morbid curiosity is a universal trait,” Burton says. “Every day in some paper somewhere around the world, there’s a story that proves truth is stranger than fiction—‘Holy shit, what did the guy do?’ ”",
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8770),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2958),
                             IsHot = true,
                             IsNewFeed = true,
                             MetaDesc = "New Thrillers About True Crime",
@@ -6641,11 +6857,11 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            PostId = new Guid("5e421559-0ac4-4588-97bc-48bbf2b07c44"),
+                            PostId = new Guid("d6d8ad63-8d20-4f51-98bf-c36334955918"),
                             Alias = "the-forest-fires-of-greece-wreathe-christy-lefteri's-latest-novel",
                             Author = "Elaine Szewczyk",
                             Contents = "Lefteri’s new novel, The Book of Fire, due out in January from Ballantine, addresses climate change as it follows a contemporary Greek family—music teacher Irini; her painter husband, Tasso; and their daughter, Chara—who live in a village in an ancient forest and whose lives are upended when a fire erupts, decimating both forest and village. The villagers blame a developer who started the fire while clearing land to build a hotel, but he isn’t the sole culprit, as prolonged high temperatures created dry conditions that turned the forest into a tinderbox.\r\n\r\n“How do we deal with situations where there’s someone to blame, but there’s also something bigger happening?” Lefteri says. “And how do we deal with that during times of trauma?”\r\n\r\nThe first time Lefteri saw an out-of-control forest fire in Greece was in 2017, when she was working as a volunteer at an Athens refugee center for women and children who’d been displaced during the Syrian Civil War. “I woke up one morning and the sky was filled with smoke,” she recalls. “There was a fire in a nearby town. It haunted me.”\r\n\r\nLefteri decided to write The Book of Fire in 2021, after another, bigger fire on the Greek island of Evia destroyed an ancient forest, killed more than 100 people, and left others homeless and physically scarred. She went to Greece for six weeks, while three months pregnant, to do research for the novel.\r\n\r\nThis included visiting the town of Mati, the site of yet another fatal fire, in 2018, and talking with still-traumatized locals, many of whom rejected the idea that climate change was responsible.\r\n\r\n“Being there was overwhelming,” Lefteri says. “I wanted to leave, which I felt horrible about. Every time I write a book I feel guilt, about being able to go home, a home that hasn’t been destroyed, that isn’t a camp. There’s this thing that happens to me where I become frightened about life. I can be quite robust, but when I’m alone I feel the fragility of life. It gets to me. I find it hard to regain my grounding, but then I remember what other people are dealing with.”\r\n\r\nLefteri is disarmingly open about her personal life and displays a genuine interest in others, which makes her effective as a field researcher who’s willing to be the sympathetic ear. “Christy is one of the most caring and compassionate people I’ve ever met,” says Lefteri’s agent, Marianne Gunn O’Connor. “She has a beautiful personality and a sweet nature. She worries about the world and writes with her heart.”\r\n\r\nBorn in 1980 in London, Lefteri was a sensitive child who enjoyed oil painting and stories. Her father, who’d been an officer in the war in Cyprus in 1974, came to the U.K. with Lefteri’s mother. Lefteri remembers her childhood home as a warm place, but her father, who she says had undiagnosed PTSD, was prone to outbursts. “That was the impact of someone not speaking about their trauma,” Lefteri explains. “I remember thinking as a child, what am I doing wrong? I still carry that. I’m constantly thinking I’m doing something wrong. That’s how unspoken trauma gets passed from one generation to the next.”\r\n\r\nAs she grew older, Lefteri became interested in writing as a way to express trauma. She worked for a time as a psychoanalyst, and in 2010 she earned her PhD in creative writing from Brunel University and wrote her first novel, A Watermelon, a Fish and a Bible, about the war in Cyprus, as part of her thesis project.\r\n\r\n“Writing really gets to my heart,” says Lefteri, whose characters often use art to cope with their troubles. “I think sometimes we have to go into our pain to overcome it.”\r\n\r\nAnne Speyer, Lefteri’s editor, appreciates the author’s ability to make big topics feel accessible. “Christy is wonderful at taking things that you read about in the news and making them personal,” she says. “She also makes you feel deeply about her characters. That’s the key to a great story, and she’s done it with every book.”\r\n\r\nLefteri’s next novel will be about European women’s football and will be set during World War I and in the present as it explores women’s lives across generations. “The book is linked to what I experienced with my daughter’s dad after she was born,” Lefteri says. “I left like I had lost my independence, that everything was put on me. This book will be about women’s dreams, about how far we’ve come, and if we’ve come as far as we think.”\r\n\r\nAs evening sets in, Lefteri hears a voice downstairs and checks the clock. The nanny is about to leave and it’s time to get her daughter. The pair may go for a walk with their dog, Alfie. (An emphatic animal lover, Lefteri is “completely obsessed” with him.)\r\n\r\nShe hopes The Book of Fire will inspire people to pay attention to how humanity treats the planet and every living thing on it. “There’s a grief we feel at the loss of our environment, and we don’t often realize that it causes such sadness,” she says. “If we lose our world, we’re nothing. Perhaps this book can make people pause and feel. When we really feel, it can impact a decision.”\r\n\r\nElaine Szewczyk’s writing has appeared in McSweeney’s and other publications. She’s the author of the novel I’m with Stupid.",
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8773),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2961),
                             IsHot = true,
                             IsNewFeed = true,
                             MetaDesc = "The Forest Fires of Greece Wreathe Christy Lefteri's Latest Novel",
@@ -6657,11 +6873,11 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            PostId = new Guid("67815636-c308-41ad-ae14-f96806365d29"),
+                            PostId = new Guid("ab24c76b-decf-449c-a75b-224ddfd133ab"),
                             Alias = "salar-abdohs-tehran-is a-city-of-contradictions",
                             Author = "Leigh Haber",
                             Contents = "“I also wanted to have a reckoning with the revolution,” he says. “This move was arguably the foundational step of my life. I could have stayed away like so many exiles and lived a strictly America life. Very deliberately I chose not to.”\r\n\r\nMany of the geopolitical issues of the past 40-plus years, Abdoh contends, stem from the Iranian Revolution, which toppled the monarchy, led to the establishment of the Islamic Republic, and changed the balance of power in the Middle East. “As someone who wanted to be an adventurer even more so than I wanted to be a writer,” he says, “I thought, where else but Iran!”\r\n\r\nTehran, the sprawling city of 15 million where much of A Nearby Country Called Love is set, is portrayed as a place of infinite contradictions. Pollution, traffic jams, overflowing garbage, and precarious construction sites are parts of everyday life. Modesty squads patrol the streets, fining or arresting women for “improprieties” such as not wearing hijabs. There is a steady stream of news about women who choose to burn themselves to death rather than continue to be beaten by husbands, fathers, or brothers for perceived acts of defiance.\r\n\r\nAt the same time, Abdoh’s Tehran is a cosmopolitan city brimming with cafés, culture, and well-educated locals who frequent concerts, galleries, and literary readings. There is also a vibrant underground network of gay bars and drag clubs.\r\n\r\nBut no matter the neighborhood or occasion, there are some constants in Tehran. Among them, and reflected in the psyches of Abdoh’s characters, is dread. “While it’s not quite the quotidian oppression outsiders imagine, there is the sense of always being on edge,” he says. “That dread has become innate, part of our very character.” And yet, he adds, “at some point folk figured out that rather than fighting the authorities to keep them out of their lives, they can simply disregard and ignore them, which creates a schizophrenia that you learn to live with, though at a cost to your mental and physical well-being.”\r\n\r\nA Nearby Country Called Love, which PW’s review called “a moving and nuanced study of gender and sexuality in contemporary Iran,” follows Issa as he reluctantly returns to Tehran from New York City and attempts to come to terms with his brother’s death. As the novel opens, Issa and his friend Nasser are on a mission to avenge the suicide-by-burning of a wife whose husband, the pair believe, drove her to that fate. While Nasser, a fireman who moonlights as an appliance salesman, revels in the testosterone-fueled vigilante mission—their second—Issa, a former soldier, knows there is nothing noble about what they have set out to do. He is also reminded of the persecution his late brother Hashem faced in their neighborhood due to his sexual orientation.\r\n\r\nViolence threads throughout the novel, as do Issa’s questions about the nature of masculinity and what is expected of a man living in contemporary Iran.\r\n\r\n“My father was a boxer and a soldier,” Abdoh says. “Machismo was part of the fabric, part of the molecule of everything that I grew up with. But my brother Reza was into theater and the arts. At an early age, he knew he was gay, and my father viewed him with shame. I was always in the middle, being pulled in both directions. I modeled Issa’s brother on my family experience, and on what Reza endured and accomplished before he died of AIDS in 1995.”\r\n\r\nIssa lives above the dojo his father ran until his death. His brother Hashem was a revered queer artist in Tehran’s underground—and their father did everything he could to scare Hashem straight. After enduring bullying and beatings by schoolmates and his father, Hashem learned to be defiant no matter the price. His death devastated Issa and prompted him to learn more about the community of friends, lovers, and artists who embraced his brother.\r\n\r\nIssa starts by reading authors Hashem cherished: Beckett, Auden, Proust, and Rilke. Soon, he’s attending parties and performances with people in his brother’s circle. Boundaries melt away. Eventually, Issa becomes romantically involved with a man. For Issa, though, this is a process of self-discovery—and even a way of honoring his brother.\r\n\r\nReferences to various Western literary works are sprinkled throughout the narrative, as are mentions of Perso-Arabic classics. The latter, Abdoh says, “cast a huge shadow of influence for me because many of those writers and mystics were always after the ultimate questions. Ontology—the branch of metaphysics dealing with the nature of being—was their bread and butter.” The same can be said for Abdoh, whose work probes the nature of belonging, masculinity, and the self.\r\n\r\nAnd while Abdoh set the novel in Iran and many of its plot points are unique to that country, he also wanted to address the global question of “how to be a man in this day and age,” he says, “when the paradigm of who we are supposed to be has shifted and none of us really knows how to behave, to respond.”",
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8775),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2963),
                             IsHot = true,
                             IsNewFeed = true,
                             MetaDesc = "Salar Abdoh's Tehran Is a City of Contradictions",
@@ -6673,11 +6889,11 @@ namespace ecom.minhhai.bookstore.Migrations
                         },
                         new
                         {
-                            PostId = new Guid("0244ee11-e16c-4a0e-9218-8e55a53a1640"),
+                            PostId = new Guid("14026935-30ce-453c-9a13-5995e4d307a6"),
                             Alias = "jennifer-belle-gets-brave-and-regrets-everything",
                             Author = "David Adams",
                             Contents = "Things couldn’t have gone much better for a 28-year-old debut author in 1996. There were blurbs from Jay McInerney (“a funny, sad, nasty little gem of novel”) and Tama Janowitz (“hilariously enthralling”). Madonna optioned the film rights—and wanted to direct. “Best new novelist,” declared Entertainment Weekly. “I think I was in 14 magazines at the same time, on a newsstand on my corner,” Jennifer Belle says via Zoom from her art-cluttered apartment overlooking New York City’s Washington Square Park.\r\n\r\nAnd then there was the dead fish. A bucket of them, to be precise, brought to Belle’s first Greenwich Village apartment by a photographer on assignment. “We spent a whole day shooting,” she recalls, “and somehow in the end, the picture—a full page in New York magazine—is me with a real dead fish on my head. There was a really nice one, where I’m kind of leaned over. Like, I have a headache and I’m holding the fish like a hot compress.” She recreates the pose with her iPhone. “But that’s not the one they used.”\r\n\r\nIf ever there was a debut novelist who didn’t need a prop, it was Belle. Her downtown “it girl” resumé would have been enough to make Chloë Sevigny jealous: the daughter of poet Jill Hoffman, Belle dropped out of high school at 15, lied her way into a job at a Bleecker Street bar, played a young Penny Arcade in the performance artist’s shows at La MaMa theater, and started her novel, Going Down, to have something to read at her mother’s writing workshops. By the time the book came out, she was selling luxury apartments for the Corcoran Group. The one job she’d never had, Belle informed New York’s profile writer, was the occupation Going Down’s 19-year-old protagonist takes up to pay for college: call girl. That is indeed what happens in the summer of 1982 to Swanna Swain. Her parents, like Belle’s, are recently separated. Her mother, like Belle’s, is a Guggenheim-winning poet. Her interests, like Belle’s, would run screaming from the snake-infested woods of Vermont, where her mom’s new boyfriend has a room at an artists’ retreat, and toward the landmarks of 1980s Manhattan: Canal Jeans, O’Neals’ Baloon, Woody Allen.\r\n\r\nThen the novel, which Akashic describes as “a kind of inverse Lolita,” reaches its midway point, and Swanna does something Belle never did. “I never got into an older man’s car and went to his house for two days or three days while his wife was away in England,” she says. “It’s more of a composite of older men I dated, which was not unusual back in 1982 or ’3 or ’4 or ’5, or probably today. I mean, I don’t know anybody who didn’t make out with the bartender at their friend’s bar mitzvah or the limo driver at the prom.”\r\n\r\nIs it wise for a novelist with a history of being confused for her characters to write about a teenage seductress? Maybe not. But Belle, who’s girded herself for her first interview in 12 years with red lipstick and a pair of miniature Barbie doll earrings, is the type of raconteur who can’t resist a good punchline, even when she knows it’ll get in her trouble. “Your editor thought you’d be a good match for a book about pedophilia?” she quips, two minutes into our conversation.\r\n\r\nIn a more reflective moment, Belle says that Swanna “never feels like a victim. I think she probably is a victim because she’s 14 and she’s having an affair with a 37-year-old married man. But she doesn’t feel that way for one minute. She thinks she’s in control and she really thinks she’s in love.”\r\n\r\nThough the parallels to Lolita are clear, a different novel served as the inspiration for Swanna’s story: Charles Portis’s True Grit. Belle, who was given a copy by someone in her writing workshop—she runs four of them out of her apartment and has helped shepherd into print novels by Nicola Harrison and Marilyn Simon Rothstein—says it “looked like nothing I would be interested in whatsoever. It has a gun on the cover. But something about reading this book about a 14-year-old girl who sets out to avenge her father’s murder—and she’s unapologetic and she’s cool and she’s tough—something just went off in my head. That I could tell my story the way I wanted to tell it. But I had to make the book more than just being picked up and going to this artist colony that didn’t allow kids. So, I added stuff.”\r\n\r\nOf course, it’s the stuff Belle added that may land her in hot water. Why take the risk? Partly, she says, because she’s “so unhappy with the state of publishing—the censorship going on all over the place.” Asked for an example, she points to a former member of her workshop, Jeanine Cummins, whose 2020 bestseller American Dirt met with fierce backlash from Latinx writers who accused Cummins and her publisher, Flatiron Books, of exploiting their stories.\r\n\r\n“Basically, every single publishing house wanted this book,” Belle says. “And by the end of her journey, she was canceled. All the publishers should have stood up and said, ‘We wanted this book. We decide who gets to tell what story. Not one person on the internet.’ ”\r\n\r\nBelle notes that when her agent, Sterling Lord Literistic’s Doug Stewart (who also reps Cummins), sent Swanna in Love “around to all the big people, they said, ‘Great writing. We love her. But we don’t have a vision for it.’ That was the word I got. I thought I’d be on Zooms with people, and they’d say, ‘Let’s make her older,’ or, ‘Let’s make him younger.’ But what I found were no Zooms, just this language about ‘vision.’ ”\r\n\r\nBelle counts herself lucky to have landed at Akashic, which she’s admired “from the very beginning” (her friend Arthur Nersesian’s The Fuck-Up was the indie press’s first release, in 1997). And while the crusader in her is ready to defend the idea that “people have the right to write whatever they want,” the novelist in her is mainly just thrilled to have unlocked a story she’s been trying to tell for a long time.\r\n\r\nOriginally planned as a flashback in another novel, Swanna in Love came “pouring out” of Belle during Covid lockdowns, when she spent 14 weeks with her husband and two sons in their Hudson Valley country house. “I had never spent 14 days in that house,” she says. “And what I discovered is, I really don’t like it there. I just hated it so much. Something about connecting with that feeling of powerlessness, of having no control over your environment, like when you’re 14 or 15 or 16, brought this character out of me.”\r\n\r\n“I have spent a decade helping other people get published,” Belle says at another point in the conversation. “And writing also, but not writing what I wanted to write. And then something changed. I got brave. Maybe I’ll change my mind. I’ve regretted everything I’ve ever done in my life, so it wouldn’t surprise me.”",
-                            CreateDate = new DateTime(2023, 11, 8, 20, 49, 49, 685, DateTimeKind.Local).AddTicks(8778),
+                            CreateDate = new DateTime(2023, 12, 8, 10, 31, 44, 219, DateTimeKind.Local).AddTicks(2966),
                             IsHot = true,
                             IsNewFeed = true,
                             MetaDesc = "Jennifer Belle Gets Brave and Regrets Everything",
@@ -6686,33 +6902,6 @@ namespace ecom.minhhai.bookstore.Migrations
                             Tags = "Jennifer Belle Gets Brave and Regrets Everything",
                             Thumbnail = "jennifer-belle-gets-brave-and-regrets-everything.jpg",
                             Title = "Jennifer Belle Gets Brave and Regrets Everything"
-                        });
-                });
-
-            modelBuilder.Entity("ecom.minhhai.bookstore.Models.RoleModel", b =>
-                {
-                    b.Property<Guid>("RoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoleId");
-
-                    b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = new Guid("5b71c14d-aedb-41e1-a1d9-943fd5d3983c"),
-                            RoleName = "Admin"
-                        },
-                        new
-                        {
-                            RoleId = new Guid("e9bb47a8-d3fc-409c-8651-0542816f7483"),
-                            RoleName = "Nhân Viên"
                         });
                 });
 
@@ -6750,19 +6939,64 @@ namespace ecom.minhhai.bookstore.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("ecom.minhhai.bookstore.Models.AccountModel", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("ecom.minhhai.bookstore.Models.AccountModel", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ecom.minhhai.bookstore.Models.AccountModel", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("ecom.minhhai.bookstore.Models.AccountModel", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ecom.minhhai.bookstore.Models.AccountModel", b =>
                 {
                     b.HasOne("ecom.minhhai.bookstore.Models.LocationModel", "LocationModel")
                         .WithMany("accountModels")
                         .HasForeignKey("LocationId");
 
-                    b.HasOne("ecom.minhhai.bookstore.Models.RoleModel", "RoleModel")
-                        .WithMany("AccountModels")
-                        .HasForeignKey("RoleId");
-
                     b.Navigation("LocationModel");
-
-                    b.Navigation("RoleModel");
                 });
 
             modelBuilder.Entity("ecom.minhhai.bookstore.Models.BookModel", b =>
@@ -6822,7 +7056,7 @@ namespace ecom.minhhai.bookstore.Migrations
                 {
                     b.HasOne("ecom.minhhai.bookstore.Models.AccountModel", "AccountModel")
                         .WithMany("PostModels")
-                        .HasForeignKey("AccountModelAccountId");
+                        .HasForeignKey("AccountModelId");
 
                     b.Navigation("AccountModel");
                 });
@@ -6857,11 +7091,6 @@ namespace ecom.minhhai.bookstore.Migrations
             modelBuilder.Entity("ecom.minhhai.bookstore.Models.PaymentModel", b =>
                 {
                     b.Navigation("OrderModels");
-                });
-
-            modelBuilder.Entity("ecom.minhhai.bookstore.Models.RoleModel", b =>
-                {
-                    b.Navigation("AccountModels");
                 });
 
             modelBuilder.Entity("ecom.minhhai.bookstore.Models.TransactStatusModel", b =>

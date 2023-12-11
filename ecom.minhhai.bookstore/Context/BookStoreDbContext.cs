@@ -1,9 +1,10 @@
 ﻿using ecom.minhhai.bookstore.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ecom.minhhai.bookstore.Context
 {
-    public class BookStoreDbContext : DbContext
+    public class BookStoreDbContext : IdentityDbContext<AccountModel>
     {
         public BookStoreDbContext(DbContextOptions options) : base(options)
         {
@@ -13,7 +14,6 @@ namespace ecom.minhhai.bookstore.Context
         {
 
         }
-        public DbSet<AccountModel> Accounts { get; set; }
         public DbSet<BookModel> BookModels { get; set; }
         public DbSet<CategoryModel> Categories { get; set; }
         public DbSet<LocationModel> Locations { get; set; }
@@ -21,13 +21,14 @@ namespace ecom.minhhai.bookstore.Context
         public DbSet<OrderModel> Orders { get; set; }
         public DbSet<PageModel> Pages { get; set; }
         public DbSet<PaymentModel> Payments { get; set; }
-        public DbSet<RoleModel> Roles { get; set; }
         public DbSet<TransactStatusModel> TransactStatuses { get; set; }
         public DbSet<PostModel> Posts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.UserData();
             modelBuilder.RoleData();
+            modelBuilder.UserRoleData();
             modelBuilder.CategoryData();
             modelBuilder.BookData();
             modelBuilder.PostData();

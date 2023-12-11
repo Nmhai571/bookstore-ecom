@@ -1,4 +1,6 @@
-﻿using ecom.minhhai.bookstore.Models;
+﻿using ecom.minhhai.bookstore.Infrastructure;
+using ecom.minhhai.bookstore.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,10 +10,39 @@ namespace ecom.minhhai.bookstore.Context
     {
         public static void RoleData(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<RoleModel>().HasData(
-                    new RoleModel() { RoleId = Guid.Parse("5B71C14D-AEDB-41E1-A1D9-943FD5D3983C"), RoleName = "Admin" },
-                    new RoleModel() { RoleId = Guid.Parse("E9BB47A8-D3FC-409C-8651-0542816F7483"), RoleName = "Nhân Viên" }
+            /* modelBuilder.Entity<RoleModel>().HasData(
+                     new RoleModel() { RoleId = Guid.Parse("5B71C14D-AEDB-41E1-A1D9-943FD5D3983C"), RoleName = "Admin" },
+                     new RoleModel() { RoleId = Guid.Parse("E9BB47A8-D3FC-409C-8651-0542816F7483"), RoleName = "Nhân Viên" }
+                 );*/
+            modelBuilder.Entity<IdentityRole>().HasData(
+            new IdentityRole { Id = "5B71C14D-AEDB-41E1-A1D9-943FD5D3983C", Name = AppicationRole.Admin, NormalizedName = AppicationRole.Admin.ToUpper() },
+            new IdentityRole { Id = "E9BB47A8-D3FC-409C-8651-0542816F7483", Name = AppicationRole.Customer, NormalizedName = AppicationRole.Customer.ToUpper() }
                 );
+        }
+        public static void UserData(this ModelBuilder modelBuilder)
+        {
+            var hasher = new PasswordHasher<AccountModel>();
+
+            modelBuilder.Entity<AccountModel>().HasData(
+                new AccountModel
+                {
+                    Id = "9C0AA3D8-C892-4407-9521-3BBFA5B05D0A",
+                    UserName = "admin@gmail.com",
+                    NormalizedUserName = "ADMIN@GMAIL.COM",
+                    Email = "admin@gmail.com",
+                    NormalizedEmail = "ADMIN@GMAIL.COM",
+                    EmailConfirmed = true,
+                    PasswordHash = hasher.HashPassword(null, "Admin@123"),
+                    Active = true
+                    
+                }
+            );
+        }
+        public static void UserRoleData(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+                new IdentityUserRole<string> { UserId = "9C0AA3D8-C892-4407-9521-3BBFA5B05D0A", RoleId = "5B71C14D-AEDB-41E1-A1D9-943FD5D3983C" }
+            );
         }
 
         public static void CategoryData(this ModelBuilder modelBuilder)
@@ -1938,9 +1969,9 @@ namespace ecom.minhhai.bookstore.Context
                                 Parent = Guid.Parse("BBBAE337-294B-4535-AC03-57C9465FB77C"),
                                 Levels = 3
                             },
-                            #endregion
-                            #endregion
-                          
+            #endregion
+            #endregion
+
             #region quận long biên
                           new LocationModel()
                           {
@@ -2079,10 +2110,10 @@ namespace ecom.minhhai.bookstore.Context
                               Levels = 3
                           },
 
-                          #endregion
-                          #endregion
-                              
-                    #region Quận Nam Từ Liêm
+            #endregion
+            #endregion
+
+            #region Quận Nam Từ Liêm
                               new LocationModel()
                               {
                                   LocationId = Guid.Parse("C89114D4-5C9E-45C4-B66D-22268860D81A"),
@@ -2183,10 +2214,10 @@ namespace ecom.minhhai.bookstore.Context
                                   Parent = Guid.Parse("C89114D4-5C9E-45C4-B66D-22268860D81A"),
                                   Levels = 3
                               },
-                              #endregion
-                              #endregion
-                               
-                              #region Quận Tây Hồ
+            #endregion
+            #endregion
+
+            #region Quận Tây Hồ
                                new LocationModel()
                                {
                                    LocationId = Guid.Parse("7748E80C-F132-40AE-A85A-BBD130E22993"),
@@ -3135,11 +3166,11 @@ namespace ecom.minhhai.bookstore.Context
                                          Parent = Guid.Parse("2B7CF31E-456D-4674-827E-0868120DA973"),
                                          Levels = 3
                                      },
-                                     #endregion
-                                     #endregion
+            #endregion
+            #endregion
                     // check tu day
-                                     #endregion
-                 #region Tỉnh Khánh Hòa
+            #endregion
+            #region Tỉnh Khánh Hòa
                     new LocationModel()
                     {
                         LocationId = Guid.Parse("09D71DA2-6869-48E1-B7FB-418A162BC6AB"),
@@ -3576,10 +3607,10 @@ namespace ecom.minhhai.bookstore.Context
                         Parent = Guid.Parse("60EAB0C3-BED9-4BD6-807A-EA1115DCF3ED"),
                         Levels = 3
                     },
-                    #endregion
-                    #endregion
-                    #endregion
-                    #region Tp.HCM
+            #endregion
+            #endregion
+            #endregion
+            #region Tp.HCM
                     new LocationModel()
                     {
                         LocationId = Guid.Parse("E460197D-0956-4EB3-8363-5BD892D1EA36"),

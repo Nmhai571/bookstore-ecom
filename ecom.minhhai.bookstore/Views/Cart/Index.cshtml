@@ -110,7 +110,15 @@
                     </div>
                   </div>
                 </div>
-                        <div class="box-button"><a class="btn btn-buy" href="/checkout.html">Proceed To CheckOut</a></div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="box-button"><a class="btn btn-buy" href="/checkout.html">Proceed To CheckOut</a></div>
+                        }
+                        else
+                        {
+                            <div class="box-button"><a class="btn btn-buy" href="/login.html">Proceed To CheckOut</a></div>
+                        }
+
               </div>
             </div>
           </div>

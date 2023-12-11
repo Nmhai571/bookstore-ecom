@@ -1,19 +1,22 @@
 ﻿using ecom.minhhai.bookstore.Context;
 using ecom.minhhai.bookstore.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ecom.minhhai.bookstore.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    /*[Area("Admin")]
     public class AdminAccountController : Controller
     {
         private readonly BookStoreDbContext _context;
+        private readonly UserManager<AccountModel> _userManager;
 
-        public AdminAccountController(BookStoreDbContext context)
+        public AdminAccountController(BookStoreDbContext context, UserManager<AccountModel> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Admin/AdminAccount
@@ -26,7 +29,7 @@ namespace ecom.minhhai.bookstore.Areas.Admin.Controllers
             listStatus.Add(new SelectListItem() { Text = "Block", Value = "0" });
             ViewData["listStatus"] = listStatus;
 
-            var bookStoreDbContext = _context.Accounts.Include(a => a.RoleModel);
+            var bookStoreDbContext = _context.Include(a => a.RoleModel);
             return View(await bookStoreDbContext.ToListAsync());
         }
 
@@ -160,14 +163,14 @@ namespace ecom.minhhai.bookstore.Areas.Admin.Controllers
             {
                 _context.Accounts.Remove(accountModel);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AccountModelExists(Guid id)
         {
-          return (_context.Accounts?.Any(e => e.AccountId == id)).GetValueOrDefault();
+            return (_context.Accounts?.Any(e => e.AccountId == id)).GetValueOrDefault();
         }
-    }
+    }*/
 }

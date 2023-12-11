@@ -11,8 +11,8 @@ using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace ecom.minhhai.bookstore.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class AdminRoleController : Controller
+    //[Area("Admin")]
+    /*public class AdminRoleController : Controller
     {
         private readonly BookStoreDbContext _context;
         public INotyfService _notyfService { get; }
@@ -163,5 +163,5 @@ namespace ecom.minhhai.bookstore.Areas.Admin.Controllers
         {
             return (_context.Roles?.Any(e => e.RoleId == id)).GetValueOrDefault();
         }
-    }
+    }*/
 }

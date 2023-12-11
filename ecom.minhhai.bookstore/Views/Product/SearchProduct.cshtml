@@ -1,0 +1,56 @@
+﻿@model List<BookModel>
+@{
+    ViewData["Title"] = "SearchProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main class="main">
+      <div class="section-box">
+        <div class="breadcrumbs-div">
+          <div class="container">
+            <ul class="breadcrumb">
+              <li><a class="font-xs color-gray-1000" href="/">Home</a></li>
+              <li><a class="font-xs color-gray-500" href="#">Shop</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="section-box shop-template mt-30">
+        <div class="container">
+          <div class="row">
+            <div id="partial-view-container" class="col-lg-9 order-first order-lg-last">
+              <div class="box-filters mt-0 pb-5 border-bottom">
+                
+              </div>
+              <div  class="row mt-20">
+                        @if(Model != null && Model.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+
+                                string url = Url.Action("Details", "Product", new { Alias = item.Alias, id = item.BookId });
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                                  <div class="card-grid-style-3">
+                                    <div class="card-grid-inner">
+                                      <div class="tools"><a class="btn btn-wishlist btn-tooltip mb-10" data-product-id="@item.BookId" href="javascript:void(0)" aria-label="Add To Wishlist"></a></div>
+                                      <div class="image-box"><span class="label bg-brand-2">-@item.Discount.ToString()%</span><a href="@url"><img src="~/ImageUpload/BookImage/@item.Thumbnail" alt="@item.BookName" height="300px" width="120px"></a></div>
+                                      <div class="info-right"><a class="font-xs color-gray-500" href="@url">@item.CategoryModel.CategoryName</a><br><a class="color-brand-3 font-sm-bold" href="@url">@item.BookName</a>
+                                        <div class="rating"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><img src="~/assets/imgs/template/icons/star.svg" alt="Ecom"><span class="font-xs color-gray-500">(65)</span></div>
+                                        <div class="price-info"><strong class="font-lg-bold color-brand-3 price-main">$@item.Price.00</strong><span class="color-gray-500 price-line">$@item.OriginalPrice.00</span></div>
+                                        <div class="mt-20 box-btn-cart"><a id="add-to-cart" class="btn btn-cart" data-product-id="@item.BookId" data-quantity="1" href="javascript:void(0)">Add To Cart</a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                            }
+                        }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/cart.js"></script>
+
+

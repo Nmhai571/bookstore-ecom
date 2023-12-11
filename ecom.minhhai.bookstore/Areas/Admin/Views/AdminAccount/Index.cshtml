@@ -51,7 +51,7 @@
                 foreach (var item in Model)
                 {
                      <tr>
-                      <th scope="row">@item.AccountId</th>
+                      <th scope="row">@item.Id</th>
                       <td>
                           <div class="d-flex align-items-center">
                               <img class="img-fluid rounded" src="" style="max-width: 60px" alt="null">
@@ -59,8 +59,7 @@
                           </div>
                       </td>
                       <td>@item.Email</td>
-                      <td>@item.Phone</td>
-                      <td>@item.RoleModel.RoleName</td>
+                      <td>@item.PhoneNumber</td>
                       <td>
                             @if (item.Active == true)
                             {
@@ -79,9 +78,9 @@
                         </td>
                         <td>@item.Lastlogin</td>
                         <td>
-                             <a class="btn btn-sm btn-info" asp-area="Admin" asp-controller="AdminCustomer" asp-action="Details" asp-route-id="@item.AccountId">View</a>
-                             <a class="btn btn-sm btn-primary" asp-area="Admin" asp-controller="AdminCustomer" asp-action="Edit" asp-route-id="@item.AccountId">Edit</a>
-                             <a class="btn btn-sm btn-danger" asp-area="Admin" asp-controller="AdminCustomer" asp-action="Delete" asp-route-id="@item.AccountId">Delete</a>
+                             <a class="btn btn-sm btn-info" asp-area="Admin" asp-controller="AdminCustomer" asp-action="Details" asp-route-id="@item.Id">View</a>
+                             <a class="btn btn-sm btn-primary" asp-area="Admin" asp-controller="AdminCustomer" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                             <a class="btn btn-sm btn-danger" asp-area="Admin" asp-controller="AdminCustomer" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                         </td>
                     </tr>
                 }

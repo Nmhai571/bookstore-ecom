@@ -2,6 +2,7 @@
 using ecom.minhhai.bookstore.Context;
 using ecom.minhhai.bookstore.Infrastructure;
 using ecom.minhhai.bookstore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using PagedList.Core;
 
 namespace ecom.minhhai.bookstore.Areas.Admin.Controllers
 {
+    [Authorize(Roles = AppicationRole.Admin)]
     [Area("Admin")]
     public class AdminBookController : Controller
     {
