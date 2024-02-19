@@ -26,7 +26,10 @@
               
             <div class="col-lg-6">
               <div class="box-border">
-                <div class="box-payment"><a class="btn btn-gpay"><img src="assets/imgs/page/checkout/gpay.svg" alt="Ecom"></a><a class="btn btn-paypal"><img src="assets/imgs/page/checkout/paypal.svg" alt="Ecom"></a><a class="btn btn-amazon"><img src="assets/imgs/page/checkout/amazon.svg" alt="Ecom"></a></div>
+                <div class="box-payment">
+                    
+                </div>
+                
                 <div class="border-bottom-4 text-center mb-20">
                   <div class="text-or font-md color-gray-500">Or</div>
                 </div>
@@ -36,7 +39,7 @@
                   </div>
                   <div class="col-lg-12">
                     <div class="form-group">
-                      <input asp-for="Email" class="form-control font-sm" type="text" placeholder="Email*" value="@Model.Email">
+                      <input id="Email" asp-for="Email" class="form-control font-sm" type="text" placeholder="Email*" value="@Model.Email">
                     </div>
                   </div>
                   <div class="col-lg-12">
@@ -44,53 +47,54 @@
                   </div>
                   <div class="col-lg-12">
                     <div class="form-group">
-                      <input asp-for="FullName" class="form-control font-sm" type="text" placeholder="Full name*" value="@Model.FullName">
+                      <input id="FullName" asp-for="FullName" class="form-control font-sm" type="text" placeholder="Full name*" value="@Model.FullName">
                     </div>
                   </div>
                   <div class="col-lg-12">
                     <div class="form-group">
-                      <input asp-for="PhoneNumber" class="form-control font-sm" type="text" placeholder="Phone*">
+                      <input id="PhoneNumber" asp-for="PhoneNumber" class="form-control font-sm" type="text" placeholder="Phone*">
                     </div>
                   </div>
                   <div class="col-lg-12">
                     <div class="form-group">
-                      <input asp-for="Address" class="form-control font-sm" type="text" placeholder="Address *">
+                      <input id="Address" asp-for="Address" class="form-control font-sm" type="text" placeholder="Address *">
                     </div>
                   </div>
 
                   <div class="col-lg-12">
                     <div class="form-group">
                       <select asp-for="Province" class="form-control font-sm select-style1 color-gray-700" asp-items="ViewBag.lsProvince" id="Province">
-                        <option value="" disabled selected>Province</option>
+                        <option id="Province" value="" disabled selected>Province</option>
                       </select>
                     </div>
                   </div>
                   <div class="col-lg-12">
                     <div class="form-group">
                       <select asp-for="District" class="form-control font-sm select-style1 color-gray-700" id="District" >
-                        <option value="0" disabled selected>District/City</option>
+                        <option id="District" value="0" disabled selected>District/City</option>
                       </select>
                     </div>
                   </div>
                   <div class="col-lg-12">
                     <div class="form-group">
                       <select asp-for="Ward" class="form-control font-sm select-style1 color-gray-700" id="Ward" >
-                        <option value="0" disabled selected>Ward</option>
+                        <option id="Ward" value="0" disabled selected>Ward</option>
                       </select>
                     </div>
                   </div>
                   
                   <div class="col-lg-12">
                     <div class="form-group mb-0">
-                      <textarea asp-for="Note" class="form-control font-sm" placeholder="Additional Information" rows="5"></textarea>
+                      <textarea id="Note" asp-for="Note" class="form-control font-sm" placeholder="Additional Information" rows="5"></textarea>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="row mt-20">
                 <div class="col-lg-6 col-5 mb-20"><a class="btn font-sm-bold color-brand-1 arrow-back-1" href="/cart.html">Return to Cart</a></div>
-                <div class="col-lg-6 col-7 mb-20 text-end"><input class="btn btn-buy w-auto arrow-next" type="submit">Place an Order</input></div>
+                <div class="col-lg-6 col-7 mb-20 text-end"><input name="cod" value="Thanh Toán (COD)" class="btn btn-buy w-auto arrow-next" type="submit"></input></div>
               </div>
+              <div id="paypal-button-container" style="max-width:1000px;"></div>
             </div>
             <div class="col-lg-6">
               <div class="box-border">
@@ -404,6 +408,7 @@
     </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=@ViewBag.PayPalClientId"></script>
 <script type="text/javascript">
 $(document).ready(function() {
   $('#Province').change(function() {
@@ -457,4 +462,55 @@ $(document).ready(function() {
     }
   });
 });
+
+paypal.Buttons({
+  style: {
+    disableMaxWidth: true
+  },
+  createOrder() {
+    // This function sets up the details of the transaction, including the amount and line item details.
+    return fetch("/Checkout/create-paypal-order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }).then((response)  => {
+        if(!response.ok){
+            return response.json().then((err) => {
+                throw err;
+            });
+        }
+        return response.json();
+    }).then((order) => order.id)
+    .catch(err => {
+        alert(err.message)
+    });
+  },
+  onApprove: (data, actions) => {
+      var orderViewModel = {
+            Email: $('#Email').val(),
+            FullName: $('#FullName').val(),
+            PhoneNumber: $('#PhoneNumber').val(),
+            Address: $('#Address').val(),
+            Province: $('#Province').val(),
+            District: $('#District').val(),
+            Ward: $('#Ward').val(),
+            Note: $('#Note').val()
+        };
+
+				return fetch(`/Checkout/capture-paypal-order?orderId=${data.orderID}`, {
+					method: "post",
+                    headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(orderViewModel)
+				}).then((response) => {
+					if (!response.ok) {
+						return response.json().then(error => { throw error; });
+					}
+					//Đổi địa chỉ tới action thông báo thành công
+					window.location.href = "/my-account.html";
+				}).catch(error => alert(error.message));
+			}
+}).render('#paypal-button-container');
 </script>

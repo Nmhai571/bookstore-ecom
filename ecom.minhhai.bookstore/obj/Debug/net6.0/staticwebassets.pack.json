@@ -3605,6 +3605,10 @@
       "PackagePath": "staticwebassets\\ImageUpload\\BookImage\\he-who-drowned-the-world.png"
     },
     {
+      "Id": "D:\\C#\\ecom.minhhai\\ecom.minhhai.bookstore\\wwwroot\\ImageUpload\\BookImage\\hehe.png",
+      "PackagePath": "staticwebassets\\ImageUpload\\BookImage\\hehe.png"
+    },
+    {
       "Id": "D:\\C#\\ecom.minhhai\\ecom.minhhai.bookstore\\wwwroot\\ImageUpload\\BookImage\\ice-cream-man-volume-9-heavy-narration.png",
       "PackagePath": "staticwebassets\\ImageUpload\\BookImage\\ice-cream-man-volume-9-heavy-narration.png"
     },

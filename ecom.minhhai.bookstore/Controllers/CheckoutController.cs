@@ -16,13 +16,15 @@ namespace ecom.minhhai.bookstore.Controllers
     
     public class CheckoutController : Controller
     {
+        private readonly PaypalClient _paypalClient;
         private readonly UserManager<AccountModel> _userManager;
         private readonly BookStoreDbContext _context;
         public INotyfService _notyfService { get; }
 
         public CheckoutController(BookStoreDbContext context, INotyfService notyfService,
-            UserManager<AccountModel> userManager)
+            UserManager<AccountModel> userManager, PaypalClient paypalClient)
         {
+            _paypalClient = paypalClient;
             _userManager = userManager;
             _context = context;
             _notyfService = notyfService;
@@ -34,11 +36,19 @@ namespace ecom.minhhai.bookstore.Controllers
             var accountId = jsonToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Sid)?.Value;
             return accountId;
         }
+        public float GetTotalPriceInCart()
+        {
+            var cart = HttpContext.Session.Get<List<CartViewModel>>("Cart");
+            var totalPrice = (float)cart.Sum(x => x.TotalPrice);
+            return totalPrice;
+
+        }
         [HttpGet]
         [Route("checkout.html")]
         [Authorize]
         public async Task<IActionResult> Index()
         {
+
             var cart = HttpContext.Session.Get<List<CartViewModel>>("Cart");
 
             var accountId = GetAccountId();
@@ -54,21 +64,12 @@ namespace ecom.minhhai.bookstore.Controllers
                     order.PhoneNumber = account.PhoneNumber;
                     order.Address = account.Address;
                 }
-                var totalPrice = 0.0f;
-                if (cart != null)
-                {
-                    foreach (var item in cart)
-                    {
-                        var quantity = item.Quantity;
-                        var price = item.Book.Price * quantity;
-                        totalPrice += price;
-                    }
-                }
-                ViewBag.totalPrice = totalPrice;
+                ViewBag.totalPrice = GetTotalPriceInCart();
                 ViewData["lsProvince"] = new SelectList(_context.Locations.AsNoTracking().Where(x => x.Levels == 1)
                     .OrderByDescending(x => x.Name).ToList(), "LocationId", "Name");
                 ViewBag.Cart = cart;
             }
+            ViewBag.PayPalClientId = _paypalClient.ClientId;
             return View(order);
         }
 
@@ -102,17 +103,7 @@ namespace ecom.minhhai.bookstore.Controllers
                     catch
                     {
                         _notyfService.Error("Please enter full information");
-                        var totalPrice = 0.0f;
-                        if (cart != null)
-                        {
-                            foreach (var item in cart)
-                            {
-                                var quantity = item.Quantity;
-                                var price = item.Book.Price * quantity;
-                                totalPrice += price;
-                            }
-                        }
-                        ViewBag.totalPrice = totalPrice;
+                        ViewBag.totalPrice = GetTotalPriceInCart();
                         ViewData["lsProvince"] = new SelectList(_context.Locations.AsNoTracking().Where(x => x.Levels == 1)
                             .OrderByDescending(x => x.Name).ToList(), "LocationId", "Name");
                         ViewBag.Cart = cart;
@@ -162,23 +153,49 @@ namespace ecom.minhhai.bookstore.Controllers
             }
             catch (Exception ex)
             {
-                var totalPrice = 0.0f;
-                if (cart != null)
-                {
-                    foreach (var item in cart)
-                    {
-                        var quantity = item.Quantity;
-                        var price = item.Book.Price * quantity;
-                        totalPrice += price;
-                    }
-                }
-                ViewBag.totalPrice = totalPrice;
+                
+                ViewBag.totalPrice = GetTotalPriceInCart();
                 ViewData["lsProvince"] = new SelectList(_context.Locations.AsNoTracking().Where(x => x.Levels == 1)
                     .OrderByDescending(x => x.Name).ToList(), "LocationId", "Name");
                 ViewBag.Cart = cart;
                 return View(order);
             }
             return View(order);
+        }
+        [Authorize]
+        [HttpPost("/Checkout/create-paypal-order")]
+        public async Task<IActionResult> CreatePayPalOrder(CancellationToken cancellationToken)
+        {
+            var totalPrice = GetTotalPriceInCart().ToString();
+            var currencyUnit = "USD";
+            var orderID = "DH" + DateTime.Now.Ticks.ToString();
+            try
+            {
+                var response = await _paypalClient.CreateOrder(totalPrice, currencyUnit, orderID);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var error = new {ex.GetBaseException().Message};
+                return BadRequest(error);
+            }
+        }
+
+        [Authorize]
+        [HttpPost("/Checkout/capture-paypal-order")]
+        public async Task<IActionResult> CapturePaypalOrder(string orderID, CancellationToken cancellationToken, [FromBody]OrderViewModel orderViewModel)
+        {
+            try
+            {
+                var response = await _paypalClient.CaptureOrder(orderID);
+                await Index(orderViewModel);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                var error = new { ex.GetBaseException().Message };
+                return BadRequest(error);
+            }
         }
     }
 }

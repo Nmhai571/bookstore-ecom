@@ -1,12 +1,12 @@
 ﻿using AspNetCoreHero.ToastNotification;
 using ecom.minhhai.bookstore.Context;
+using ecom.minhhai.bookstore.Infrastructure;
 using ecom.minhhai.bookstore.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -64,7 +64,12 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretKey"]))
         };
     });
+builder.Services.AddSingleton(x => new PaypalClient(
+        builder.Configuration["PayPal:ClientId"],
+        builder.Configuration["PayPal:SecretKey"],
+        builder.Configuration["PayPal:Mode"]
 
+    ));
 builder.Services.AddIdentity<AccountModel, IdentityRole>().AddEntityFrameworkStores<BookStoreDbContext>()
     .AddDefaultTokenProviders();
 var app = builder.Build();

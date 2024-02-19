@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "az/sh83xQzkkhffgjMAJ86CuQf1QO3XpX9RI2yhTjPM=",
+  "Hash": "lBhXz6hNe2uQePGRIc4v3zrOFcsDXOVJbwNHPLFxEPQ=",
   "Source": "ecom.minhhai.bookstore",
   "BasePath": "_content/ecom.minhhai.bookstore",
   "Mode": "Default",
@@ -30003,6 +30003,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\ImageUpload\\BookImage\\billie-blaster.png"
+    },
+    {
+      "Identity": "D:\\C#\\ecom.minhhai\\ecom.minhhai.bookstore\\wwwroot\\ImageUpload\\BookImage\\hehe.png",
+      "SourceId": "ecom.minhhai.bookstore",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\C#\\ecom.minhhai\\ecom.minhhai.bookstore\\wwwroot\\",
+      "BasePath": "_content/ecom.minhhai.bookstore",
+      "RelativePath": "ImageUpload/BookImage/hehe.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\ImageUpload\\BookImage\\hehe.png"
     },
     {
       "Identity": "D:\\C#\\ecom.minhhai\\ecom.minhhai.bookstore\\wwwroot\\ImageUpload\\BookImage\\he-who-drowned-the-world.png",

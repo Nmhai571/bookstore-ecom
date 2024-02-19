@@ -23,20 +23,8 @@ namespace ecom.minhhai.bookstore.Controllers
         public IActionResult Index()
         {
             var lsCartItem = Cart;
-            var totalQuantity = 0;
-            var totalPrice = 0.0f;
-            if (lsCartItem != null)
-            {
-                foreach (var item in lsCartItem)
-                {
-                    var quantity = item.Quantity;
-                    var price = item.Book.Price * quantity;
-                    totalQuantity += quantity;
-                    totalPrice += price;
-                }
-            }
-            ViewBag.totalQuantity = totalQuantity;
-            ViewBag.totalPrice = totalPrice;
+            ViewBag.totalQuantity = lsCartItem.Sum(x => x.Quantity);
+            ViewBag.totalPrice = lsCartItem.Sum(x => x.TotalPrice);
             return View(Cart);
         }
 
